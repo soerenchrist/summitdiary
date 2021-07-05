@@ -49,14 +49,14 @@ export default {
         link: '/',
       },
       {
-        icon: 'mdi-credit-card',
-        name: 'Invoices',
-        link: '/invoices',
+        icon: 'mdi-book',
+        name: 'Tagebuch',
+        link: '/diary',
       },
       {
-        icon: 'mdi-receipt',
-        name: 'Receipts',
-        link: '/receipts',
+        icon: 'mdi-summit',
+        name: 'Summits',
+        link: '/summits',
       },
       {
         icon: 'mdi-cog',

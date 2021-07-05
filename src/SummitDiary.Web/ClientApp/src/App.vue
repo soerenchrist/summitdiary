@@ -1,55 +1,49 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+    <application-bar />
+    <application-drawer/>
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
-    <v-main>
-      <router-view/>
+    <v-main class="grey lighten-3">
+      <v-container>
+        <v-sheet class="mainSheet" min-height="70vh" rounded="lg">
+          <router-view/>
+        </v-sheet>
+      </v-container>
     </v-main>
   </v-app>
 </template>
 
 <script>
+import ApplicationBar from './components/Common/Layout/ApplicationBar.vue';
+import ApplicationDrawer from './components/Common/Layout/ApplicationDrawer.vue';
 
 export default {
+  components: { ApplicationDrawer, ApplicationBar },
   name: 'App',
 
-  data: () => ({
-    //
-  }),
 };
 </script>
+
+<style lang="less">
+  .mainSheet {
+    padding: 20px;
+  }
+  .pageButton {
+    float: right;
+  }
+  .formButton {
+    position: relative;
+    float: right;
+    vertical-align: bottom;
+  }
+  .pageProgress {
+    margin: auto;
+  }
+  .noResultsText {
+    text-align: center;
+    margin-top: 10px;
+  }
+  h1 {
+    margin-bottom: 10px;
+  }
+</style>

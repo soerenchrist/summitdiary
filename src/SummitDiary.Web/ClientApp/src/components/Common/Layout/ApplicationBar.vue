@@ -6,7 +6,7 @@
   >
     <v-container class="py-0 fill-height">
       <v-btn icon @click="toggleDrawer">
-        <v-icon>
+        <v-icon color="white">
           mdi-menu
         </v-icon>
       </v-btn>
