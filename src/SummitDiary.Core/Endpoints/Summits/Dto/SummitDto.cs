@@ -1,9 +1,11 @@
-﻿using SummitDiary.Core.Endpoints.Countries.Dto;
+﻿using SummitDiary.Core.Common.Mapping;
+using SummitDiary.Core.Common.Models;
+using SummitDiary.Core.Endpoints.Countries.Dto;
 using SummitDiary.Core.Endpoints.Regions.Dto;
 
 namespace SummitDiary.Core.Endpoints.Summits.Dto
 {
-    public class SummitDto 
+    public class SummitDto : IMapFrom<Summit>
     {
         public long Id { get; set; }
         public string Name { get; set; }

@@ -27,6 +27,9 @@ namespace SummitDiary.Web
                 context.EnsureCreated();
 
                 await DatabaseSeed.PopulateData(context);
+#if DEBUG
+                TestDataGenerator.GenerateTestData(context);
+#endif
             }
             catch (Exception ex)
             {
