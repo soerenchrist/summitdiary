@@ -2,8 +2,10 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SummitDiary.Core.Common.Models;
+using SummitDiary.Core.Endpoints.Countries.Commands;
 using SummitDiary.Core.Endpoints.Countries.Dto;
 using SummitDiary.Core.Endpoints.Countries.Queries;
+using SummitDiary.Core.Endpoints.Regions.Dto;
 
 namespace SummitDiary.Web.Api
 {
@@ -13,6 +15,12 @@ namespace SummitDiary.Web.Api
         public async Task<ActionResult<List<CountryDto>>> GetCountries()
         {
             return await Mediator.Send(new GetCountriesQuery());
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<CountryDto>> CreateCountry([FromBody] CreateCountryCommand command)
+        {
+            return await Mediator.Send(command);
         }
     }
 }

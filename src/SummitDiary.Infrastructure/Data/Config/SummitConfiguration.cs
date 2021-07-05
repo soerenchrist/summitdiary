@@ -19,14 +19,17 @@ namespace SummitDiary.Infrastructure.Data.Config
             
             builder.HasOne(x => x.Country)
                 .WithMany(x => x.Summits)
-                .HasForeignKey(x => x.CountryId);
+                .HasForeignKey(x => x.CountryId)
+                .OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(x => x.Region)
                 .WithMany(x => x.Summits)
-                .HasForeignKey(x => x.RegionId);
+                .HasForeignKey(x => x.RegionId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasMany(x => x.OsmData)
                 .WithOne(x => x.Summit)
-                .HasForeignKey(x => x.SummitId);
+                .HasForeignKey(x => x.SummitId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
