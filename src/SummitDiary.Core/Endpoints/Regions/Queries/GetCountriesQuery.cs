@@ -2,32 +2,31 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using MediatR;
 using SummitDiary.Core.Common.Interfaces;
 using SummitDiary.Core.Common.Mapping;
-using SummitDiary.Core.Endpoints.Countries.Dto;
+using SummitDiary.Core.Endpoints.Regions.Dto;
 
-namespace SummitDiary.Core.Endpoints.Countries.Queries
+namespace SummitDiary.Core.Endpoints.Regions.Queries
 {
-    public class GetCountriesQuery : IRequest<List<CountryDto>>
+    public class GetRegionsQuery : IRequest<List<RegionDto>>
     {
         
     }
 
-    public class GetCountriesQueryHandler : IRequestHandler<GetCountriesQuery, List<CountryDto>>
+    public class GetRegionsQueryHandler : IRequestHandler<GetRegionsQuery, List<RegionDto>>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public GetCountriesQueryHandler(IApplicationDbContext context, IMapper mapper)
+        public GetRegionsQueryHandler(IApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
         
-        public Task<List<CountryDto>> Handle(GetCountriesQuery request, CancellationToken cancellationToken)
-            => _context.Countries.ProjectToListAsync<CountryDto>(_mapper.ConfigurationProvider);
+        public Task<List<RegionDto>> Handle(GetRegionsQuery request, CancellationToken cancellationToken)
+            => _context.Regions.ProjectToListAsync<RegionDto>(_mapper.ConfigurationProvider);
         
     }
 }

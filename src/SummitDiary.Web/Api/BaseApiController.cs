@@ -1,7 +1,14 @@
-﻿namespace SummitDiary.Web.Api
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace SummitDiary.Web.Api
 {
-    public class BaseApiController
+    [Route("api/[controller]")]
+    [ApiController]
+    public abstract class BaseApiController : ControllerBase
     {
-        
+        private ISender _mediator;
+        protected ISender Mediator => _mediator ??= HttpContext.RequestServices.GetService<ISender>();
     }
 }

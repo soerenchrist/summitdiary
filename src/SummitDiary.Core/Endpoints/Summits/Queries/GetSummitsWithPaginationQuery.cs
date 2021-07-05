@@ -11,14 +11,14 @@ using SummitDiary.Core.Common.Models;
 using SummitDiary.Core.Common.Models.Common;
 using SummitDiary.Core.Endpoints.Summits.Dto;
 
-namespace SummitDiary.Core.Endpoints.Summits.Endpoints
+namespace SummitDiary.Core.Endpoints.Summits.Queries
 {
     public class GetSummitsWithPaginationQuery : IRequest<PaginatedList<SummitDto>>
     {
         public string SearchText { get; set; } = "";
         public string SortBy { get; set; }
-        public int PageNumber { get; set; }
-        public int PageSize { get; set; }
+        public int PageNumber { get; set; } = 1;
+        public int PageSize { get; set; } = 10;
         public bool OnlyClimbed { get; set; } = false;
         public bool SortDescending { get; set; } = true;
     }
@@ -36,7 +36,7 @@ namespace SummitDiary.Core.Endpoints.Summits.Endpoints
         }
 
 
-        public Task<PaginatedList<SummitDto>> Handle(GetSummitsWithPaginationQuery request, CancellationToken cancellationToken)
+        public async Task<PaginatedList<SummitDto>> Handle(GetSummitsWithPaginationQuery request, CancellationToken cancellationToken)
         {
             var summits = _context.Summits
                 .Include(x => x.DiaryEntries);
@@ -59,8 +59,16 @@ namespace SummitDiary.Core.Endpoints.Summits.Endpoints
                 ordered = ordered.Where(x => x.DiaryEntries.Any());
             }
 
-            return ordered.ProjectTo<SummitDto>(_mapper.ConfigurationProvider)
+            var items = await ordered.ProjectTo<SummitDto>(_mapper.ConfigurationProvider)
                 .PaginatedListAsync(request.PageNumber, request.PageSize);
+            foreach (var dto in items.Items)
+            {
+                dto.Climbed = _context.Summits.Include(x => x.DiaryEntries)
+                    .First(x => x.Id == dto.Id)
+                    .DiaryEntries.Any();
+            }
+
+            return items;
         }
     }
 }

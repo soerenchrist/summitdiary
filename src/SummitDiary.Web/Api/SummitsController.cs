@@ -1,7 +1,25 @@
-﻿namespace SummitDiary.Web.Controllers
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using SummitDiary.Core.Common.Models.Common;
+using SummitDiary.Core.Endpoints.Summits.Commands;
+using SummitDiary.Core.Endpoints.Summits.Dto;
+using SummitDiary.Core.Endpoints.Summits.Queries;
+
+namespace SummitDiary.Web.Api
 {
-    public class SummitsController
+    public class SummitsController : BaseApiController
     {
-        
+        [HttpGet]
+        public async Task<ActionResult<PaginatedList<SummitDto>>> GetSummitsWithPagination(
+            [FromQuery] GetSummitsWithPaginationQuery query)
+        {
+            return await Mediator.Send(query);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<SummitDto>> CreateSummit([FromBody] CreateSummitCommand command)
+        {
+            return await Mediator.Send(command);
+        }
     }
 }
