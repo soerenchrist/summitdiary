@@ -1,19 +1,31 @@
 <template>
-  <v-row>
-    <v-col>
-      <summits-table
-        :loading="loading"
-        v-model="options"
-        :summits="summits"
-        :totalSummits="totalSummits"
-        />
-    </v-col>
-    <v-col>
-      <summits-map
-        :summits="summits"
-        :loading="loading" />
-    </v-col>
-  </v-row>
+  <div>
+    <v-row>
+      <v-col>
+        <v-text-field
+          placeholder="Suche"
+          prepend-icon="mdi-magnify"
+          v-model="searchText"
+          clearable />
+      </v-col>
+      <v-col></v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <summits-table
+          :loading="loading"
+          v-model="options"
+          :summits="summits"
+          :totalSummits="totalSummits"
+          />
+      </v-col>
+      <v-col>
+        <summits-map
+          :summits="summits"
+          :loading="loading" />
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script>
@@ -27,6 +39,7 @@ export default {
     summits: [],
     totalSummits: 0,
     loading: true,
+    searchText: '',
     options: {},
   }),
   methods: {
@@ -42,7 +55,12 @@ export default {
   },
   watch: {
     options(opts) {
+      opts.searchText = this.searchText;
       this.getSummits(opts);
+    },
+    searchText(text) {
+      this.options.searchText = text;
+      this.getSummits(this.options);
     },
   },
   mounted() {

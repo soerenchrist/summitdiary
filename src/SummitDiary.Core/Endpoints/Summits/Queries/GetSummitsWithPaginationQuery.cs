@@ -51,7 +51,7 @@ namespace SummitDiary.Core.Endpoints.Summits.Queries
 
             if (!string.IsNullOrWhiteSpace(request.SearchText))
             {
-                ordered = ordered.Where(x => EF.Functions.Like(x.Name, $"%{request.SearchText}%"));
+                ordered = ordered.Where(x => EF.Functions.Like(x.Name, $"%{request.SearchText.ToLower()}%"));
             }
 
             if (request.OnlyClimbed)

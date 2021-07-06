@@ -55,11 +55,11 @@ export default {
       },
       {
         icon: 'mdi-summit',
-        name: 'Summits',
+        name: 'Gipfel',
         link: '/summits',
       },
       {
-        icon: 'mdi-cog',
+        icon: 'mdi-cogs',
         name: 'Settings',
         link: '/settings',
       },

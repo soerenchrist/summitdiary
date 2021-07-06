@@ -1,14 +1,23 @@
 <template>
-  <l-map
-    :zoom="zoom"
-    :center="center"
-    :options="mapOptions">
-    <l-tile-layer
-      :url="url"
-      :attribution="attribution" />
-    <l-marker v-for="summit in summits" :key="summit.id"
-            :lat-lng="toLatLong(summit)" />
-  </l-map>
+  <div style="height: 600px;">
+    <l-map
+      :zoom="zoom"
+      :center="center"
+      style="height: 600px"
+      :options="mapOptions">
+      <l-tile-layer
+        :url="url"
+        :attribution="attribution" />
+      <l-marker v-for="summit in summits" :key="summit.id"
+              :lat-lng="toLatLong(summit)">
+        <l-popup>
+          <div>
+          {{summit.name}}
+          </div>
+        </l-popup>
+      </l-marker>
+    </l-map>
+  </div>
 </template>
 
 <script>

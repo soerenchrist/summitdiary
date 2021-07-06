@@ -37,7 +37,11 @@ export default {
       [sortDesc] = sortDesc;
     }
 
-    const url = `${baseUrl}summits?pageNumber=${page}&pageSize=${itemsPerPage}&sortBy=${sortBy}&sortDescending=${sortDesc}`;
+    let url = `${baseUrl}summits?pageNumber=${page}&pageSize=${itemsPerPage}&sortBy=${sortBy}&sortDescending=${sortDesc}`;
+
+    if (options.searchText) {
+      url += `&searchText=${options.searchText}`;
+    }
 
     const response = await axios.get(url);
     return response.data;

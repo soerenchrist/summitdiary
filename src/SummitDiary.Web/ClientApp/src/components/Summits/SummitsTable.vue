@@ -7,7 +7,7 @@
     :server-items-length="totalSummits"
     :loading="loading">
     <template v-slot:[`item.height`]="{ item }">
-      <p>{{ item.height }}m</p>
+      <p style="margin-top: 12px;">{{ item.height }}m</p>
     </template>
     <template v-slot:[`item.climbed`]="{ item }">
       <div class="climbedIndicator" :class="{'red': !item.climbed, 'green': item.climbed}" />
@@ -45,6 +45,11 @@ export default {
         text: 'Höhe',
         sortable: true,
         value: 'height',
+      },
+      {
+        text: 'Land',
+        sortable: false,
+        value: 'country.name',
       },
     ],
   }),
