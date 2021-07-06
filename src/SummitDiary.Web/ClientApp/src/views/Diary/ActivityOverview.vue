@@ -5,6 +5,12 @@
         <v-col>
           <h1>Aktivitäten</h1>
         </v-col>
+        <v-col>
+          <v-btn icon class="pageButton"
+                @click="$router.push('/createactivity')">
+            <v-icon>mdi-plus</v-icon>
+          </v-btn>
+        </v-col>
       </v-row>
       <v-row>
         <v-col>

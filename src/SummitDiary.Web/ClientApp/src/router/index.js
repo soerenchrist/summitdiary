@@ -7,6 +7,7 @@ import Settings from '../views/Settings.vue';
 import Summits from '../views/Summits/Summits.vue';
 import CreateSummit from '../views/Summits/CreateSummit.vue';
 import ActivityOverview from '../views/Diary/ActivityOverview.vue';
+import CreateActivity from '../views/Diary/CreateActivity.vue';
 
 // eslint-disable-next-line no-underscore-dangle
 delete Icon.Default.prototype._getIconUrl;
@@ -42,6 +43,11 @@ const routes = [
     path: '/diary',
     name: 'ActivityOverview',
     component: ActivityOverview,
+  },
+  {
+    path: '/createactivity',
+    name: 'CreateActivity',
+    component: CreateActivity,
   },
 ];
 

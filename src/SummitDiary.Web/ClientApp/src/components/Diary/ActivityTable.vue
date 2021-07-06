@@ -9,6 +9,9 @@
     <template v-slot:[`item.elevationUp`]="{ item }">
       <p style="margin-top: 12px;">{{ item.elevationUp }} m</p>
     </template>
+    <template v-slot:[`item.summits`]="{ item }">
+      <p style="margin-top: 12px;">{{ formatSummits(item.summits) }}</p>
+    </template>
     <template v-slot:[`item.distance`]="{ item }">
       <p style="margin-top: 12px;">{{ (item.distance / 1000).toFixed(2) }} km</p>
     </template>
@@ -42,6 +45,11 @@ export default {
         sortable: true,
       },
       {
+        text: 'Gipfel',
+        value: 'summits',
+        sortable: false,
+      },
+      {
         text: 'Datum',
         value: 'hikeDate',
         sortable: true,
@@ -58,12 +66,25 @@ export default {
       },
     ],
   }),
+  methods: {
+    formatSummits(summits) {
+      let result = '';
+      for (let i = 0; i < summits.length; i += 1) {
+        const summit = summits[i];
+        result += summit.name;
+
+        if (i < summits.length - 1) {
+          result += ', ';
+        }
+      }
+      return result;
+    },
+  },
   watch: {
     options(opts) {
       this.tableOptions = opts;
     },
     tableOptions() {
-      console.log(this.tableOptions);
       this.$emit('optionsChanged', this.tableOptions);
     },
   },
