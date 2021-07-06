@@ -4,3 +4,7 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 src/SummitDiary.Web/diary.db
+
+src/SummitDiary.Web/diary.db-shm
+
+src/SummitDiary.Web/diary.db-wal

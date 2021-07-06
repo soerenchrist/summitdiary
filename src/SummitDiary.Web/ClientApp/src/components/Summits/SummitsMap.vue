@@ -29,8 +29,8 @@ export default {
     loading: Boolean,
   },
   data: () => ({
-    zoom: 13,
-    center: latLng(47.41322, -1.219482),
+    zoom: 6,
+    center: latLng(47.2285, 11.9135),
     url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     attribution:
       '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',

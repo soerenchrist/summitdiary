@@ -20,7 +20,7 @@ namespace SummitDiary.Core.Endpoints.Summits.Queries
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 10;
         public bool OnlyClimbed { get; set; } = false;
-        public bool SortDescending { get; set; } = true;
+        public bool SortDescending { get; set; }
     }
 
     public class

@@ -32,6 +32,13 @@ export default {
       zoomSnap: 0.5,
     },
   }),
+  watch: {
+    position() {
+      if (this.position) {
+        this.center = this.position;
+      }
+    },
+  },
   methods: {
     onClick(args) {
       this.$emit('positionSelected', args.latlng);
