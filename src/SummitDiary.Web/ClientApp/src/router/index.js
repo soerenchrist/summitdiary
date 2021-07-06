@@ -4,7 +4,8 @@ import VueRouter from 'vue-router';
 import { Icon } from 'leaflet';
 import Dashboard from '../views/Dashboard.vue';
 import Settings from '../views/Settings.vue';
-import Summits from '../views/Summits.vue';
+import Summits from '../views/Summits/Summits.vue';
+import CreateSummit from '../views/Summits/CreateSummit.vue';
 
 // eslint-disable-next-line no-underscore-dangle
 delete Icon.Default.prototype._getIconUrl;
@@ -30,6 +31,11 @@ const routes = [
     path: '/summits',
     name: 'Summits',
     component: Summits,
+  },
+  {
+    path: '/createsummit',
+    name: 'CreateSummit',
+    component: CreateSummit,
   },
 ];
 

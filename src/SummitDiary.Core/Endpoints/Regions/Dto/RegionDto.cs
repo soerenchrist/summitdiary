@@ -5,7 +5,7 @@ namespace SummitDiary.Core.Endpoints.Regions.Dto
 {
     public class RegionDto : IMapFrom<Region>
     {
-        public int Region { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
     }
 }

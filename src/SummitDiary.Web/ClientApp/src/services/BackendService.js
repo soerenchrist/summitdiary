@@ -11,6 +11,10 @@ export default {
     const response = await axios.get(`${baseUrl}regions`);
     return response.data;
   },
+  async createSummit(summit) {
+    const response = await axios.post(`${baseUrl}summits`, summit);
+    return response.data;
+  },
   async getPagedSummits(options) {
     let {
       page,

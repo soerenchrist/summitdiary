@@ -4,11 +4,7 @@
     <application-drawer/>
 
     <v-main class="grey lighten-3">
-      <v-container>
-        <v-sheet class="mainSheet" min-height="70vh" rounded="lg">
-          <router-view/>
-        </v-sheet>
-      </v-container>
+      <router-view/>
     </v-main>
   </v-app>
 </template>
