@@ -17,7 +17,7 @@
           </div>
         </l-popup>
       </l-marker>
-      <l-polyline v-if="polyline.length > 0"
+      <l-polyline v-if="polyline && polyline.length > 0"
         :lat-lngs="polyline"
         color="blue" />
     </l-map>
@@ -37,7 +37,7 @@ export default {
   data: () => ({
     zoom: 6,
     center: latLng(47.2285, 11.9135),
-    url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
     attribution:
       '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
     mapOptions: {
