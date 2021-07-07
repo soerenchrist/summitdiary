@@ -16,7 +16,7 @@ namespace SummitDiary.Web.Api
             return await Mediator.Send(query);
         }
 
-        [HttpGet("{summitId}")]
+        [HttpGet("{summitId:int}")]
         public async Task<ActionResult<SummitDto>> GetSummitById([FromRoute] int summitId)
         {
             return await Mediator.Send(new GetSummitByIdQuery(summitId));
@@ -27,5 +27,12 @@ namespace SummitDiary.Web.Api
         {
             return await Mediator.Send(command);
         }
+
+        [HttpDelete("{summitId:int}")]
+        public async Task<ActionResult> DeleteSummit(int summitId)
+        {
+            await Mediator.Send(new DeleteSummitCommand(summitId));
+            return Ok();
+        } 
     }
 }
