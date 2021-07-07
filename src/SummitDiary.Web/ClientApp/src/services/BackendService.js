@@ -23,6 +23,10 @@ export default {
     const response = await axios.post(`${baseUrl}countries`, country);
     return response.data;
   },
+  async createActivity(activity) {
+    const response = await axios.post(`${baseUrl}activities`, activity);
+    return response.data;
+  },
   async getPagedSummits(options) {
     let {
       page,
@@ -86,7 +90,7 @@ export default {
       [sortDesc] = sortDesc;
     }
 
-    let url = `${baseUrl}diary?pageNumber=${page}&pageSize=${itemsPerPage}&sortBy=${sortBy}&sortDescending=${sortDesc}`;
+    let url = `${baseUrl}activities?pageNumber=${page}&pageSize=${itemsPerPage}&sortBy=${sortBy}&sortDescending=${sortDesc}`;
 
     if (options.searchText) {
       url += `&searchText=${options.searchText}`;

@@ -4,7 +4,7 @@ using SummitDiary.SharedKernel;
 
 namespace SummitDiary.Core.Common.Models
 {
-    public class DiaryEntry : BaseEntity<int>
+    public class Activity : BaseEntity<int>
     {
         public IEnumerable<Summit> Summits { get; set; }
         public string Title { get; set; }

@@ -4,6 +4,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
+using SummitDiary.Core.Common.Exceptions;
+using ValidationException = FluentValidation.ValidationException;
 
 namespace SummitDiary.Core.Common.Behaviors
 {

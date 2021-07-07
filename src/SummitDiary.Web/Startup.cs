@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using SummitDiary.Core;
 using SummitDiary.Core.Common.Config;
 using SummitDiary.Infrastructure;
+using SummitDiary.Web.Attributes;
 
 namespace SummitDiary.Web
 {
@@ -25,7 +26,10 @@ namespace SummitDiary.Web
         
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add(typeof(NotFoundExceptionFilterAttribute));
+            });
             services.AddRazorPages();
             
             services.Configure<CookiePolicyOptions>(options =>

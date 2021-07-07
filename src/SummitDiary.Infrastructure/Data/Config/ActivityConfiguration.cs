@@ -4,9 +4,9 @@ using SummitDiary.Core.Common.Models;
 
 namespace SummitDiary.Infrastructure.Data.Config
 {
-    public class DiaryEntryConfiguration : IEntityTypeConfiguration<DiaryEntry>
+    public class ActivityConfiguration : IEntityTypeConfiguration<Activity>
     {
-        public void Configure(EntityTypeBuilder<DiaryEntry> builder)
+        public void Configure(EntityTypeBuilder<Activity> builder)
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id)

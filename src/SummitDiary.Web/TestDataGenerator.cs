@@ -32,7 +32,7 @@ namespace SummitDiary.Web
 
             if (!context.DiaryEntries.Any())
             {
-                var diaryEntries = new Faker<DiaryEntry>()
+                var diaryEntries = new Faker<Activity>()
                     .RuleFor(x => x.Title, x => x.Commerce.ProductName())
                     .RuleFor(x => x.Distance, x => x.Random.Number(0, 10000))
                     .RuleFor(x => x.ElevationUp, x => x.Random.Number(0, 1000))

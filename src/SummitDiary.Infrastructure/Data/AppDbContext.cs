@@ -18,7 +18,7 @@ namespace SummitDiary.Infrastructure.Data
         public DbSet<Summit> Summits { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<Country> Countries { get; set; }
-        public DbSet<DiaryEntry> DiaryEntries { get; set; }
+        public DbSet<Activity> DiaryEntries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -10,7 +10,7 @@ namespace SummitDiary.Core.Common.Interfaces
         DbSet<Summit> Summits { get; set; }
         DbSet<Region> Regions { get; set; }
         DbSet<Country> Countries { get; set; }
-        DbSet<DiaryEntry> DiaryEntries { get; set; }
+        DbSet<Activity> DiaryEntries { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = new());
         bool EnsureCreated();
     }

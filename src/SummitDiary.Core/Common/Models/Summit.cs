@@ -11,7 +11,7 @@ namespace SummitDiary.Core.Common.Models
         public int Height { get; set; }
         public int CountryId { get; set; }
         public int RegionId { get; set; }
-        public IEnumerable<DiaryEntry> DiaryEntries { get; set; }
+        public IEnumerable<Activity> DiaryEntries { get; set; }
 
         public Region Region { get; set; }
         public Country Country { get; set; }

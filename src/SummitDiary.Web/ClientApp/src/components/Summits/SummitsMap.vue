@@ -1,6 +1,7 @@
 <template>
   <div style="height: 600px;">
     <l-map
+      ref="map"
       :zoom="zoom"
       :center="center"
       style="height: 600px"
@@ -21,12 +22,13 @@
 </template>
 
 <script>
-import { latLng } from 'leaflet';
+import { latLng, LatLngBounds } from 'leaflet';
 
 export default {
   props: {
     summits: Array,
     loading: Boolean,
+    autoCenter: Boolean,
   },
   data: () => ({
     zoom: 6,
@@ -41,6 +43,20 @@ export default {
   methods: {
     toLatLong(summit) {
       return latLng(summit.latitude, summit.longitude);
+    },
+  },
+  watch: {
+    summits(val) {
+      if (!this.autoCenter) return;
+      if (val.length === 0) return;
+
+      const coords = [];
+      val.forEach((summit) => {
+        coords.push(latLng(summit.latitude, summit.longitude));
+      });
+
+      const bounds = new LatLngBounds(coords);
+      this.$refs.map.fitBounds(bounds, { padding: [50, 50] });
     },
   },
 };
