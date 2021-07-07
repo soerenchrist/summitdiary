@@ -5,6 +5,7 @@ import { Icon } from 'leaflet';
 import Dashboard from '../views/Dashboard.vue';
 import Settings from '../views/Settings.vue';
 import Summits from '../views/Summits/Summits.vue';
+import SummitDetail from '../views/Summits/SummitDetail.vue';
 import CreateSummit from '../views/Summits/CreateSummit.vue';
 import ActivityOverview from '../views/Diary/ActivityOverview.vue';
 import CreateActivity from '../views/Diary/CreateActivity.vue';
@@ -48,6 +49,12 @@ const routes = [
     path: '/createactivity',
     name: 'CreateActivity',
     component: CreateActivity,
+  },
+  {
+    path: '/summits/:summitId',
+    name: 'SummitDetail',
+    component: SummitDetail,
+    props: true,
   },
 ];
 
