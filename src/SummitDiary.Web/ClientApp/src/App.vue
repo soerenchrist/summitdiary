@@ -42,4 +42,7 @@ export default {
   h1 {
     margin-bottom: 10px;
   }
+  .vue2leaflet-map {
+    z-index: 0;
+  }
 </style>

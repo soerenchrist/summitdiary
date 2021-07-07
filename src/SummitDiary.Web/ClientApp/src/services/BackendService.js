@@ -31,6 +31,9 @@ export default {
     const response = await axios.get(`${baseUrl}summits/${summitId}`);
     return response.data;
   },
+  async deleteSummit(summitId) {
+    await axios.delete(`${baseUrl}summits/${summitId}`);
+  },
   async getPagedSummits(options) {
     let {
       page,
