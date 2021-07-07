@@ -106,4 +106,12 @@ export default {
     const response = await axios.get(url);
     return response.data;
   },
+  async analyzeGpx(file) {
+    console.log(file);
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+
+    const response = await axios.post(`${baseUrl}gpx/analyze`, formData);
+    return response.data;
+  },
 };

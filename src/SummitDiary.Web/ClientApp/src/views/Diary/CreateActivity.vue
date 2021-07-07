@@ -5,6 +5,10 @@
         <v-col>
           <h1>Aktivität anlegen</h1>
         </v-col>
+        <v-col>
+          <v-btn class="pageButton"
+            @click="uploadGpx = true">GPX hochladen</v-btn>
+        </v-col>
         <v-progress-linear indeterminate v-if="loading" />
       </v-row>
       <v-row>
@@ -79,6 +83,28 @@
         </v-col>
       </v-row>
     </v-sheet>
+    <v-dialog
+      width="500"
+      v-model="uploadGpx">
+      <v-card>
+        <v-card-title>GPX hochladen</v-card-title>
+        <v-card-text>
+          <v-file-input v-model="gpxFile"
+            counter
+            label="GPX-Dateien auswählen"
+            accept="application/gpx+xml"
+            placeholder="GPX-Dateien auswählen"
+            prepend-icon="mdi-paperclip"
+            outlined />
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn text @click="uploadGpx = false">Abbrechen</v-btn>
+          <v-btn text @click="uploadGpxFiles"
+            :disabled="gpxFile === null">Hochladen</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -98,6 +124,7 @@ export default {
   },
   data: () => ({
     valid: true,
+    gpxFile: null,
     title: '',
     elevationUp: 0,
     elevationDown: 0,
@@ -107,6 +134,7 @@ export default {
     startTime: null,
     endTime: null,
     loading: false,
+    uploadGpx: false,
 
     elevationRules: [
       (v) => !!v || 'Höhenmeter werden benötigt',
@@ -138,6 +166,15 @@ export default {
       this.loading = false;
 
       this.$router.go(-1);
+    },
+    async uploadGpxFiles() {
+      const result = await BackendService.analyzeGpx(this.gpxFile);
+
+      if (result.proposedTitle) this.title = result.proposedTitle;
+      this.elevationUp = result.elevationUp;
+      this.elevationDown = result.elevationDown;
+      this.distance = parseInt(result.distance * 1000, 10);
+      this.uploadGpx = false;
     },
   },
 };

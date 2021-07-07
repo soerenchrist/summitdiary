@@ -1,35 +1,58 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using NetTopologySuite.IO;
+using SummitDiary.Core.Common.Interfaces;
+using SummitDiary.Core.Common.Models;
 using SummitDiary.Core.Endpoints.Gpx.Dto;
 
 namespace SummitDiary.Core.Endpoints.Gpx.Commands
 {
     public class AnalyzeGpxCommand : IRequest<AnalysisResultDto>
     {
-        public IFormFile GpxFile { get; set; }
+        public IFormFile File { get; set; }
     }
 
     public class AnalyzeGpxCommandHandler : IRequestHandler<AnalyzeGpxCommand, AnalysisResultDto>
     {
+        private readonly IApplicationDbContext _context;
+
+        public AnalyzeGpxCommandHandler(IApplicationDbContext context)
+        {
+            _context = context;
+        }
+        
         public async Task<AnalysisResultDto> Handle(AnalyzeGpxCommand request, CancellationToken cancellationToken)
         {
-            using var xmlReader = new XmlTextReader(request.GpxFile.OpenReadStream());
+            using var xmlReader = new XmlTextReader(request.File.OpenReadStream());
             var file = GpxFile.ReadFrom(xmlReader, new GpxReaderSettings());
 
             double totalElevationUp = 0.0;
             double totalElevationDown = 0.0;
             double totalDistance = 0.0;
 
-            for (var i = 0; i < file.Waypoints.Count - 1; i++)
+            var firstTrack = file.Tracks.FirstOrDefault();
+            if (firstTrack == null)
+                throw new InvalidDataException("Invalid gpx file");
+
+            var waypoints = file.Tracks.SelectMany(x => x.Segments)
+                .SelectMany(x => x.Waypoints)
+                .ToList();
+
+            if (waypoints.Count == 0)
+                throw new InvalidDataException("Invalid gpx file");
+            
+            for (var i = 0; i < waypoints.Count - 1; i++)
             {
-                var current = file.Waypoints[i];
-                var next = file.Waypoints[i + 1];
+                var current = waypoints[i];
+                var next = waypoints[i + 1];
 
                 if (current.ElevationInMeters.HasValue && next.ElevationInMeters.HasValue)
                 {
@@ -49,17 +72,47 @@ namespace SummitDiary.Core.Endpoints.Gpx.Commands
             return new AnalysisResultDto
             {
                 Distance = totalDistance,
-                ElevationDown = (int) totalElevationDown,
+                ElevationDown = (int) totalElevationDown * -1,
                 ElevationUp = (int) totalElevationUp,
-                StartTime = file.Waypoints.First().TimestampUtc,
-                EndTime = file.Waypoints.Last().TimestampUtc,
+                StartTime = waypoints.First().TimestampUtc,
+                EndTime = waypoints.Last().TimestampUtc,
+                ProposedTitle = firstTrack.Name,
+                ProposedSummit = await FindSummit(waypoints)
             };
+        }
+
+        private Task<Summit> FindSummit(List<GpxWaypoint> waypoints)
+        {
+            GpxWaypoint maxWaypoint = null;
+            foreach (var waypoint in waypoints)
+            {
+                if (maxWaypoint == null)
+                    maxWaypoint = waypoint;
+
+                if (maxWaypoint.ElevationInMeters < waypoint.ElevationInMeters)
+                    maxWaypoint = waypoint;
+            }
+
+            if (maxWaypoint == null)
+                return null;
+            
+            const double offset = 0.01;
+
+            var lowerLat = maxWaypoint.Latitude - offset;
+            var lowerLon = maxWaypoint.Longitude - offset;
+
+            var upperLat = maxWaypoint.Latitude + offset;
+            var upperLon = maxWaypoint.Longitude + offset;
+
+            return _context.Summits.FirstOrDefaultAsync(x => x.Latitude > lowerLat && x.Latitude < upperLat
+                                                                       && x.Longitude > lowerLon &&
+                                                                       x.Longitude < upperLon);
         }
     }
     
     static class DistanceAlgorithm
     {
-        const double RADIUS = 6371;
+        const double Radius = 6371;
 
         /// <summary>
         /// Convert degrees to Radians
@@ -90,7 +143,7 @@ namespace SummitDiary.Core.Endpoints.Gpx.Commands
 
             double a = (Math.Sin(dlat / 2) * Math.Sin(dlat / 2)) + Math.Cos(Radians(lat1)) * Math.Cos(Radians(lat2)) * (Math.Sin(dlon / 2) * Math.Sin(dlon / 2));
             double angle = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-            return angle * RADIUS;
+            return angle * Radius;
         }
 
     }

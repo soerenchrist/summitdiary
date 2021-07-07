@@ -73,7 +73,7 @@ namespace SummitDiary.Core.Endpoints.Diary.Commands
                 Summits = await GetSummits(request.SummitIds, cancellationToken)
             };
 
-            await _context.DiaryEntries.AddAsync(activity, cancellationToken);
+            await _context.Activities.AddAsync(activity, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
 
             return _mapper.Map<ActivityDto>(activity);

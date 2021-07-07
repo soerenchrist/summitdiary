@@ -37,7 +37,7 @@ namespace SummitDiary.Core.Endpoints.Diary.Query
         
         public Task<PaginatedList<ActivityDto>> Handle(GetActivitiesWithPaginationQuery request, CancellationToken cancellationToken)
         {
-            var diaryEntries = _context.DiaryEntries
+            var diaryEntries = _context.Activities
                 .Include(x => x.Summits);
 
             IQueryable<Activity> ordered = (request.SortBy, request.SortDescending) switch

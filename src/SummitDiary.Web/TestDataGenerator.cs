@@ -30,7 +30,7 @@ namespace SummitDiary.Web
                 context.SaveChangesAsync();
             }
 
-            if (!context.DiaryEntries.Any())
+            if (!context.Activities.Any())
             {
                 var diaryEntries = new Faker<Activity>()
                     .RuleFor(x => x.Title, x => x.Commerce.ProductName())
@@ -46,7 +46,7 @@ namespace SummitDiary.Web
                 for (int i = 0; i < 200; i++)
                 {
                     var entry = diaryEntries.Generate();
-                    context.DiaryEntries.Add(entry);
+                    context.Activities.Add(entry);
                 }
 
                 context.SaveChangesAsync();
