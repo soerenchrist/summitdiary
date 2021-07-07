@@ -1,7 +1,7 @@
 <template>
   <v-autocomplete
     v-model="model"
-    :items="summits"
+    :items="items"
     :loading="loading"
     :search-input.sync="search"
     chips
@@ -49,9 +49,16 @@
 import BackendService from '../../services/BackendService';
 
 export default {
+  model: {
+    event: 'summitsChanged',
+    prop: 'summits',
+  },
+  props: {
+    summits: Array,
+  },
   data: () => ({
     loading: false,
-    summits: [],
+    items: [],
     model: null,
     search: null,
     tab: null,
@@ -62,11 +69,15 @@ export default {
       const response = await BackendService.getPagedSummits({
         searchText,
       });
-      this.summits = response.items;
+      this.items = response.items;
       this.loading = false;
     },
   },
   watch: {
+    summits(val) {
+      this.model = val;
+      this.items = val;
+    },
     model(val) {
       if (val != null) {
         // this.tab = 0;

@@ -32,7 +32,10 @@ namespace SummitDiary.Core.Endpoints.Gpx.Commands
         public async Task<AnalysisResultDto> Handle(AnalyzeGpxCommand request, CancellationToken cancellationToken)
         {
             using var xmlReader = new XmlTextReader(request.File.OpenReadStream());
-            var file = GpxFile.ReadFrom(xmlReader, new GpxReaderSettings());
+            var file = GpxFile.ReadFrom(xmlReader, new GpxReaderSettings
+            {
+                TimeZoneInfo = TimeZoneInfo.Local
+            });
 
             double totalElevationUp = 0.0;
             double totalElevationDown = 0.0;
@@ -48,6 +51,8 @@ namespace SummitDiary.Core.Endpoints.Gpx.Commands
 
             if (waypoints.Count == 0)
                 throw new InvalidDataException("Invalid gpx file");
+
+            var path = new List<Coordinate>();
             
             for (var i = 0; i < waypoints.Count - 1; i++)
             {
@@ -67,18 +72,37 @@ namespace SummitDiary.Core.Endpoints.Gpx.Commands
                     next.Latitude);
 
                 totalDistance += distance;
+                path.Add(new Coordinate(current.Latitude, current.Longitude));
             }
+
+            var startPoint = waypoints.First();
+            var endPoint = waypoints.Last();
+            
+            var startTime = ParseTimeStamp(startPoint.TimestampUtc);
+            var endTime = ParseTimeStamp(endPoint.TimestampUtc);
 
             return new AnalysisResultDto
             {
                 Distance = totalDistance,
                 ElevationDown = (int) totalElevationDown * -1,
                 ElevationUp = (int) totalElevationUp,
-                StartTime = waypoints.First().TimestampUtc,
-                EndTime = waypoints.Last().TimestampUtc,
+                HikeDate = waypoints.First().TimestampUtc?.Date,
+                StartTime = startTime,
+                EndTime = endTime,
                 ProposedTitle = firstTrack.Name,
-                ProposedSummit = await FindSummit(waypoints)
+                ProposedSummit = await FindSummit(waypoints),
+                StartPoint = new Coordinate(startPoint.Latitude, startPoint.Longitude),
+                EndPoint = new Coordinate(startPoint.Latitude, startPoint.Longitude),
+                Path = path
             };
+        }
+
+        private string ParseTimeStamp(DateTime? timestampUtc)
+        {
+            if (timestampUtc == null)
+                return null;
+            var date = timestampUtc.Value.ToLocalTime();
+            return date.ToShortTimeString();
         }
 
         private Task<Summit> FindSummit(List<GpxWaypoint> waypoints)

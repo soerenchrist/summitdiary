@@ -23,7 +23,7 @@
               outlined />
 
             <summits-autocomplete
-              @summitsChanged="summitsChanged"
+              v-model="summits"
             />
 
             <date-selector
@@ -79,7 +79,8 @@
         <v-col>
           <summits-map :summits="summits"
             :autoCenter="true"
-            :loading="false" />
+            :loading="false"
+            :polyline="polyline" />
         </v-col>
       </v-row>
     </v-sheet>
@@ -89,6 +90,7 @@
       <v-card>
         <v-card-title>GPX hochladen</v-card-title>
         <v-card-text>
+          <v-progress-linear indeterminate v-if="gpxLoading" />
           <v-file-input v-model="gpxFile"
             counter
             label="GPX-Dateien auswählen"
@@ -109,6 +111,7 @@
 </template>
 
 <script>
+import { latLng } from 'leaflet';
 import DateSelector from '../../components/Common/DateSelector.vue';
 import TimeSelector from '../../components/Common/TimeSelector.vue';
 import SummitsAutocomplete from '../../components/Summits/SummitsAutocomplete.vue';
@@ -135,6 +138,8 @@ export default {
     endTime: null,
     loading: false,
     uploadGpx: false,
+    gpxLoading: false,
+    polyline: [],
 
     elevationRules: [
       (v) => !!v || 'Höhenmeter werden benötigt',
@@ -146,9 +151,6 @@ export default {
     ],
   }),
   methods: {
-    summitsChanged(summits) {
-      this.summits = summits;
-    },
     async saveActivity() {
       const activity = {
         title: this.title,
@@ -168,13 +170,21 @@ export default {
       this.$router.go(-1);
     },
     async uploadGpxFiles() {
+      this.gpxLoading = true;
       const result = await BackendService.analyzeGpx(this.gpxFile);
 
       if (result.proposedTitle) this.title = result.proposedTitle;
       this.elevationUp = result.elevationUp;
       this.elevationDown = result.elevationDown;
       this.distance = parseInt(result.distance * 1000, 10);
+      this.polyline = result.path.map((x) => latLng(x.latitude, x.longitude));
+      if (result.proposedSummit) this.summits = [result.proposedSummit];
+      if (result.startTime) this.startTime = result.startTime;
+      if (result.endTime) this.endTime = result.endTime;
+      if (result.hikeDate) this.hikeDate = new Date(result.hikeDate).toISOString();
+
       this.uploadGpx = false;
+      this.gpxLoading = false;
     },
   },
 };

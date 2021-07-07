@@ -17,6 +17,9 @@
           </div>
         </l-popup>
       </l-marker>
+      <l-polyline v-if="polyline.length > 0"
+        :lat-lngs="polyline"
+        color="blue" />
     </l-map>
   </div>
 </template>
@@ -29,6 +32,7 @@ export default {
     summits: Array,
     loading: Boolean,
     autoCenter: Boolean,
+    polyline: Array,
   },
   data: () => ({
     zoom: 6,

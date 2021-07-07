@@ -107,7 +107,6 @@ export default {
     return response.data;
   },
   async analyzeGpx(file) {
-    console.log(file);
     const formData = new FormData();
     formData.append('file', file, file.name);
 
