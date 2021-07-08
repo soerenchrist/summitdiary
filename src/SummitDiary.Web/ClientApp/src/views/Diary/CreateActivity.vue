@@ -90,7 +90,7 @@
       <v-card>
         <v-card-title>GPX hochladen</v-card-title>
         <v-card-text>
-          <v-progress-linear indeterminate v-if="gpxLoading" />
+          <v-progress-linear indeterminate v-if="gpxLoading" class="margin-bottom: 10px" />
           <v-file-input v-model="gpxFile"
             counter
             label="GPX-Dateien auswählen"
@@ -102,7 +102,7 @@
         <v-card-actions>
           <v-spacer />
           <v-btn text @click="uploadGpx = false">Abbrechen</v-btn>
-          <v-btn text @click="uploadGpxFiles"
+          <v-btn text @click="analyzeGpx"
             :disabled="gpxFile === null">Hochladen</v-btn>
         </v-card-actions>
       </v-card>
@@ -164,12 +164,19 @@ export default {
         summitIds: this.summits.map((s) => s.id),
       };
       this.loading = true;
-      await BackendService.createActivity(activity);
+      const createdActivity = await BackendService.createActivity(activity);
+      this.uploadGpxFile(createdActivity.id);
+
       this.loading = false;
 
       this.$router.go(-1);
     },
-    async uploadGpxFiles() {
+    async uploadGpxFile(activityId) {
+      if (this.gpxFile) {
+        await BackendService.uploadGpx(activityId, this.gpxFile);
+      }
+    },
+    async analyzeGpx() {
       this.gpxLoading = true;
       const result = await BackendService.analyzeGpx(this.gpxFile);
 

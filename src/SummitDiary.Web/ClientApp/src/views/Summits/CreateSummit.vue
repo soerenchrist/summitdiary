@@ -156,7 +156,7 @@ export default {
       console.log(summit);
 
       const created = await BackendService.createSummit(summit);
-      console.log(created);
+      this.$router.push(`summits/${created.id}`);
     },
   },
   mounted() {

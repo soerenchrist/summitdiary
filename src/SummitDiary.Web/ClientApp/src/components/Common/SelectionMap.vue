@@ -4,6 +4,7 @@
       :zoom="zoom"
       :center="center"
       style="height: 400px"
+      :maxZoom="12"
       @click="onClick"
       :options="mapOptions">
       <l-tile-layer
@@ -24,7 +25,7 @@ export default {
   },
   data: () => ({
     zoom: 8,
-    center: latLng(47.41322, -1.219482),
+    center: latLng(47.2285, 11.9135),
     url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
     attribution:
       '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',

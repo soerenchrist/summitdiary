@@ -106,6 +106,14 @@ export default {
     const response = await axios.get(url);
     return response.data;
   },
+  async uploadGpx(activityId, file) {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    formData.append('activityId', activityId);
+
+    const response = await axios.post(`${baseUrl}activities/${activityId}/gpx`, formData);
+    return response.data;
+  },
   async analyzeGpx(file) {
     const formData = new FormData();
     formData.append('file', file, file.name);

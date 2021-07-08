@@ -21,5 +21,13 @@ namespace SummitDiary.Web.Api
         {
             return await Mediator.Send(command);
         }
+
+        [HttpPost("{id:int}/gpx")]
+        public async Task<ActionResult> UploadGpx([FromRoute]int id, [FromForm] UploadGpxCommand command)
+        {
+            command.ActivityId = id;
+            await Mediator.Send(command);
+            return Ok();
+        }
     }
 }

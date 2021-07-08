@@ -8,6 +8,7 @@ namespace SummitDiary.Core.Endpoints.Diary.Dto
 {
     public class ActivityDto : IMapFrom<Activity>
     {
+        public int Id { get; set; }
         public string Title { get; set; }
         public DateTime HikeDate { get; set; }
         public string Notes { get; set; }

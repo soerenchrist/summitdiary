@@ -4,6 +4,7 @@
       ref="map"
       :zoom="zoom"
       :center="center"
+      :maxZoom="12"
       style="height: 600px"
       :options="mapOptions">
       <l-tile-layer

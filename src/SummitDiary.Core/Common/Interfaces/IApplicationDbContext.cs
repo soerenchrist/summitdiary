@@ -11,6 +11,7 @@ namespace SummitDiary.Core.Common.Interfaces
         DbSet<Region> Regions { get; set; }
         DbSet<Country> Countries { get; set; }
         DbSet<Activity> Activities { get; set; }
+        DbSet<Attachment> Attachments { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = new());
         bool EnsureCreated();
     }
