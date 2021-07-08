@@ -6,6 +6,11 @@
         <v-col v-if="activity !== null">
           <h1>{{activity.title}}</h1>
         </v-col>
+        <v-col>
+          <v-btn icon class="pageButton" @click="confirmDeletion = true">
+            <v-icon>mdi-delete</v-icon>
+          </v-btn>
+        </v-col>
       </v-row>
       <v-row v-if="activity !== null">
         <v-col :sm="4" :md="2">
@@ -60,6 +65,10 @@
         </v-col>
       </v-row>
     </v-sheet>
+    <confirmation-dialog title="Aktivität löschen?"
+      content="Soll die Aktivität wirklich gelöscht werden?"
+      :open="confirmDeletion"
+      @confirmed="deleteActivity" />
   </v-container>
 </template>
 
@@ -68,16 +77,19 @@ import { latLng } from 'leaflet';
 import SummitCard from '../../components/Summits/SummitCard.vue';
 import SummitsMap from '../../components/Summits/SummitsMap.vue';
 import BackendService from '../../services/BackendService';
+import ConfirmationDialog from '../../components/Common/ConfirmationDialog.vue';
 
 export default {
   components: {
     SummitCard,
     SummitsMap,
+    ConfirmationDialog,
   },
   props: {
     activityId: String,
   },
   data: () => ({
+    confirmDeletion: false,
     loading: false,
     activity: null,
     polyline: [],
@@ -91,6 +103,10 @@ export default {
     async fetchPath() {
       const response = await BackendService.getActivityPath(this.activityId);
       this.polyline = response.path.map((x) => latLng(x.latitude, x.longitude));
+    },
+    async deleteActivity() {
+      await BackendService.deleteActivity(this.activityId);
+      this.$router.go(-1);
     },
     formatTime(seconds) {
       const hours = Math.floor(seconds / 3600);

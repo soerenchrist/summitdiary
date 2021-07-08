@@ -46,6 +46,9 @@ export default {
   async deleteSummit(summitId) {
     await axios.delete(`${baseUrl}summits/${summitId}`);
   },
+  async deleteActivity(activityId) {
+    await axios.delete(`${baseUrl}activities/${activityId}`);
+  },
   async getPagedSummits(options) {
     let {
       page,

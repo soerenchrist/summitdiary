@@ -42,5 +42,12 @@ namespace SummitDiary.Web.Api
             await Mediator.Send(command);
             return Ok();
         }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult> DeleteActivity([FromRoute]int id)
+        {
+            await Mediator.Send(new DeleteActivityCommand(id));
+            return Ok();
+        }
     }
 }
