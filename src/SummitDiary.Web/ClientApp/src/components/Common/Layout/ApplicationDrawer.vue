@@ -51,7 +51,7 @@ export default {
       {
         icon: 'mdi-book',
         name: 'Tagebuch',
-        link: '/diary',
+        link: '/activities',
       },
       {
         icon: 'mdi-summit',

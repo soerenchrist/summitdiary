@@ -9,7 +9,7 @@ using SummitDiary.Core.Common.Exceptions;
 using SummitDiary.Core.Common.Interfaces;
 using SummitDiary.Core.Common.Models;
 
-namespace SummitDiary.Core.Endpoints.Diary.Commands
+namespace SummitDiary.Core.Endpoints.Activities.Commands
 {
     public class UploadGpxCommand : IRequest
     {

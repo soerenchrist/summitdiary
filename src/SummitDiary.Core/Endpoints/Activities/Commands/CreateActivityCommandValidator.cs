@@ -1,7 +1,7 @@
 ﻿using System;
 using FluentValidation;
 
-namespace SummitDiary.Core.Endpoints.Diary.Commands
+namespace SummitDiary.Core.Endpoints.Activities.Commands
 {
     public class CreateActivityCommandValidator : AbstractValidator<CreateActivityCommand>
     {

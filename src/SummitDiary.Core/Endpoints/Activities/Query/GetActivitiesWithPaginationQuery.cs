@@ -9,9 +9,9 @@ using SummitDiary.Core.Common.Interfaces;
 using SummitDiary.Core.Common.Mapping;
 using SummitDiary.Core.Common.Models;
 using SummitDiary.Core.Common.Models.Common;
-using SummitDiary.Core.Endpoints.Diary.Dto;
+using SummitDiary.Core.Endpoints.Activities.Dto;
 
-namespace SummitDiary.Core.Endpoints.Diary.Query
+namespace SummitDiary.Core.Endpoints.Activities.Query
 {
     public class GetActivitiesWithPaginationQuery : IRequest<PaginatedList<ActivityDto>>
     {

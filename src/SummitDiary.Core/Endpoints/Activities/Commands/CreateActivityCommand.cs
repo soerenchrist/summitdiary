@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using SummitDiary.Core.Common.Exceptions;
 using SummitDiary.Core.Common.Interfaces;
 using SummitDiary.Core.Common.Models;
-using SummitDiary.Core.Endpoints.Diary.Dto;
+using SummitDiary.Core.Endpoints.Activities.Dto;
 
-namespace SummitDiary.Core.Endpoints.Diary.Commands
+namespace SummitDiary.Core.Endpoints.Activities.Commands
 {
     public class CreateActivityCommand : IRequest<ActivityDto>
     {

@@ -3,6 +3,7 @@
     class="row-pointer"
     :headers="headers"
     :items="activities"
+    @click:row="activitySelected"
     :options.sync="tableOptions"
     :server-items-length="totalActivities"
     :loading="loading">
@@ -78,6 +79,9 @@ export default {
         }
       }
       return result;
+    },
+    activitySelected(activity) {
+      this.$emit('activitySelected', activity);
     },
   },
   watch: {

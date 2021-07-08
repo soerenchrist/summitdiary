@@ -27,6 +27,10 @@ export default {
     const response = await axios.post(`${baseUrl}activities`, activity);
     return response.data;
   },
+  async getActivity(activityId) {
+    const response = await axios.get(`${baseUrl}activities/${activityId}`);
+    return response.data;
+  },
   async getSummitById(summitId) {
     const response = await axios.get(`${baseUrl}summits/${summitId}`);
     return response.data;

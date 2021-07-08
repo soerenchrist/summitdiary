@@ -2,7 +2,6 @@
 using Bogus;
 using SummitDiary.Core.Common.Interfaces;
 using SummitDiary.Core.Common.Models;
-using SummitDiary.Core.Endpoints.Diary.Dto;
 
 namespace SummitDiary.Web
 {

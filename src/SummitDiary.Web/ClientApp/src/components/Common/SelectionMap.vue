@@ -4,7 +4,7 @@
       :zoom="zoom"
       :center="center"
       style="height: 400px"
-      :maxZoom="12"
+      :maxZoom="14"
       @click="onClick"
       :options="mapOptions">
       <l-tile-layer

@@ -16,6 +16,7 @@
         <v-col>
           <activity-table :activities="activities"
             :loading="loading"
+            @activitySelected="activitySelected"
             :totalActivities="totalActivities"
             v-model="options" />
         </v-col>
@@ -49,6 +50,9 @@ export default {
       this.totalActivities = data.totalCount;
 
       this.loading = false;
+    },
+    activitySelected(activity) {
+      this.$router.push(`/activities/${activity.id}`);
     },
   },
   watch: {

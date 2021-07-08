@@ -21,6 +21,13 @@ namespace SummitDiary.Web.Api
         {
             return await Mediator.Send(new GetSummitByIdQuery(summitId));
         }
+        
+        [HttpGet("{summitId:int}/image")]
+        public async Task<ActionResult<ImageResponseDto>> GetImageForSummit([FromRoute] int summitId)
+        {
+            return await Mediator.Send(new GetImageUrlForSummitQuery(summitId));
+        }
+
 
         [HttpPost]
         public async Task<ActionResult<SummitDto>> CreateSummit([FromBody] CreateSummitCommand command)

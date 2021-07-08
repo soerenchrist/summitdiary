@@ -4,7 +4,7 @@ using SummitDiary.Core.Common.Mapping;
 using SummitDiary.Core.Common.Models;
 using SummitDiary.Core.Endpoints.Summits.Dto;
 
-namespace SummitDiary.Core.Endpoints.Diary.Dto
+namespace SummitDiary.Core.Endpoints.Activities.Dto
 {
     public class ActivityDto : IMapFrom<Activity>
     {

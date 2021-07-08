@@ -8,6 +8,7 @@ import Summits from '../views/Summits/Summits.vue';
 import SummitDetail from '../views/Summits/SummitDetail.vue';
 import CreateSummit from '../views/Summits/CreateSummit.vue';
 import ActivityOverview from '../views/Diary/ActivityOverview.vue';
+import ActivityDetail from '../views/Diary/ActivityDetail.vue';
 import CreateActivity from '../views/Diary/CreateActivity.vue';
 
 // eslint-disable-next-line no-underscore-dangle
@@ -41,7 +42,7 @@ const routes = [
     component: CreateSummit,
   },
   {
-    path: '/diary',
+    path: '/activities',
     name: 'ActivityOverview',
     component: ActivityOverview,
   },
@@ -54,6 +55,12 @@ const routes = [
     path: '/summits/:summitId',
     name: 'SummitDetail',
     component: SummitDetail,
+    props: true,
+  },
+  {
+    path: '/activities/:activityId',
+    name: 'ActivityDetail',
+    component: ActivityDetail,
     props: true,
   },
 ];

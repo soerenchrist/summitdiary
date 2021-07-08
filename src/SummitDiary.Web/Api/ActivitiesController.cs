@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SummitDiary.Core.Common.Models.Common;
-using SummitDiary.Core.Endpoints.Diary.Commands;
-using SummitDiary.Core.Endpoints.Diary.Dto;
-using SummitDiary.Core.Endpoints.Diary.Query;
+using SummitDiary.Core.Endpoints.Activities.Commands;
+using SummitDiary.Core.Endpoints.Activities.Dto;
+using SummitDiary.Core.Endpoints.Activities.Query;
 
 namespace SummitDiary.Web.Api
 {
@@ -14,6 +14,12 @@ namespace SummitDiary.Web.Api
             [FromQuery] GetActivitiesWithPaginationQuery query)
         {
             return await Mediator.Send(query);
+        }
+
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<ActivityDto>> GetActivityById([FromRoute] int id)
+        {
+            return await Mediator.Send(new GetActivityByIdQuery(id));
         }
 
         [HttpPost]
