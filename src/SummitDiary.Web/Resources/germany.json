@@ -1,0 +1,465 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.56.7 b85c4387",
+  "osm3s": {
+    "timestamp_osm_base": "2020-10-22T14:49:03Z",
+    "timestamp_areas_base": "2020-10-22T14:24:03Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+    {
+      "type": "node",
+      "id": 26863176,
+      "lat": 47.5693262,
+      "lon": 12.8658126,
+      "tags": {
+        "ele": "2608",
+        "name": "Hochkalter",
+        "natural": "peak",
+        "ref:avf": "2050",
+        "summit:cross": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 27384190,
+      "lat": 47.4212150,
+      "lon": 10.9862970,
+      "tags": {
+        "alt_name": "Zugspitze (Ostgipfel)",
+        "ele": "2962",
+        "importance": "national",
+        "name": "Zugspitze",
+        "natural": "peak",
+        "prominence": "1746",
+        "summit:cross": "yes",
+        "wikidata": "Q3375",
+        "wikipedia": "de:Zugspitze"
+      }
+    },
+    {
+      "type": "node",
+      "id": 256041659,
+      "lat": 47.2921753,
+      "lon": 10.2877057,
+      "tags": {
+        "ele": "2609",
+        "name": "Bockkarkopf",
+        "natural": "peak",
+        "ref:avf": "879",
+        "summit:cross": "yes",
+        "wikidata": "Q573647",
+        "wikipedia": "de:Bockkarkopf"
+      }
+    },
+    {
+      "type": "node",
+      "id": 256041673,
+      "lat": 47.4004814,
+      "lon": 11.1239474,
+      "tags": {
+        "alt_name": "Karlspitze",
+        "ele": "2682",
+        "name": "Leutascher Dreitorspitze",
+        "natural": "peak",
+        "wikidata": "Q585796",
+        "wikipedia": "de:Dreitorspitze"
+      }
+    },
+    {
+      "type": "node",
+      "id": 256041781,
+      "lat": 47.2968271,
+      "lon": 10.2928869,
+      "tags": {
+        "ele": "2649",
+        "name": "Hochfrottspitze",
+        "natural": "peak",
+        "ref:avf": "868",
+        "wikidata": "Q315335",
+        "wikipedia": "de:Hochfrottspitze"
+      }
+    },
+    {
+      "type": "node",
+      "id": 256041922,
+      "lat": 47.2999076,
+      "lon": 10.2956492,
+      "tags": {
+        "ele": "2644",
+        "name": "Mädelegabel",
+        "natural": "peak",
+        "ref:avf": "865",
+        "summit:cross": "yes",
+        "summit:register": "yes",
+        "wikidata": "Q186077",
+        "wikipedia": "de:Mädelegabel"
+      }
+    },
+    {
+      "type": "node",
+      "id": 256042768,
+      "lat": 47.4095968,
+      "lon": 10.9699595,
+      "tags": {
+        "ele": "2875",
+        "name": "Schneefernerkopf",
+        "natural": "peak",
+        "wikidata": "Q679080",
+        "wikipedia": "de:Schneefernerkopf"
+      }
+    },
+    {
+      "type": "node",
+      "id": 259486622,
+      "lat": 47.4294968,
+      "lon": 11.0478118,
+      "tags": {
+        "ele": "2628",
+        "name": "Alpspitze",
+        "natural": "peak",
+        "wikidata": "Q252743"
+      }
+    },
+    {
+      "type": "node",
+      "id": 307562003,
+      "lat": 47.5584230,
+      "lon": 12.9237899,
+      "tags": {
+        "alt_name": "Watzmann-Hocheck",
+        "ele": "2651",
+        "historic": "wayside_cross",
+        "name": "Hocheck",
+        "natural": "peak",
+        "ref:avf": "2520",
+        "summit:cross": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 323842894,
+      "lat": 47.3963394,
+      "lon": 11.0397076,
+      "tags": {
+        "ele": "2548",
+        "name": "Kleiner Wanner",
+        "natural": "peak"
+      }
+    },
+    {
+      "type": "node",
+      "id": 323896644,
+      "lat": 47.4167407,
+      "lon": 10.9713320,
+      "tags": {
+        "ele": "2815",
+        "name": "Zugspitzeck",
+        "natural": "peak"
+      }
+    },
+    {
+      "type": "node",
+      "id": 324065494,
+      "lat": 47.3198737,
+      "lon": 10.3453823,
+      "tags": {
+        "ele": "2553",
+        "name": "Krottenspitze",
+        "natural": "peak",
+        "ref:avf": "1579",
+        "source": "GPS",
+        "wikidata": "Q1790064",
+        "wikipedia": "de:Krottenspitze"
+      }
+    },
+    {
+      "type": "node",
+      "id": 364134323,
+      "lat": 47.5543889,
+      "lon": 12.9220342,
+      "tags": {
+        "alt_name": "Watzmann",
+        "ele": "2713",
+        "name": "Watzmann-Mittelspitze",
+        "natural": "peak",
+        "ref:avf": "2530",
+        "summit:cross": "yes",
+        "wikidata": "Q163919",
+        "wikipedia": "de:Watzmann"
+      }
+    },
+    {
+      "type": "node",
+      "id": 387467327,
+      "lat": 47.5127249,
+      "lon": 12.8849252,
+      "tags": {
+        "ele": "2593",
+        "image": "File:Grosser Hundstod south.JPG",
+        "name": "Großer Hundstod",
+        "natural": "peak",
+        "ref:avf": "3460",
+        "summit:cross": "yes",
+        "wikidata": "Q565025",
+        "wikipedia": "de:Großer Hundstod"
+      }
+    },
+    {
+      "type": "node",
+      "id": 475537031,
+      "lat": 47.5480306,
+      "lon": 12.9169564,
+      "tags": {
+        "ele": "2712",
+        "name": "Watzmann-Südspitze",
+        "natural": "peak",
+        "old_name": "Schönfeldspitze",
+        "ref:avf": "2540",
+        "summit:cross": "yes",
+        "wikidata": "Q163919",
+        "wikipedia": "de:Watzmann"
+      }
+    },
+    {
+      "type": "node",
+      "id": 496454912,
+      "lat": 47.4448563,
+      "lon": 11.4214330,
+      "tags": {
+        "ele": "2537",
+        "name": "Östliche Karwendelspitze",
+        "natural": "peak",
+        "prominence": "735",
+        "wikidata": "Q306927",
+        "wikipedia": "de:Östliche Karwendelspitze"
+      }
+    },
+    {
+      "type": "node",
+      "id": 508489623,
+      "lat": 47.4281857,
+      "lon": 10.9927492,
+      "tags": {
+        "ele": "2625",
+        "name": "Große Riffelwandspitze",
+        "natural": "peak"
+      }
+    },
+    {
+      "type": "node",
+      "id": 508489627,
+      "lat": 47.4290020,
+      "lon": 10.9962523,
+      "tags": {
+        "ele": "2543",
+        "name": "Kleine Riffelwandspitze",
+        "natural": "peak"
+      }
+    },
+    {
+      "type": "node",
+      "id": 508503689,
+      "lat": 47.4206907,
+      "lon": 11.0198273,
+      "tags": {
+        "ele": "2740",
+        "name": "Mittlere Höllentalspitze",
+        "natural": "peak"
+      }
+    },
+    {
+      "type": "node",
+      "id": 508503691,
+      "lat": 47.4184913,
+      "lon": 11.0125501,
+      "tags": {
+        "ele": "2741",
+        "name": "Innere Höllentalspitze",
+        "natural": "peak",
+        "wikidata": "Q265375"
+      }
+    },
+    {
+      "type": "node",
+      "id": 508503693,
+      "lat": 47.4209398,
+      "lon": 11.0278930,
+      "tags": {
+        "ele": "2715",
+        "name": "Äußere Höllentalspitze",
+        "natural": "peak"
+      }
+    },
+    {
+      "type": "node",
+      "id": 508503694,
+      "lat": 47.4217228,
+      "lon": 11.0346960,
+      "tags": {
+        "ele": "2630",
+        "name": "Vollkarspitze",
+        "natural": "peak",
+        "wikidata": "Q885103"
+      }
+    },
+    {
+      "type": "node",
+      "id": 530747888,
+      "lat": 47.3037210,
+      "lon": 10.2960572,
+      "tags": {
+        "ele": "2595",
+        "name": "Trettachspitze",
+        "natural": "peak",
+        "ref:avf": "860",
+        "summit:cross": "yes",
+        "wikidata": "Q450837",
+        "wikipedia": "de:Trettachspitze"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1055547059,
+      "lat": 47.5727411,
+      "lon": 12.8624286,
+      "tags": {
+        "ele": "2513",
+        "name": "Kleinkalter",
+        "natural": "peak",
+        "ref:avf": "2060",
+        "source": "estimation from height lines",
+        "summit:cross": "no"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1055547071,
+      "lat": 47.5625765,
+      "lon": 12.8614196,
+      "tags": {
+        "ele": "2513",
+        "name": "Ofentalhörnl",
+        "natural": "peak",
+        "ref:avf": "2130",
+        "source": "estimated from height lines"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1833449069,
+      "lat": 47.4165238,
+      "lon": 11.0306086,
+      "tags": {
+        "ele": "2514",
+        "name": "Großer Kirchturm",
+        "natural": "peak"
+      }
+    },
+    {
+      "type": "node",
+      "id": 1833449075,
+      "lat": 47.4223134,
+      "lon": 11.0440883,
+      "tags": {
+        "ele": "2706",
+        "name": "Hochblassen",
+        "natural": "peak",
+        "wikidata": "Q870721"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2061799676,
+      "lat": 47.3959556,
+      "lon": 11.0553604,
+      "tags": {
+        "ele": "2744",
+        "name": "Hochwanner",
+        "natural": "peak",
+        "prominence": "699",
+        "wikidata": "Q255743",
+        "wikipedia": "de:Hochwanner"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2496261392,
+      "lat": 47.5468352,
+      "lon": 12.8426192,
+      "tags": {
+        "ele": "2523",
+        "name": "Hocheisspitze",
+        "natural": "peak",
+        "ref:avf": "2240",
+        "wikidata": "Q871271"
+      }
+    },
+    {
+      "type": "node",
+      "id": 2498250593,
+      "lat": 47.4850145,
+      "lon": 12.9767787,
+      "tags": {
+        "ele": "2578.4",
+        "name": "Funtenseetauern",
+        "natural": "peak",
+        "ref:avf": "3350",
+        "wikidata": "Q316715",
+        "wikipedia": "de:Funtenseetauern"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3186071317,
+      "lat": 47.5939262,
+      "lon": 13.0671406,
+      "tags": {
+        "ele": "2522",
+        "name": "Hoher Göll",
+        "natural": "peak",
+        "prominence": "789",
+        "ref:avf": "2690",
+        "wikidata": "Q549503"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3634965710,
+      "lat": 47.4081217,
+      "lon": 11.1239416,
+      "tags": {
+        "ele": "2622",
+        "name": "Partenkirchner Dreitorspitze, Mittelgipfel",
+        "natural": "peak",
+        "summit:cross": "no"
+      }
+    },
+    {
+      "type": "node",
+      "id": 3634965711,
+      "lat": 47.4091248,
+      "lon": 11.1256736,
+      "tags": {
+        "ele": "2626",
+        "name": "Partenkirchner Dreitorspitze, Nordostgipfel",
+        "natural": "peak",
+        "summit:cross": "yes"
+      }
+    },
+    {
+      "type": "node",
+      "id": 4059510445,
+      "lat": 47.4099632,
+      "lon": 11.1265424,
+      "tags": {
+        "ele": "2507",
+        "fixme": "position estimated",
+        "name": "Bayerländerturm",
+        "natural": "peak"
+      }
+    }
+
+  ]
+}

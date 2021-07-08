@@ -2,9 +2,10 @@
 
 namespace SummitDiary.Core.Common.Models
 {
-    public class OsmData : BaseEntity<long>
+    public class OsmData : BaseEntity<int>
     {
-        public long SummitId { get; set; }
+        public long OpenStreetMapId { get; set; }
+        public int SummitId { get; set; }
         public Summit Summit { get; set; }
 
         public string TagName { get; set; }

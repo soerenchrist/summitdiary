@@ -7,7 +7,7 @@ namespace SummitDiary.Core.Endpoints.Summits.Dto
 {
     public class SummitDto : IMapFrom<Summit>
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public int Height { get; set; }
         public double Latitude { get; set; }

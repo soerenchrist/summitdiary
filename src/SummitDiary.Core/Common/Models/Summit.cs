@@ -3,8 +3,9 @@ using SummitDiary.SharedKernel;
 
 namespace SummitDiary.Core.Common.Models
 {
-    public class Summit : BaseEntity<long>
+    public class Summit : BaseEntity<int>
     {
+        public long OpenStreetmapId { get; set; }
         public string Name { get; set; }
         public double Longitude { get; set; }
         public double Latitude { get; set; }

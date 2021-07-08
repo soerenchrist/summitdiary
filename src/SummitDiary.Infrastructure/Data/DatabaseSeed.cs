@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SummitDiary.Core.Common.Interfaces;
 using SummitDiary.Core.Common.Models;
+using SummitDiary.Core.Services;
 
 namespace SummitDiary.Infrastructure.Data
 {
@@ -51,6 +52,14 @@ namespace SummitDiary.Infrastructure.Data
             if (!context.Regions.Any())
             {
                 context.Regions.AddRange(Regions);
+                await context.SaveChangesAsync();
+            }
+
+            if (!context.Summits.Any())
+            {
+                var scraper = new SummitScraper();
+                var summits = await scraper.FetchSummits();
+                await context.Summits.AddRangeAsync(summits);
                 await context.SaveChangesAsync();
             }
         }

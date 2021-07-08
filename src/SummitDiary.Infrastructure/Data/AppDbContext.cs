@@ -20,6 +20,7 @@ namespace SummitDiary.Infrastructure.Data
         public DbSet<Country> Countries { get; set; }
         public DbSet<Activity> Activities { get; set; }
         public DbSet<Attachment> Attachments { get; set; }
+        public DbSet<OsmData> OsmData { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
