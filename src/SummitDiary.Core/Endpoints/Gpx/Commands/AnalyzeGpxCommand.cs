@@ -12,6 +12,7 @@ using NetTopologySuite.IO;
 using SummitDiary.Core.Common.Interfaces;
 using SummitDiary.Core.Common.Models;
 using SummitDiary.Core.Endpoints.Gpx.Dto;
+using SummitDiary.Core.Services;
 
 namespace SummitDiary.Core.Endpoints.Gpx.Commands
 {
@@ -31,89 +32,21 @@ namespace SummitDiary.Core.Endpoints.Gpx.Commands
         
         public async Task<AnalysisResultDto> Handle(AnalyzeGpxCommand request, CancellationToken cancellationToken)
         {
-            using var xmlReader = new XmlTextReader(request.File.OpenReadStream());
-            var file = GpxFile.ReadFrom(xmlReader, new GpxReaderSettings
-            {
-                TimeZoneInfo = TimeZoneInfo.Local
-            });
-
-            double totalElevationUp = 0.0;
-            double totalElevationDown = 0.0;
-            double totalDistance = 0.0;
-
-            var firstTrack = file.Tracks.FirstOrDefault();
-            if (firstTrack == null)
-                throw new InvalidDataException("Invalid gpx file");
-
-            var waypoints = file.Tracks.SelectMany(x => x.Segments)
-                .SelectMany(x => x.Waypoints)
-                .ToList();
-
-            if (waypoints.Count == 0)
-                throw new InvalidDataException("Invalid gpx file");
-
-            var path = new List<Coordinate>();
-            
-            for (var i = 0; i < waypoints.Count - 1; i++)
-            {
-                var current = waypoints[i];
-                var next = waypoints[i + 1];
-
-                if (current.ElevationInMeters.HasValue && next.ElevationInMeters.HasValue)
-                {
-                    var elevationDiff = next.ElevationInMeters.Value - current.ElevationInMeters.Value;
-                    if (elevationDiff > 0)
-                        totalElevationUp += elevationDiff;
-                    else
-                        totalElevationDown += elevationDiff;
-                }
-
-                var distance = DistanceAlgorithm.DistanceBetweenPlaces(current.Longitude, current.Latitude, next.Longitude,
-                    next.Latitude);
-
-                totalDistance += distance;
-                path.Add(new Coordinate(current.Latitude, current.Longitude));
-            }
-
-            var startPoint = waypoints.First();
-            var endPoint = waypoints.Last();
-            
-            var startTime = ParseTimeStamp(startPoint.TimestampUtc);
-            var endTime = ParseTimeStamp(endPoint.TimestampUtc);
-
-            return new AnalysisResultDto
-            {
-                Distance = totalDistance,
-                ElevationDown = (int) totalElevationDown * -1,
-                ElevationUp = (int) totalElevationUp,
-                HikeDate = waypoints.First().TimestampUtc?.Date,
-                StartTime = startTime,
-                EndTime = endTime,
-                ProposedTitle = firstTrack.Name,
-                ProposedSummit = await FindSummit(waypoints),
-                StartPoint = new Coordinate(startPoint.Latitude, startPoint.Longitude),
-                EndPoint = new Coordinate(startPoint.Latitude, startPoint.Longitude),
-                Path = path
-            };
+            var analyzer = new GpxAnalyzer();
+            var dto = analyzer.AnalyzeGpx(request.File.OpenReadStream());
+            dto.ProposedSummit = await FindSummit(dto.Path);
+            return dto;
         }
 
-        private string ParseTimeStamp(DateTime? timestampUtc)
+        private Task<Summit> FindSummit(List<Coordinate> waypoints)
         {
-            if (timestampUtc == null)
-                return null;
-            var date = timestampUtc.Value.ToLocalTime();
-            return date.ToShortTimeString();
-        }
-
-        private Task<Summit> FindSummit(List<GpxWaypoint> waypoints)
-        {
-            GpxWaypoint maxWaypoint = null;
+            Coordinate? maxWaypoint = null;
             foreach (var waypoint in waypoints)
             {
                 if (maxWaypoint == null)
                     maxWaypoint = waypoint;
 
-                if (maxWaypoint.ElevationInMeters < waypoint.ElevationInMeters)
+                if (maxWaypoint.Value.Elevation < waypoint.Elevation)
                     maxWaypoint = waypoint;
             }
 
@@ -122,11 +55,11 @@ namespace SummitDiary.Core.Endpoints.Gpx.Commands
             
             const double offset = 0.01;
 
-            var lowerLat = maxWaypoint.Latitude - offset;
-            var lowerLon = maxWaypoint.Longitude - offset;
+            var lowerLat = maxWaypoint.Value.Latitude - offset;
+            var lowerLon = maxWaypoint.Value.Longitude - offset;
 
-            var upperLat = maxWaypoint.Latitude + offset;
-            var upperLon = maxWaypoint.Longitude + offset;
+            var upperLat = maxWaypoint.Value.Latitude + offset;
+            var upperLon = maxWaypoint.Value.Longitude + offset;
 
             return _context.Summits.FirstOrDefaultAsync(x => x.Latitude > lowerLat && x.Latitude < upperLat
                                                                        && x.Longitude > lowerLon &&

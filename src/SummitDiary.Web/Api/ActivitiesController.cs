@@ -4,6 +4,7 @@ using SummitDiary.Core.Common.Models.Common;
 using SummitDiary.Core.Endpoints.Activities.Commands;
 using SummitDiary.Core.Endpoints.Activities.Dto;
 using SummitDiary.Core.Endpoints.Activities.Query;
+using SummitDiary.Core.Endpoints.Gpx.Dto;
 
 namespace SummitDiary.Web.Api
 {
@@ -20,6 +21,12 @@ namespace SummitDiary.Web.Api
         public async Task<ActionResult<ActivityDto>> GetActivityById([FromRoute] int id)
         {
             return await Mediator.Send(new GetActivityByIdQuery(id));
+        }
+
+        [HttpGet("{id:int}/path")]
+        public async Task<ActionResult<AnalysisResultDto>> GetActivityPath([FromRoute] int id)
+        {
+            return await Mediator.Send(new GetActivityPathQuery(id));
         }
 
         [HttpPost]

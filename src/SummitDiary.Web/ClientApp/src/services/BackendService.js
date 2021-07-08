@@ -31,6 +31,14 @@ export default {
     const response = await axios.get(`${baseUrl}activities/${activityId}`);
     return response.data;
   },
+  async getSummitImage(summitId) {
+    const response = await axios.get(`${baseUrl}summits/${summitId}/image`);
+    return response.data;
+  },
+  async getActivityPath(activityId) {
+    const response = await axios.get(`${baseUrl}activities/${activityId}/path`);
+    return response.data;
+  },
   async getSummitById(summitId) {
     const response = await axios.get(`${baseUrl}summits/${summitId}`);
     return response.data;

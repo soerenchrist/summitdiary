@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MonkeyCache.FileStore;
 using SummitDiary.Core.Common.Interfaces;
 using SummitDiary.Infrastructure.Data;
 
@@ -16,6 +17,7 @@ namespace SummitDiary.Web
     {
         public static async Task Main(string[] args)
         {
+            Barrel.ApplicationId = "summitdiary";
             var host = CreateHostBuilder(args).Build();
 
             using var scope = host.Services.CreateScope();

@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using MonkeyCache.FileStore;
 using Newtonsoft.Json;
 using SummitDiary.Core.Common.Exceptions;
 using SummitDiary.Core.Common.Interfaces;
@@ -34,6 +36,16 @@ namespace SummitDiary.Core.Endpoints.Summits.Queries
         
         public async Task<ImageResponseDto> Handle(GetImageUrlForSummitQuery request, CancellationToken cancellationToken)
         {
+            var cacheKey = $"summit-{request.SummitId}";
+            if(!Barrel.Current.IsExpired(cacheKey))
+            {
+                var url = Barrel.Current.Get<string>(cacheKey);
+                return new ImageResponseDto
+                {
+                    Url = url
+                };
+            }
+            
             var summit = await _context.Summits.FirstOrDefaultAsync(x => x.Id == request.SummitId, cancellationToken);
             if (summit == null)
                 throw new NotFoundException(nameof(Summit), request.SummitId);
@@ -51,7 +63,9 @@ namespace SummitDiary.Core.Endpoints.Summits.Queries
 
             const int width = 500;
             var baseUrl = $"https://commons.wikimedia.org/w/thumb.php?width={width}&f={wikipediaFilename}";
-
+            
+            Barrel.Current.Add(cacheKey, baseUrl, TimeSpan.FromDays(30));
+            
             return new ImageResponseDto
             {
                 Url = baseUrl
