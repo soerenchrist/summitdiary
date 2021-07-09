@@ -64,6 +64,9 @@
           <summits-map :summits="activity.summits" :autoCenter="true" :polyline="polyline" />
         </v-col>
       </v-row>
+      <v-row>
+        <height-profile :path="path" />
+      </v-row>
     </v-sheet>
     <confirmation-dialog title="Aktivität löschen?"
       content="Soll die Aktivität wirklich gelöscht werden?"
@@ -78,12 +81,14 @@ import SummitCard from '../../components/Summits/SummitCard.vue';
 import SummitsMap from '../../components/Summits/SummitsMap.vue';
 import BackendService from '../../services/BackendService';
 import ConfirmationDialog from '../../components/Common/ConfirmationDialog.vue';
+import HeightProfile from '../../components/Diary/HeightProfile.vue';
 
 export default {
   components: {
     SummitCard,
     SummitsMap,
     ConfirmationDialog,
+    HeightProfile,
   },
   props: {
     activityId: String,
@@ -93,6 +98,7 @@ export default {
     loading: false,
     activity: null,
     polyline: [],
+    path: [],
   }),
   methods: {
     async fetchActivity() {
@@ -102,6 +108,7 @@ export default {
     },
     async fetchPath() {
       const response = await BackendService.getActivityPath(this.activityId);
+      this.path = response.path;
       this.polyline = response.path.map((x) => latLng(x.latitude, x.longitude));
     },
     async deleteActivity() {
