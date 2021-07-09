@@ -14,13 +14,8 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col>
-          <v-list>
-            <v-list-item-content v-for="value in values" :key="value.key">
-              <v-list-item-title>{{value.value}}</v-list-item-title>
-              <v-list-item-subtitle>{{value.key}}</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list>
+        <v-col :sm="6" :md="3" v-if="summit !== null">
+          <summit-card :summit="summit" />
         </v-col>
         <v-col>
           <summits-map :summits="summits"
@@ -38,11 +33,12 @@
 
 <script>
 import ConfirmationDialog from '../../components/Common/ConfirmationDialog.vue';
+import SummitCard from '../../components/Summits/SummitCard.vue';
 import SummitsMap from '../../components/Summits/SummitsMap.vue';
 import BackendService from '../../services/BackendService';
 
 export default {
-  components: { SummitsMap, ConfirmationDialog },
+  components: { SummitsMap, ConfirmationDialog, SummitCard },
   props: {
     summitId: String,
   },

@@ -12,11 +12,7 @@
         :attribution="attribution" />
       <l-marker v-for="summit in summits" :key="summit.id"
               :lat-lng="toLatLong(summit)">
-        <l-popup>
-          <div>
-          {{summit.name}}
-          </div>
-        </l-popup>
+        <summit-map-popup :summit="summit" />
       </l-marker>
       <l-polyline v-if="polyline && polyline.length > 0"
         :lat-lngs="polyline"
@@ -27,17 +23,27 @@
 
 <script>
 import { latLng, LatLngBounds } from 'leaflet';
+import SummitMapPopup from './SummitMapPopup.vue';
 
 export default {
+  components: { SummitMapPopup },
   props: {
     summits: Array,
     loading: Boolean,
     autoCenter: Boolean,
     polyline: Array,
+    center: {
+      type: Object,
+      required: false,
+      default: () => latLng(47.2285, 11.9135),
+    },
+    zoom: {
+      type: Number,
+      required: false,
+      default: 6,
+    },
   },
   data: () => ({
-    zoom: 6,
-    center: latLng(47.2285, 11.9135),
     url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
     attribution:
       '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',

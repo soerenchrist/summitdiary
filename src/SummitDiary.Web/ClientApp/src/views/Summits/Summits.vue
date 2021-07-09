@@ -22,12 +22,15 @@
             <summits-table
               :loading="loading"
               v-model="options"
+              @summitSelected="summitSelected"
               :summits="summits"
               :totalSummits="totalSummits"
               />
           </v-col>
           <v-col>
             <summits-map
+              :center="center"
+              :zoom="zoom"
               :summits="summits"
               :loading="loading" />
           </v-col>
@@ -38,6 +41,7 @@
 </template>
 
 <script>
+import { latLng } from 'leaflet';
 import SummitsMap from '../../components/Summits/SummitsMap.vue';
 import SummitsTable from '../../components/Summits/SummitsTable.vue';
 import BackendService from '../../services/BackendService';
@@ -49,6 +53,7 @@ export default {
     totalSummits: 0,
     loading: true,
     searchText: '',
+    selectedSummit: null,
     options: {},
   }),
   methods: {
@@ -60,6 +65,22 @@ export default {
       this.totalSummits = data.totalCount;
 
       this.loading = false;
+    },
+    summitSelected(summit) {
+      this.selectedSummit = summit;
+    },
+  },
+  computed: {
+    center() {
+      if (!this.selectedSummit) {
+        return latLng(47.2285, 11.9135);
+      }
+
+      return latLng(this.selectedSummit.latitude, this.selectedSummit.longitude);
+    },
+    zoom() {
+      if (this.selectedSummit) return 10;
+      return 6;
     },
   },
   watch: {

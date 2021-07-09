@@ -4,6 +4,7 @@
     :headers="headers"
     :items="summits"
     :options.sync="tableOptions"
+    @click:row="summitSelected"
     :server-items-length="totalSummits"
     :loading="loading">
     <template v-slot:[`item.height`]="{ item }">
@@ -53,6 +54,11 @@ export default {
       },
     ],
   }),
+  methods: {
+    summitSelected(summit) {
+      this.$emit('summitSelected', summit);
+    },
+  },
   watch: {
     options(opts) {
       this.tableOptions = opts;
