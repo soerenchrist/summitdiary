@@ -1,10 +1,11 @@
 <template>
-  <div style="margin: 10px;" class="chart-container">
+  <div style="margin: 10px; width: 100%;"  class="chart-container">
     <canvas id="heightChart" />
   </div>
 </template>
 
 <script>
+import moment from 'moment';
 import {
   Chart,
 } from 'chart.js';
@@ -19,27 +20,49 @@ export default {
   methods: {
     loadChart() {
       if (!this.path || this.path.length === 0) return;
-
       if (this.chart) this.chart.destroy();
       const data = [];
+      const labels = [];
       this.path.forEach((x) => {
-        this.data.push({
-          x: x.timestamp,
-          y: x.elevation,
-        });
+        data.push(x.elevation);
+        labels.push(moment(x.dateTime));
       });
 
       const config = {
         type: 'line',
         data: {
+          labels,
           datasets: [{
             label: 'Höhenprofil',
             data,
             fill: false,
             cubicInterpolationMode: 'monotone',
-            borderColor: 'green',
+            borderColor: '#2196F3',
             tension: 0.1,
           }],
+        },
+        options: {
+          plugins: {
+            title: {
+              display: false,
+            },
+            legend: {
+              display: false,
+            },
+          },
+          responsive: true,
+          scales: {
+            x: {
+              type: 'time',
+              time: {
+                parser: 'YYYY-MM-DDTHH:mm:ss',
+                unit: 'minute',
+                displayFormats: {
+                  minute: 'HH:mm',
+                },
+              },
+            },
+          },
         },
       };
 

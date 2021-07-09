@@ -34,7 +34,7 @@ namespace SummitDiary.Core.Services
             if (waypoints.Count == 0)
                 throw new InvalidDataException("Invalid gpx file");
 
-            var path = new List<Coordinate>();
+            var path = new List<Waypoint>();
             
             for (var i = 0; i < waypoints.Count - 1; i++)
             {
@@ -54,7 +54,7 @@ namespace SummitDiary.Core.Services
                     next.Latitude);
 
                 totalDistance += distance;
-                path.Add(new Coordinate(current.Latitude, current.Longitude, current.ElevationInMeters ?? 0));
+                path.Add(new Waypoint(current.Latitude, current.Longitude, current.ElevationInMeters ?? 0, current.TimestampUtc??default));
             }
 
             var startPoint = waypoints.First();
@@ -72,8 +72,8 @@ namespace SummitDiary.Core.Services
                 StartTime = startTime,
                 EndTime = endTime,
                 ProposedTitle = firstTrack.Name,
-                StartPoint = new Coordinate(startPoint.Latitude, startPoint.Longitude, startPoint.ElevationInMeters ?? 0),
-                EndPoint = new Coordinate(endPoint.Latitude, endPoint.Longitude, endPoint.ElevationInMeters ?? 0),
+                StartPoint = new Waypoint(startPoint.Latitude, startPoint.Longitude, startPoint.ElevationInMeters ?? 0, startPoint.TimestampUtc ?? default),
+                EndPoint = new Waypoint(endPoint.Latitude, endPoint.Longitude, endPoint.ElevationInMeters ?? 0, endPoint.TimestampUtc ?? default),
                 Path = path
             };
         }

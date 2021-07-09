@@ -6,6 +6,7 @@
       :center="center"
       :maxZoom="14"
       style="height: 600px"
+      @ready="mapLoaded"
       :options="mapOptions">
       <l-tile-layer
         :url="url"
@@ -16,7 +17,7 @@
       </l-marker>
       <l-polyline v-if="polyline && polyline.length > 0"
         :lat-lngs="polyline"
-        color="blue" />
+        color="#2196F3" />
     </l-map>
   </div>
 </template>
@@ -55,19 +56,27 @@ export default {
     toLatLong(summit) {
       return latLng(summit.latitude, summit.longitude);
     },
-  },
-  watch: {
-    summits(val) {
+    fitBounds() {
       if (!this.autoCenter) return;
-      if (val.length === 0) return;
+      if (this.summits.length === 0) return;
 
       const coords = [];
-      val.forEach((summit) => {
+      this.summits.forEach((summit) => {
         coords.push(latLng(summit.latitude, summit.longitude));
       });
 
       const bounds = new LatLngBounds(coords);
       this.$refs.map.fitBounds(bounds, { padding: [50, 50] });
+    },
+    mapLoaded() {
+      if (this.summits) {
+        this.fitBounds();
+      }
+    },
+  },
+  watch: {
+    summits() {
+      this.fitBounds();
     },
   },
 };

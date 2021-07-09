@@ -38,9 +38,9 @@ namespace SummitDiary.Core.Endpoints.Gpx.Commands
             return dto;
         }
 
-        private Task<Summit> FindSummit(List<Coordinate> waypoints)
+        private Task<Summit> FindSummit(List<Waypoint> waypoints)
         {
-            Coordinate? maxWaypoint = null;
+            Waypoint? maxWaypoint = null;
             foreach (var waypoint in waypoints)
             {
                 if (maxWaypoint == null)

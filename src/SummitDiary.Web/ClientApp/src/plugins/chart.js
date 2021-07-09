@@ -6,6 +6,7 @@ import {
   LineElement,
   PointElement,
   Title,
+  TimeScale,
   Legend,
   CategoryScale,
   LinearScale,
@@ -26,6 +27,7 @@ export default () => {
     CategoryScale,
     LinearScale,
     Title,
+    TimeScale,
     Legend,
     Tooltip,
   );

@@ -57,7 +57,7 @@
         </v-col>
       </v-row>
       <v-row v-if="activity">
-        <v-col :sm="6" :md="3" v-for="summit in activity.summits" :key="summit.id">
+        <v-col :sm="6" :md="4" :lg="3" v-for="summit in activity.summits" :key="summit.id">
           <summit-card :summit="summit" />
         </v-col>
         <v-col>
