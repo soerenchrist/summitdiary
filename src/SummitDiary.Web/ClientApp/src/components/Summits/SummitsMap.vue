@@ -4,7 +4,7 @@
       ref="map"
       :zoom="zoom"
       :center="center"
-      :maxZoom="14"
+      :maxZoom="16"
       style="height: 600px"
       @ready="mapLoaded"
       :options="mapOptions">
