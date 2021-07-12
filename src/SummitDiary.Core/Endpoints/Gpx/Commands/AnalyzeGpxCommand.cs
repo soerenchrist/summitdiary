@@ -61,7 +61,10 @@ namespace SummitDiary.Core.Endpoints.Gpx.Commands
             var upperLat = maxWaypoint.Value.Latitude + offset;
             var upperLon = maxWaypoint.Value.Longitude + offset;
 
-            return _context.Summits.FirstOrDefaultAsync(x => x.Latitude > lowerLat && x.Latitude < upperLat
+            return _context.Summits
+                .Include(x => x.Region)
+                .Include(x => x.Country)
+                .FirstOrDefaultAsync(x => x.Latitude > lowerLat && x.Latitude < upperLat
                                                                        && x.Longitude > lowerLon &&
                                                                        x.Longitude < upperLon);
         }

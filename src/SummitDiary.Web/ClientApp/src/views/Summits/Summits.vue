@@ -85,7 +85,6 @@ export default {
       this.selectedSummit = summit;
     },
     boundsChanged(bounds) {
-      console.log(bounds);
       this.bounds = bounds;
     },
   },
