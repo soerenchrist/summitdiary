@@ -57,7 +57,7 @@ export default {
       sortDesc,
     } = options;
 
-    const { onlyClimbed } = options;
+    const { onlyClimbed, bounds } = options;
 
     if (!page) {
       page = 1;
@@ -85,6 +85,16 @@ export default {
 
     if (onlyClimbed) {
       url += '&onlyClimbed=true';
+    }
+
+    if (bounds) {
+      const {
+        swLat,
+        swLon,
+        neLat,
+        neLon,
+      } = bounds;
+      url += `&swLat=${swLat}&swLon=${swLon}&neLat=${neLat}&neLon=${neLon}`;
     }
 
     const response = await axios.get(url);

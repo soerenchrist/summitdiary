@@ -21,6 +21,10 @@ namespace SummitDiary.Core.Endpoints.Summits.Queries
         public int PageSize { get; set; } = 10;
         public bool OnlyClimbed { get; set; } = false;
         public bool SortDescending { get; set; }
+        public double? NeLat { get; set; }
+        public double? NeLon { get; set; }
+        public double? SwLat { get; set; }
+        public double? SwLon { get; set; }
     }
 
     public class
@@ -59,6 +63,14 @@ namespace SummitDiary.Core.Endpoints.Summits.Queries
                 ordered = ordered.Where(x => x.DiaryEntries.Any());
             }
 
+            if (request.NeLat != null && request.NeLon != null &&
+                request.SwLat != null && request.SwLon != null)
+            {
+                ordered = ordered.Where(x => x.Latitude >= request.SwLat && x.Longitude >= request.SwLon
+                                                                         && x.Latitude <= request.NeLat &&
+                                                                         x.Longitude <= request.NeLon);
+            }
+            
             var items = await ordered.ProjectTo<SummitDto>(_mapper.ConfigurationProvider)
                 .PaginatedListAsync(request.PageNumber, request.PageSize);
             foreach (var dto in items.Items)

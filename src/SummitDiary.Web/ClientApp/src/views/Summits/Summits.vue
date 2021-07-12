@@ -40,7 +40,8 @@
               :center="center"
               :zoom="zoom"
               :summits="summits"
-              :loading="loading" />
+              :loading="loading"
+              @boundsChanged="boundsChanged"/>
           </v-col>
         </v-row>
       </div>
@@ -62,6 +63,7 @@ export default {
     loading: true,
     searchText: '',
     onlyClimbed: false,
+    bounds: null,
     selectedSummit: null,
     options: {},
   }),
@@ -71,6 +73,7 @@ export default {
 
       this.options.searchText = this.searchText;
       this.options.onlyClimbed = this.onlyClimbed;
+      this.options.bounds = this.bounds;
 
       const data = await BackendService.getPagedSummits(this.options);
       this.summits = data.items;
@@ -80,6 +83,10 @@ export default {
     },
     summitSelected(summit) {
       this.selectedSummit = summit;
+    },
+    boundsChanged(bounds) {
+      console.log(bounds);
+      this.bounds = bounds;
     },
   },
   computed: {
@@ -97,6 +104,9 @@ export default {
   },
   watch: {
     options() {
+      this.getSummits();
+    },
+    bounds() {
       this.getSummits();
     },
     onlyClimbed() {

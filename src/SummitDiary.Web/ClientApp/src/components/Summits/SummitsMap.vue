@@ -6,6 +6,7 @@
       :center="center"
       :maxZoom="16"
       style="height: 600px"
+      @update:bounds="boundsUpdated"
       @ready="mapLoaded"
       :options="mapOptions">
       <l-tile-layer
@@ -55,6 +56,14 @@ export default {
   methods: {
     toLatLong(summit) {
       return latLng(summit.latitude, summit.longitude);
+    },
+    boundsUpdated(bounds) {
+      this.$emit('boundsChanged', {
+        swLat: bounds._southWest.lat,
+        swLon: bounds._southWest.lng,
+        neLat: bounds._northEast.lat,
+        neLon: bounds._northEast.lng,
+      });
     },
     fitBounds() {
       if (!this.autoCenter) return;
