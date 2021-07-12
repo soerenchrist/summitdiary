@@ -21,7 +21,7 @@ namespace SummitDiary.Core.Common.Exceptions
             KeyValue = value;
         }
 
-        public string? ElementName { get; set; }
-        public object? KeyValue { get; set; }
+        public string ElementName { get; set; }
+        public object KeyValue { get; set; }
     }
 }

@@ -4,6 +4,17 @@
       <div>
         <v-row>
           <v-col>
+            <h1>Gipfel</h1>
+          </v-col>
+          <v-col>
+            <v-btn icon class="pageButton"
+                  @click="$router.push('/createsummit')">
+              <v-icon>mdi-plus</v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
             <v-text-field
               placeholder="Suche"
               prepend-icon="mdi-magnify"
@@ -11,10 +22,7 @@
               clearable />
           </v-col>
           <v-col>
-            <v-btn icon class="pageButton"
-                  @click="$router.push('/createsummit')">
-              <v-icon>mdi-plus</v-icon>
-            </v-btn>
+            <v-checkbox v-model="onlyClimbed" label="Nur bestiegene"/>
           </v-col>
         </v-row>
         <v-row>
@@ -53,14 +61,18 @@ export default {
     totalSummits: 0,
     loading: true,
     searchText: '',
+    onlyClimbed: false,
     selectedSummit: null,
     options: {},
   }),
   methods: {
-    async getSummits(options) {
+    async getSummits() {
       this.loading = true;
 
-      const data = await BackendService.getPagedSummits(options);
+      this.options.searchText = this.searchText;
+      this.options.onlyClimbed = this.onlyClimbed;
+
+      const data = await BackendService.getPagedSummits(this.options);
       this.summits = data.items;
       this.totalSummits = data.totalCount;
 
@@ -84,13 +96,14 @@ export default {
     },
   },
   watch: {
-    options(opts) {
-      opts.searchText = this.searchText;
-      this.getSummits(opts);
+    options() {
+      this.getSummits();
     },
-    searchText(text) {
-      this.options.searchText = text;
-      this.getSummits(this.options);
+    onlyClimbed() {
+      this.getSummits();
+    },
+    searchText() {
+      this.getSummits();
     },
   },
   mounted() {
@@ -98,3 +111,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.row, .col {
+  padding: 2px;
+}
+</style>

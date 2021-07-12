@@ -57,6 +57,8 @@ export default {
       sortDesc,
     } = options;
 
+    const { onlyClimbed } = options;
+
     if (!page) {
       page = 1;
     }
@@ -79,6 +81,10 @@ export default {
 
     if (options.searchText) {
       url += `&searchText=${options.searchText}`;
+    }
+
+    if (onlyClimbed) {
+      url += '&onlyClimbed=true';
     }
 
     const response = await axios.get(url);
