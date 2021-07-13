@@ -1,5 +1,5 @@
 <template>
-  <div style="margin: 10px; width: 100%;"  class="chart-container">
+  <div style="margin: 10px; width: 90%;"  class="chart-container">
     <canvas id="heightChart" />
   </div>
 </template>
@@ -65,7 +65,6 @@ export default {
           },
         },
       };
-
       const ctx = document.getElementById('heightChart');
       this.chart = new Chart(ctx, config);
     },
@@ -74,6 +73,9 @@ export default {
     path() {
       this.loadChart();
     },
+  },
+  mounted() {
+    this.loadChart();
   },
 };
 </script>

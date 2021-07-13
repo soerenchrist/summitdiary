@@ -11,7 +11,7 @@ namespace SummitDiary.Core.Services
 {
     public class GpxAnalyzer
     {
-        public AnalysisResultDto AnalyzeGpx(Stream gpxFile)
+        public AnalysisResultDto AnalyzeGpx(Stream gpxFile, int compressValue = 1)
         {
             using var xmlReader = new XmlTextReader(gpxFile);
             var file = GpxFile.ReadFrom(xmlReader, new GpxReaderSettings
@@ -36,7 +36,7 @@ namespace SummitDiary.Core.Services
 
             var path = new List<Waypoint>();
             
-            for (var i = 0; i < waypoints.Count - 1; i++)
+            for (var i = 0; i < waypoints.Count - 1; i+=compressValue)
             {
                 var current = waypoints[i];
                 var next = waypoints[i + 1];

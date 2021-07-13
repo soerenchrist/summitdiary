@@ -47,7 +47,8 @@ namespace SummitDiary.Core.Endpoints.Activities.Query
             var stream = File.OpenRead(gpxAttachment.FilePath);
             
             var analyzer = new GpxAnalyzer();
-            return analyzer.AnalyzeGpx(stream);
+            var compressValue = 5;
+            return analyzer.AnalyzeGpx(stream, compressValue);
         }
     }
 }

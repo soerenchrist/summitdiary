@@ -61,11 +61,33 @@
           <summit-card :summit="summit" />
         </v-col>
         <v-col>
-          <summits-map :summits="activity.summits" :autoCenter="true" :polyline="polyline" />
+          <v-tabs
+            v-model="tab"
+            grow>
+            <v-tab>Karte</v-tab>
+            <v-tab>Höhenprofil</v-tab>
+            <v-tab>Notizen</v-tab>
+
+            <v-tab-item>
+              <summits-map :summits="activity.summits" :autoCenter="true" :polyline="polyline" />
+            </v-tab-item>
+            <v-tab-item>
+              <height-profile :path="path" />
+            </v-tab-item>
+            <v-tab-item>
+              <v-textarea v-model="activity.notes"
+                class="mt-2"
+                placeholder="Notizen / Beschreibung"
+                dense outlined
+                :disabled="true" />
+              <v-rating v-model="activity.rating"
+                        color="orange"
+                        background-color="orange lighten-3"
+                        readonly
+                        large />
+            </v-tab-item>
+          </v-tabs>
         </v-col>
-      </v-row>
-      <v-row>
-        <height-profile :path="path" />
       </v-row>
     </v-sheet>
     <confirmation-dialog title="Aktivität löschen?"
@@ -98,6 +120,7 @@ export default {
     loading: false,
     activity: null,
     polyline: [],
+    tab: null,
     path: [],
   }),
   methods: {
