@@ -58,7 +58,7 @@
       </v-row>
       <v-row v-if="activity">
         <v-col :sm="6" :md="4" :lg="3" v-for="summit in activity.summits" :key="summit.id">
-          <summit-card :summit="summit" />
+          <summit-card link :summit="summit" />
         </v-col>
         <v-col>
           <v-tabs
