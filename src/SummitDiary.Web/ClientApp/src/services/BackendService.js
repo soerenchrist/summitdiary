@@ -152,4 +152,9 @@ export default {
     const response = await axios.post(`${baseUrl}gpx/analyze`, formData);
     return response.data;
   },
+  async getTimeline(options) {
+    const { valueType, timeType } = options;
+    const response = await axios.get(`${baseUrl}stats/timeline?valueType=${valueType}&timeType=${timeType}`);
+    return response.data;
+  },
 };
