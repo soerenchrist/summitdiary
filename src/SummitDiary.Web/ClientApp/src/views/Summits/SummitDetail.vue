@@ -22,6 +22,16 @@
             :autoCenter="true" />
         </v-col>
       </v-row>
+      <v-row>
+        <v-col>
+          <h2>Aktivitäten</h2>
+          <activity-table :activities="activities"
+            :loading="loading"
+            @activitySelected="activitySelected"
+            :totalActivities="totalActivities"
+            v-model="options" />
+        </v-col>
+      </v-row>
     </v-sheet>
     <confirmation-dialog title="Gipfel löschen?"
       @closed="confirmDeletion = false"
@@ -33,17 +43,29 @@
 
 <script>
 import ConfirmationDialog from '../../components/Common/ConfirmationDialog.vue';
+import ActivityTable from '../../components/Diary/ActivityTable.vue';
 import SummitCard from '../../components/Summits/SummitCard.vue';
 import SummitsMap from '../../components/Summits/SummitsMap.vue';
 import BackendService from '../../services/BackendService';
 
 export default {
-  components: { SummitsMap, ConfirmationDialog, SummitCard },
+  components: {
+    SummitsMap,
+    ConfirmationDialog,
+    SummitCard,
+    ActivityTable,
+  },
   props: {
     summitId: String,
   },
   data: () => ({
     summit: null,
+    activities: [],
+    totalActivities: 0,
+    options: {
+      sortBy: ['hikeDate'],
+      sortDesc: [true],
+    },
     loading: false,
     confirmDeletion: false,
   }),
@@ -53,9 +75,23 @@ export default {
       this.summit = await BackendService.getSummitById(this.summitId);
       this.loading = false;
     },
+    async fetchActivities() {
+      this.options.summitId = this.summitId;
+      const data = await BackendService.getPagedActivities(this.options);
+      this.totalActivities = data.totalActivities;
+      this.activities = data.items;
+    },
     async deleteSummit() {
       await BackendService.deleteSummit(this.summitId);
       this.$router.go(-1);
+    },
+    activitySelected(activity) {
+      this.$router.push(`/activities/${activity.id}`);
+    },
+  },
+  watch: {
+    options() {
+      this.fetchActivities();
     },
   },
   computed: {

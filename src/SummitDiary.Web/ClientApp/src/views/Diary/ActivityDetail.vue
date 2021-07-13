@@ -65,13 +65,13 @@
             v-model="tab"
             grow>
             <v-tab>Karte</v-tab>
-            <v-tab>Höhenprofil</v-tab>
+            <v-tab v-if="showHeightProfile">Höhenprofil</v-tab>
             <v-tab>Notizen</v-tab>
 
             <v-tab-item>
               <summits-map :summits="activity.summits" :autoCenter="true" :polyline="polyline" />
             </v-tab-item>
-            <v-tab-item>
+            <v-tab-item v-if="showHeightProfile">
               <height-profile :path="path" />
             </v-tab-item>
             <v-tab-item>
@@ -143,6 +143,11 @@ export default {
       seconds %= 3600;
       const minutes = Math.floor(seconds / 60);
       return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    },
+  },
+  computed: {
+    showHeightProfile() {
+      return !this.loading && this.path.length > 0;
     },
   },
   mounted() {

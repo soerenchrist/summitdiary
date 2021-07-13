@@ -108,6 +108,10 @@ export default {
       sortDesc,
     } = options;
 
+    const {
+      summitId,
+    } = options;
+
     if (!page) {
       page = 1;
     }
@@ -132,6 +136,10 @@ export default {
 
     if (options.searchText) {
       url += `&searchText=${options.searchText}`;
+    }
+
+    if (summitId) {
+      url = `${url}&summitId=${summitId}`;
     }
 
     const response = await axios.get(url);

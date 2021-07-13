@@ -19,6 +19,7 @@ namespace SummitDiary.Core.Endpoints.Activities.Query
         public string SortBy { get; set; }
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 10;
+        public int? SummitId { get; set; }
         public bool SortDescending { get; set; }
     }
 
@@ -59,6 +60,11 @@ namespace SummitDiary.Core.Endpoints.Activities.Query
             if (!string.IsNullOrWhiteSpace(request.SearchText))
             {
                 ordered = ordered.Where(x => EF.Functions.Like(x.Title, $"%{request.SearchText}%"));
+            }
+
+            if (request.SummitId != null)
+            {
+                ordered = ordered.Where(x => x.Summits.Any(x => x.Id == request.SummitId));
             }
 
             return ordered.ProjectTo<ActivityDto>(_mapper.ConfigurationProvider)
