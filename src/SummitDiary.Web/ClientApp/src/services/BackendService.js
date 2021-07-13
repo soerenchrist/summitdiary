@@ -157,4 +157,9 @@ export default {
     const response = await axios.get(`${baseUrl}stats/timeline?valueType=${valueType}&timeType=${timeType}`);
     return response.data;
   },
+  async getCountryStats(options) {
+    const { valueType } = options;
+    const response = await axios.get(`${baseUrl}stats/country?valueType=${valueType}`);
+    return response.data;
+  },
 };
