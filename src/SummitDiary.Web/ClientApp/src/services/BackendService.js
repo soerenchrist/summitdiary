@@ -162,4 +162,8 @@ export default {
     const response = await axios.get(`${baseUrl}stats/country?valueType=${valueType}`);
     return response.data;
   },
+  async getTotals() {
+    const response = await axios.get(`${baseUrl}stats/totals`);
+    return response.data;
+  },
 };

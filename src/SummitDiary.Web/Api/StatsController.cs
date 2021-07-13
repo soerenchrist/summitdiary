@@ -26,5 +26,11 @@ namespace SummitDiary.Web.Api
         {
             return await Mediator.Send(query);
         }
+
+        [HttpGet("totals")]
+        public async Task<ActionResult<TotalsDto>> GetTotals()
+        {
+            return await Mediator.Send(new GetTotalsQuery());
+        }
     }
 }

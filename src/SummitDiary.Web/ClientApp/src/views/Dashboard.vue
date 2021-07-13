@@ -1,5 +1,6 @@
 <template>
 <v-container>
+  <totals-display />
   <v-row>
     <v-col :cols="8">
       <v-sheet rounded="lg">
@@ -18,9 +19,10 @@
 <script>
 import CountryStats from '../components/Dashboard/CountryStats.vue';
 import Timeline from '../components/Dashboard/Timeline.vue';
+import TotalsDisplay from '../components/Dashboard/TotalsDisplay.vue';
 
 export default {
-  components: { Timeline, CountryStats },
+  components: { Timeline, CountryStats, TotalsDisplay },
   name: 'Dashboard',
 };
 </script>
