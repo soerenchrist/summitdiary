@@ -174,4 +174,22 @@ export default {
     const response = await axios.get(`${baseUrl}stats/totals`);
     return response.data;
   },
+  async getWishlistItemForSummit(summitId) {
+    const response = await axios.get(`${baseUrl}summits/${summitId}/wishlist`);
+    return response.data;
+  },
+  async addSummitToWishlist(summitId) {
+    const response = await axios.post(`${baseUrl}wishlist`, {
+      summitId,
+    });
+
+    return response.data;
+  },
+  async removeFromWishlist(wishlistItemId) {
+    await axios.delete(`${baseUrl}wishlist/${wishlistItemId}`);
+  },
+  async getWishlist() {
+    const response = await axios.get(`${baseUrl}wishlist`);
+    return response.data;
+  },
 };

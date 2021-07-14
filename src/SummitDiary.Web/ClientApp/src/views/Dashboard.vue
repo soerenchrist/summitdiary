@@ -13,6 +13,13 @@
       </v-sheet>
     </v-col>
   </v-row>
+  <v-row>
+    <v-col>
+      <v-sheet rounded="lg">
+        <wishlist />
+      </v-sheet>
+    </v-col>
+  </v-row>
 </v-container>
 </template>
 
@@ -20,9 +27,15 @@
 import CountryStats from '../components/Dashboard/CountryStats.vue';
 import Timeline from '../components/Dashboard/Timeline.vue';
 import TotalsDisplay from '../components/Dashboard/TotalsDisplay.vue';
+import Wishlist from '../components/Dashboard/Wishlist.vue';
 
 export default {
-  components: { Timeline, CountryStats, TotalsDisplay },
+  components: {
+    Timeline,
+    CountryStats,
+    TotalsDisplay,
+    Wishlist,
+  },
   name: 'Dashboard',
 };
 </script>

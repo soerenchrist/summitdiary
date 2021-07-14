@@ -11,6 +11,7 @@
             @click="confirmDeletion = true">
             <v-icon>mdi-delete</v-icon>
           </v-btn>
+          <summit-wishlist-button :summit="summit" class="pageButton" />
         </v-col>
       </v-row>
       <v-row>
@@ -46,6 +47,7 @@ import ConfirmationDialog from '../../components/Common/ConfirmationDialog.vue';
 import ActivityTable from '../../components/Diary/ActivityTable.vue';
 import SummitCard from '../../components/Summits/SummitCard.vue';
 import SummitsMap from '../../components/Summits/SummitsMap.vue';
+import SummitWishlistButton from '../../components/Summits/SummitWishlistButton.vue';
 import BackendService from '../../services/BackendService';
 
 export default {
@@ -54,6 +56,7 @@ export default {
     ConfirmationDialog,
     SummitCard,
     ActivityTable,
+    SummitWishlistButton,
   },
   props: {
     summitId: String,

@@ -4,6 +4,8 @@ using SummitDiary.Core.Common.Models.Common;
 using SummitDiary.Core.Endpoints.Summits.Commands;
 using SummitDiary.Core.Endpoints.Summits.Dto;
 using SummitDiary.Core.Endpoints.Summits.Queries;
+using SummitDiary.Core.Endpoints.Wishlist.Dto;
+using SummitDiary.Core.Endpoints.Wishlist.Queries;
 
 namespace SummitDiary.Web.Api
 {
@@ -20,6 +22,13 @@ namespace SummitDiary.Web.Api
         public async Task<ActionResult<SummitDto>> GetSummitById([FromRoute] int summitId)
         {
             return await Mediator.Send(new GetSummitByIdQuery(summitId));
+        }
+        
+        
+        [HttpGet("{summitId:int}/wishlist")]
+        public async Task<ActionResult<WishlistItemDto>> GetWishlistItem(int summitId)
+        {
+            return await Mediator.Send(new GetWishlistItemForSummitQuery(summitId));
         }
         
         [HttpGet("{summitId:int}/image")]

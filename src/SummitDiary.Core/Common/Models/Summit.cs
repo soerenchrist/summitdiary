@@ -18,5 +18,6 @@ namespace SummitDiary.Core.Common.Models
         public Country Country { get; set; }
 
         public IEnumerable<OsmData> OsmData { get; set; }
+        public WishlistItem WishlistItem { get; set; }
     }
 }

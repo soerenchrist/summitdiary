@@ -21,6 +21,7 @@ namespace SummitDiary.Infrastructure.Data
         public DbSet<Activity> Activities { get; set; }
         public DbSet<Attachment> Attachments { get; set; }
         public DbSet<OsmData> OsmData { get; set; }
+        public DbSet<WishlistItem> WishlistItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

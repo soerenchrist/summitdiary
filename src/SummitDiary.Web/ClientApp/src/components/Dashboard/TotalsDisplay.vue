@@ -40,23 +40,23 @@ export default {
   }),
   computed: {
     activityCount() {
-      return this.totals === null ? 0 : this.totals.activityCount;
+      return this.totals === null ? '0' : this.totals.activityCount.toString();
     },
     summitCount() {
-      return this.totals === null ? 0 : this.totals.summitCount;
+      return this.totals === null ? '0' : this.totals.summitCount.toString();
     },
     distance() {
-      return this.totals === null ? 0 : `${(this.totals.distance / 1000).toFixed(0)} km`;
+      return this.totals === null ? '0' : `${(this.totals.distance / 1000).toFixed(0)} km`;
     },
     elevation() {
-      if (this.totals === null) return 0;
+      if (this.totals === null) return '0';
       if (this.totals.elevation > 10000) {
         return `${(this.totals.elevation / 1000).toFixed(0)} km`;
       }
       return `${this.totals.elevation} m`;
     },
     duration() {
-      if (this.totals === null) return 0;
+      if (this.totals === null) return '0';
       const hours = Math.floor(this.totals.duration / 3600);
 
       return `${hours} h`;
