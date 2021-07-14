@@ -36,7 +36,7 @@ namespace SummitDiary.Core.Endpoints.Stats.Queries
             {
                 "week" => (DateTime.Now.AddDays(-7), 7),
                 "month" => (DateTime.Now.AddMonths(-1), 7),
-                "all" => (_context.Activities.OrderByDescending(x => x.HikeDate).First().HikeDate, 365),
+                "all" => (_context.Activities.OrderBy(x => x.HikeDate).First().HikeDate, 30),
                 _ => (DateTime.Now.AddYears(-1), 30)
             };
 

@@ -1,7 +1,25 @@
 <template>
 <div style="padding: 12px;">
-  <v-progress-linear indeterminate v-if="loading" />
-  <h3>Länder</h3>
+  <v-row>
+    <v-col>
+      <v-progress-linear indeterminate v-if="loading" />
+    </v-col>
+  </v-row>
+  <v-row style="padding: 12px;">
+    <v-col :cols="4">
+      <h3>Länder</h3>
+    </v-col>
+    <v-col>
+      <v-select
+        :items="valueTypes"
+        v-model="valueType"
+        item-text="name"
+        return-object
+        label="Einheit"
+        class="float-right"
+        dense outlined />
+      </v-col>
+  </v-row>
   <div style="width: 100%;" class="chart-container">
     <canvas id="countryChart" />
   </div>
@@ -17,7 +35,7 @@ import BackendService from '../../services/BackendService';
 export default {
   data: () => ({
     stats: [],
-    valueType: 'elevation',
+    valueType: null,
     chart: null,
     loading: true,
     colors: [
@@ -28,17 +46,24 @@ export default {
       '#e91e63',
       '#f44336',
     ],
+    valueTypes: [
+      { key: 'elevation', name: 'Höhenmeter' },
+      { key: 'distance', name: 'Distanz' },
+    ],
   }),
   watch: {
     stats() {
       this.loadChart();
+    },
+    valueType() {
+      this.fetchStats();
     },
   },
   methods: {
     async fetchStats() {
       this.loading = true;
       this.stats = await BackendService.getCountryStats({
-        valueType: this.valueType,
+        valueType: this.valueType.key,
       });
       this.loading = false;
     },
@@ -82,7 +107,20 @@ export default {
     },
   },
   mounted() {
+    [this.valueType] = this.valueTypes;
     this.fetchStats();
   },
 };
 </script>
+
+<style scoped>
+.v-text-field {
+  width: 150px;
+}
+.row {
+  padding: 0;
+}
+.col {
+  padding: 0;
+}
+</style>

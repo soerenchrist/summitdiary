@@ -1,10 +1,40 @@
 <template>
-<div style="padding: 12px;">
-  <v-progress-linear indeterminate v-if="loading" />
-  <h3>Timeline</h3>
-  <div style="width: 98%;" class="chart-container">
-    <canvas id="timelineChart" />
-  </div>
+<div class="outer">
+  <v-row>
+    <v-col>
+      <v-progress-linear indeterminate v-if="loading" />
+    </v-col>
+  </v-row>
+  <v-row style="padding: 12px">
+    <v-col :cols="4">
+      <h3>Timeline</h3>
+    </v-col>
+    <v-col>
+      <v-select
+        :items="timeTypes"
+        v-model="timeType"
+        item-text="name"
+        return-object
+        label="Zeit"
+        class="float-right"
+        dense outlined />
+      <v-select
+        :items="valueTypes"
+        v-model="valueType"
+        item-text="name"
+        return-object
+        label="Einheit"
+        class="mr-2 float-right"
+        dense outlined />
+    </v-col>
+  </v-row>
+  <v-row>
+    <v-col>
+      <div style="width: 98%;" class="chart-container">
+        <canvas id="timelineChart" />
+      </div>
+    </v-col>
+  </v-row>
 </div>
 </template>
 
@@ -18,8 +48,17 @@ import BackendService from '../../services/BackendService';
 export default {
   data: () => ({
     timeline: [],
-    timeType: 'year',
-    valueType: 'elevation',
+    timeTypes: [
+      { key: 'year', name: 'Jahr' },
+      { key: 'month', name: 'Monat' },
+      { key: 'all', name: 'Alles' },
+    ],
+    valueTypes: [
+      { key: 'elevation', name: 'Höhenmeter' },
+      { key: 'distance', name: 'Distanz' },
+    ],
+    timeType: null,
+    valueType: null,
     chart: null,
     loading: true,
   }),
@@ -27,13 +66,19 @@ export default {
     timeline() {
       this.loadChart();
     },
+    timeType() {
+      this.fetchTimeline();
+    },
+    valueType() {
+      this.fetchTimeline();
+    },
   },
   methods: {
     async fetchTimeline() {
       this.loading = true;
       this.timeline = await BackendService.getTimeline({
-        timeType: this.timeType,
-        valueType: this.valueType,
+        timeType: this.timeType.key,
+        valueType: this.valueType.key,
       });
       this.loading = false;
     },
@@ -48,6 +93,14 @@ export default {
         data.push(x.value);
         labels.push(moment(x.date));
       });
+
+      const timeType = this.timeType.key;
+
+      const timeUnit = timeType === 'year' || timeType.key === 'all'
+        ? 'month' : 'week';
+
+      const displayFormat = timeType.key === 'year' || timeType.key === 'all'
+        ? 'MM YYYY' : 'DD.MM.YYYY';
 
       const config = {
         type: 'line',
@@ -77,9 +130,9 @@ export default {
               type: 'time',
               time: {
                 parser: 'YYYY-MM-DDTHH:mm:ss',
-                unit: 'month',
+                unit: timeUnit,
                 displayFormats: {
-                  minute: 'MM YYYY',
+                  minute: displayFormat,
                 },
               },
             },
@@ -92,7 +145,24 @@ export default {
     },
   },
   mounted() {
+    [this.timeType] = this.timeTypes;
+    [this.valueType] = this.valueTypes;
     this.fetchTimeline();
   },
 };
 </script>
+
+<style scoped>
+.row {
+  padding: 0;
+}
+.col {
+  padding: 0;
+}
+.outer {
+  padding: 12px;
+}
+.v-text-field {
+  width: 150px;
+}
+</style>
