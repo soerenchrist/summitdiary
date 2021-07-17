@@ -57,6 +57,13 @@ namespace SummitDiary.Core.Services
                     
                     Console.WriteLine($"Processing {element.Tags.Name}: {counter}/{count}");
 
+                    // Possibly existing summit in a different country
+                    var existing = summits.FirstOrDefault(x => x.Name == element.Tags.Name
+                                                && Math.Abs(x.Latitude - element.Lat) < 0.00001 &&
+                                                Math.Abs(x.Longitude - element.Lon) < 0.00001);
+                    if (existing != null)
+                        continue;
+
                     var summit = new Summit
                     {
                         Name = element.Tags.Name,

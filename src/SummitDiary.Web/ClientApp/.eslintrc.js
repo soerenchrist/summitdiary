@@ -16,5 +16,6 @@ module.exports = {
     'linebreak-style': 'off',
     'no-param-reassign': 'off',
     'no-underscore-dangle': 'off',
+    'no-await-in-loop': 'off',
   },
 };

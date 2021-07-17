@@ -197,4 +197,8 @@ export default {
     const response = await client.get('wishlist');
     return response.data;
   },
+  async finishWishlistItem(wishlistItem) {
+    const response = await client.put(`wishlist/${wishlistItem.id}`);
+    return response.data;
+  },
 };

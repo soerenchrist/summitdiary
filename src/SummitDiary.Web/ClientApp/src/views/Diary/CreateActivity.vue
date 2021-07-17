@@ -135,6 +135,21 @@
             </v-btn>
           </v-stepper-content>
           <v-stepper-content step="3">
+            <div v-if="wishlistItems.length > 0">
+              <h4>Von Wunschliste streichen?</h4>
+              <v-list>
+                <v-list-item v-for="wishlistItem in wishlistItems" :key="wishlistItem.id">
+                  <v-list-item-action>
+                    <v-checkbox v-model="wishlistItem.removeFromWishlist" />
+                  </v-list-item-action>
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      {{wishlistItem.summit.name}}
+                    </v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </div>
             <v-btn color="default"
               style="margin-top: 20px"
               @click="step = 2">
@@ -205,9 +220,10 @@ export default {
     uploadGpx: false,
     gpxLoading: false,
     polyline: [],
-    step: 2,
+    step: 1,
     notes: '',
     rating: 0,
+    wishlistItems: [],
 
     elevationRules: [
       (v) => !!v || 'Höhenmeter werden benötigt',
@@ -218,6 +234,11 @@ export default {
       (v) => (v && v > 0) || 'Distanz müssen positiv sein',
     ],
   }),
+  watch: {
+    summits(summits) {
+      this.getWishlistForSummits(summits);
+    },
+  },
   methods: {
     async saveActivity() {
       const activity = {
@@ -236,6 +257,13 @@ export default {
       const createdActivity = await BackendService.createActivity(activity);
       this.uploadGpxFile(createdActivity.id);
 
+      for (let i = 0; i < this.wishlistItems.length; i += 1) {
+        const wishlistItem = this.wishlistItems[i];
+        if (wishlistItem.removeFromWishlist) {
+          await BackendService.finishWishlistItem(wishlistItem);
+        }
+      }
+
       this.loading = false;
 
       this.$router.go(-1);
@@ -244,6 +272,21 @@ export default {
       if (this.gpxFile) {
         await BackendService.uploadGpx(activityId, this.gpxFile);
       }
+    },
+    async getWishlistForSummits(summits) {
+      if (!summits) return;
+      const wishlistItems = [];
+      for (let i = 0; i < summits.length; i += 1) {
+        const summit = summits[i];
+        try {
+          const wishlist = await BackendService.getWishlistItemForSummit(summit.id);
+          wishlist.removeFromWishlist = true;
+          wishlistItems.push(wishlist);
+        } catch (err) {
+          //
+        }
+      }
+      this.wishlistItems = wishlistItems;
     },
     async analyzeGpx() {
       this.gpxLoading = true;

@@ -35,7 +35,9 @@ namespace SummitDiary.Core.Endpoints.Wishlist.Queries
         
         public async Task<WishlistItemDto> Handle(GetWishlistItemForSummitQuery request, CancellationToken cancellationToken)
         {
-            var item = await _context.WishlistItems.FirstOrDefaultAsync(x => x.SummitId == request.SummitId,
+            var item = await _context.WishlistItems
+                .Include(x => x.Summit)
+                .FirstOrDefaultAsync(x => x.SummitId == request.SummitId,
                 cancellationToken);
             if (item == null)
                 throw new NotFoundException(nameof(WishlistItem), request.SummitId);
