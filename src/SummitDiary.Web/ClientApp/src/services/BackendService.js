@@ -36,6 +36,10 @@ export default {
     const response = await client.post('activities', activity);
     return response.data;
   },
+  async updateActivity(activity) {
+    const response = await client.put('activities', activity);
+    return response.data;
+  },
   async getActivity(activityId) {
     const response = await client.get(`activities/${activityId}`);
     return response.data;

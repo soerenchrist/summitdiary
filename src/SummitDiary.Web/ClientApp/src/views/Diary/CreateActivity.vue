@@ -7,7 +7,7 @@
         </v-col>
         <v-col>
           <v-btn class="pageButton"
-            v-if="step === 1"
+            v-if="step === 1 && !updateMode"
             @click="uploadGpx = true">GPX hochladen</v-btn>
         </v-col>
         <v-progress-linear indeterminate v-if="loading" />
@@ -44,6 +44,7 @@
 
                   <summits-autocomplete
                     v-model="summits"
+                    :disabled="updateMode"
                   />
 
                   <date-selector
@@ -205,6 +206,9 @@ export default {
     SummitsAutocomplete,
     SummitsMap,
   },
+  props: {
+    activityId: String,
+  },
   data: () => ({
     valid: true,
     gpxFile: null,
@@ -224,6 +228,8 @@ export default {
     notes: '',
     rating: 0,
     wishlistItems: [],
+
+    activityToUpdate: null,
 
     elevationRules: [
       (v) => !!v || 'Höhenmeter werden benötigt',
@@ -254,6 +260,17 @@ export default {
         summitIds: this.summits.map((s) => s.id),
       };
       this.loading = true;
+
+      if (this.updateMode) {
+        activity.id = this.activityToUpdate.id;
+
+        const updatedActivity = await BackendService.updateActivity(activity);
+        this.loading = false;
+
+        this.$router.push(`/activities/${updatedActivity.id}`);
+        return;
+      }
+
       const createdActivity = await BackendService.createActivity(activity);
       this.uploadGpxFile(createdActivity.id);
 
@@ -266,7 +283,7 @@ export default {
 
       this.loading = false;
 
-      this.$router.go(-1);
+      this.$router.push(`/activities/${createdActivity.id}`);
     },
     async uploadGpxFile(activityId) {
       if (this.gpxFile) {
@@ -274,7 +291,7 @@ export default {
       }
     },
     async getWishlistForSummits(summits) {
-      if (!summits) return;
+      if (!summits || this.updateMode) return;
       const wishlistItems = [];
       for (let i = 0; i < summits.length; i += 1) {
         const summit = summits[i];
@@ -305,6 +322,30 @@ export default {
       this.uploadGpx = false;
       this.gpxLoading = false;
     },
+    async getActivity() {
+      if (!this.activityId) return;
+      this.loading = true;
+      this.activityToUpdate = await BackendService.getActivity(this.activityId);
+      this.distance = this.activityToUpdate.distance;
+      this.summits = this.activityToUpdate.summits;
+      this.title = this.activityToUpdate.title;
+      this.hikeDate = this.activityToUpdate.hikeDate;
+      this.startTime = this.activityToUpdate.startTime;
+      this.endTime = this.activityToUpdate.endTime;
+      this.elevationUp = this.activityToUpdate.elevationUp;
+      this.elevationDown = this.activityToUpdate.elevationDown;
+      this.notes = this.activityToUpdate.notes;
+      this.rating = this.activityToUpdate.rating;
+      this.loading = false;
+    },
+  },
+  computed: {
+    updateMode() {
+      return this.activityId !== undefined;
+    },
+  },
+  mounted() {
+    if (this.activityId) this.getActivity();
   },
 };
 </script>

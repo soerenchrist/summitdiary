@@ -10,6 +10,9 @@
           <v-btn icon class="pageButton" @click="confirmDeletion = true">
             <v-icon>mdi-delete</v-icon>
           </v-btn>
+          <v-btn icon class="pageButton" @click="editActivity">
+            <v-icon>mdi-pencil</v-icon>
+          </v-btn>
         </v-col>
       </v-row>
       <v-row v-if="activity !== null">
@@ -143,6 +146,9 @@ export default {
       seconds %= 3600;
       const minutes = Math.floor(seconds / 60);
       return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    },
+    editActivity() {
+      this.$router.push(`/activities/${this.activityId}/edit`);
     },
   },
   computed: {

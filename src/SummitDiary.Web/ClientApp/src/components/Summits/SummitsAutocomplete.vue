@@ -7,6 +7,7 @@
     chips
     multiple
     clearable
+    :disabled="disabled"
     item-text="name"
     return-object
     label="Gipfel suchen..."
@@ -55,6 +56,7 @@ export default {
   },
   props: {
     summits: Array,
+    disabled: Boolean,
   },
   data: () => ({
     loading: false,

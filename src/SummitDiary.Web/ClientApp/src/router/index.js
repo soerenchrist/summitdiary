@@ -69,6 +69,12 @@ const routes = [
     component: ActivityDetail,
     props: true,
   },
+  {
+    path: '/activities/:activityId/edit',
+    name: 'EditActivity',
+    component: CreateActivity,
+    props: true,
+  },
 ];
 
 const router = new VueRouter({

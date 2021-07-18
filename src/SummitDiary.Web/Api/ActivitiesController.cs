@@ -23,6 +23,12 @@ namespace SummitDiary.Web.Api
             return await Mediator.Send(new GetActivityByIdQuery(id));
         }
 
+        [HttpPut]
+        public async Task<ActionResult<ActivityDto>> UpdateActivity([FromBody] UpdateActivityCommand command)
+        {
+            return await Mediator.Send(command);
+        }
+
         [HttpGet("{id:int}/path")]
         public async Task<ActionResult<AnalysisResultDto>> GetActivityPath([FromRoute] int id)
         {
