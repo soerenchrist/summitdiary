@@ -20,6 +20,10 @@ export default {
     const response = await client.post('summits', summit);
     return response.data;
   },
+  async updateSummit(summit) {
+    const response = await client.put('summits', summit);
+    return response.data;
+  },
   async createRegion(region) {
     const response = await client.post('regions', region);
     return response.data;

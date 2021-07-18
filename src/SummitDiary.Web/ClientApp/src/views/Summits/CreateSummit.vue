@@ -68,7 +68,7 @@
             <v-btn color="success"
                   :disabled="!valid"
                   @click="saveSummit">
-              Speichern
+              {{this.updateMode ? "Ändern" : "Speichern" }}
             </v-btn>
           </v-form>
         </v-col>
@@ -88,9 +88,13 @@ import BackendService from '../../services/BackendService';
 
 export default {
   components: { SelectionMap },
+  props: {
+    summitId: String,
+  },
   data: () => ({
     valid: true,
     name: '',
+    summitToChange: null,
     height: 0,
     country: null,
     region: null,
@@ -133,10 +137,25 @@ export default {
         this.position = latLng(this.latitude, lng);
       }
     },
+    summitToChange(val) {
+      if (!val) return;
+      this.height = val.height;
+      this.name = val.name;
+      this.latitude = val.latitude;
+      this.longitude = val.longitude;
+      this.region = val.region;
+      this.country = val.country;
+    },
   },
   methods: {
     positionChanged(pos) {
       this.position = pos;
+    },
+    async getSummit() {
+      if (!this.summitId) return;
+      this.loading = true;
+      this.summitToChange = await BackendService.getSummitById(this.summitId);
+      this.loading = false;
     },
     async fetchCountries() {
       this.countries = await BackendService.getCountries();
@@ -153,15 +172,28 @@ export default {
         latitude: this.latitude,
         longitude: this.longitude,
       };
-      console.log(summit);
+
+      if (this.updateMode) {
+        summit.id = parseInt(this.summitId, 10);
+        const updated = await BackendService.updateSummit(summit);
+        this.$router.push(`/summits/${updated.id}`);
+        return;
+      }
 
       const created = await BackendService.createSummit(summit);
-      this.$router.push(`summits/${created.id}`);
+      this.$router.push(`/summits/${created.id}`);
+    },
+  },
+  computed: {
+    updateMode() {
+      return this.summitId !== null && this.summitId !== undefined;
     },
   },
   mounted() {
     this.fetchCountries();
     this.fetchRegions();
+
+    if (this.summitId) this.getSummit();
   },
 };
 </script>

@@ -23,7 +23,12 @@ namespace SummitDiary.Web.Api
         {
             return await Mediator.Send(new GetSummitByIdQuery(summitId));
         }
-        
+
+        [HttpPut]
+        public async Task<ActionResult<SummitDto>> UpdateSummit([FromBody] UpdateSummitCommand command)
+        {
+            return await Mediator.Send(command);
+        }
         
         [HttpGet("{summitId:int}/wishlist")]
         public async Task<ActionResult<WishlistItemDto>> GetWishlistItem(int summitId)

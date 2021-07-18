@@ -10,8 +10,9 @@ using SummitDiary.Core.Endpoints.Summits.Dto;
 
 namespace SummitDiary.Core.Endpoints.Summits.Commands
 {
-    public class CreateSummitCommand : IRequest<SummitDto>
+    public class UpdateSummitCommand : IRequest<SummitDto>
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public int Height { get; set; }
         public double Latitude { get; set; }
@@ -19,21 +20,19 @@ namespace SummitDiary.Core.Endpoints.Summits.Commands
         public int CountryId { get; set; }
         public int RegionId { get; set; }
     }
-
-
-    public class CreateSummitCommandHandler : IRequestHandler<CreateSummitCommand, SummitDto>
+    
+    public class UpdateSummitCommandHandler : IRequestHandler<UpdateSummitCommand, SummitDto>
     {
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public CreateSummitCommandHandler(IApplicationDbContext context, IMapper mapper)
+        public UpdateSummitCommandHandler(IApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
         
-        
-        public async Task<SummitDto> Handle(CreateSummitCommand request, CancellationToken cancellationToken)
+        public async Task<SummitDto> Handle(UpdateSummitCommand request, CancellationToken cancellationToken)
         {
             var country =
                 await _context.Countries.FirstOrDefaultAsync(x => x.Id == request.CountryId, cancellationToken);
@@ -43,21 +42,22 @@ namespace SummitDiary.Core.Endpoints.Summits.Commands
                 await _context.Regions.FirstOrDefaultAsync(x => x.Id == request.RegionId, cancellationToken);
             if (region == null)
                 throw new NotFoundException(nameof(Region), request.RegionId);
-            
-            var summit = new Summit
-            {
-                Height = request.Height,
-                Latitude = request.Latitude,
-                Longitude = request.Longitude,
-                Name = request.Name,
-                CountryId = request.CountryId,
-                RegionId = request.RegionId
-            };
 
-            await _context.Summits.AddAsync(summit, cancellationToken);
+            var existing = await _context.Summits.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
+            if (existing == null)
+                throw new NotFoundException(nameof(Summit), request.Id);
+
+            existing.Height = request.Height;
+            existing.Latitude = request.Latitude;
+            existing.Longitude = request.Longitude;
+            existing.Name = request.Name;
+            existing.CountryId = request.CountryId;
+            existing.RegionId = request.RegionId;
+
+            _context.Summits.Update(existing);
             await _context.SaveChangesAsync(cancellationToken);
 
-            return _mapper.Map<SummitDto>(summit);
+            return _mapper.Map<SummitDto>(existing);
         }
     }
 }

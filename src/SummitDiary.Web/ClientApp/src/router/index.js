@@ -58,6 +58,12 @@ const routes = [
     props: true,
   },
   {
+    path: '/summits/:summitId/edit',
+    name: 'EditSummit',
+    component: CreateSummit,
+    props: true,
+  },
+  {
     path: '/activities/:activityId',
     name: 'ActivityDetail',
     component: ActivityDetail,

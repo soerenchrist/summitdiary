@@ -11,6 +11,10 @@
             @click="confirmDeletion = true">
             <v-icon>mdi-delete</v-icon>
           </v-btn>
+          <v-btn icon class="pageButton"
+            @click="updateSummit">
+            <v-icon>mdi-pencil</v-icon>
+          </v-btn>
           <summit-wishlist-button :summit="summit" class="pageButton" />
         </v-col>
       </v-row>
@@ -90,6 +94,9 @@ export default {
     },
     activitySelected(activity) {
       this.$router.push(`/activities/${activity.id}`);
+    },
+    updateSummit() {
+      this.$router.push(`/summits/${this.summitId}/edit`);
     },
   },
   watch: {
