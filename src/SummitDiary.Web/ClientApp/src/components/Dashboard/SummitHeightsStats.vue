@@ -1,8 +1,11 @@
 <template>
   <div style="padding: 12px;">
     <h3>Gipfelhöhen</h3>
-    <div style="width: 100%;" class="chart-container">
+    <div v-if="stats.length > 0" style="width: 100%;" class="chart-container">
       <canvas id="heightsChart" />
+    </div>
+    <div class="nodata" v-if="!loading && stats.length === 0">
+      Keine Gipfel bestiegen
     </div>
   </div>
 </template>
@@ -92,3 +95,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+div.nodata {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+</style>

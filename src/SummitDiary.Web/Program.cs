@@ -27,7 +27,7 @@ namespace SummitDiary.Web
 
                 await DatabaseSeed.PopulateData(context);
 #if DEBUG
-              //  TestDataGenerator.GenerateTestData(context);
+                TestDataGenerator.GenerateTestData(context);
 #endif
             }
             catch (Exception ex)
@@ -39,7 +39,7 @@ namespace SummitDiary.Web
             await host.RunAsync();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
+        private static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
     }

@@ -30,6 +30,9 @@ namespace SummitDiary.Core.Endpoints.Stats.Queries
             var climbedSummits = _context.Summits.Include(x => x.DiaryEntries)
                 .Where(x => x.DiaryEntries.Any());
 
+            if (!climbedSummits.Any())
+                return new List<BaseStatDto>();
+            
             var results = new List<BaseStatDto>();
             var highest = await climbedSummits.MaxAsync(x => x.Height, cancellationToken);
             for (int currentLower = start; currentLower < highest; currentLower += steps)

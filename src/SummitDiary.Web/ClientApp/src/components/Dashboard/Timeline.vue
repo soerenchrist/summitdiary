@@ -30,8 +30,11 @@
   </v-row>
   <v-row>
     <v-col>
-      <div style="width: 98%;" class="chart-container">
+      <div v-if="timeline.length > 0" style="width: 98%;" class="chart-container">
         <canvas id="timelineChart" />
+      </div>
+      <div class="nodata" v-if="!loading && timeline.length === 0">
+        Keine Aktivitäten
       </div>
     </v-col>
   </v-row>
@@ -164,5 +167,10 @@ export default {
 }
 .v-text-field {
   width: 150px;
+}
+div.nodata {
+  padding: 10px;
+  padding-bottom: 20px;
+  padding-top: 0;
 }
 </style>

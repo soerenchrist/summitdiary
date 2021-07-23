@@ -20,8 +20,11 @@
         dense outlined />
       </v-col>
   </v-row>
-  <div style="width: 100%;" class="chart-container">
+  <div v-if="stats.length > 0" style="width: 100%;" class="chart-container">
     <canvas id="countryChart" />
+  </div>
+  <div class="nodata" v-if="!loading && stats.length === 0">
+    Keine Aktivitäten
   </div>
 </div>
 </template>
@@ -122,5 +125,9 @@ export default {
 }
 .col {
   padding: 0;
+}
+div.nodata {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 </style>
