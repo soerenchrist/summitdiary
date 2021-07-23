@@ -1,8 +1,6 @@
-﻿using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using Bogus.DataSets;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SummitDiary.Core.Common.Exceptions;

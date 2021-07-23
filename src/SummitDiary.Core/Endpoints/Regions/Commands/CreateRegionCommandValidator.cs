@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using SummitDiary.Core.Endpoints.Countries.Commands;
 
 namespace SummitDiary.Core.Endpoints.Regions.Commands
 {

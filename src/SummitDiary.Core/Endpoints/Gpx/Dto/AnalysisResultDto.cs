@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Bogus.DataSets;
-using SummitDiary.Core.Common.Models;
 using SummitDiary.Core.Endpoints.Summits.Dto;
 
 namespace SummitDiary.Core.Endpoints.Gpx.Dto

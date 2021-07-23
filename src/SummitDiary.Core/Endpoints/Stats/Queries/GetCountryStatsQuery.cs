@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using SummitDiary.Core.Common.Interfaces;
 using SummitDiary.Core.Common.Models;
 using SummitDiary.Core.Endpoints.Stats.Dto;
-using SummitDiary.SharedKernel;
 
 namespace SummitDiary.Core.Endpoints.Stats.Queries
 {
@@ -42,7 +41,7 @@ namespace SummitDiary.Core.Endpoints.Stats.Queries
             var countries = activities.SelectMany(x => x.Summits).Select(x => x.Country).Distinct();
             foreach (var country in countries)
             {
-                var value = await activities.Where(x => x.Summits.Any(x => x.CountryId == country.Id))
+                var value = await activities.Where(x => x.Summits.Any(s => s.CountryId == country.Id))
                     .SumAsync(selector, cancellationToken);
                 results.Add(new BaseStatDto
                 {

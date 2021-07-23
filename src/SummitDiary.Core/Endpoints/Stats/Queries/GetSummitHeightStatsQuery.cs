@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using SummitDiary.Core.Common.Interfaces;
 using SummitDiary.Core.Endpoints.Stats.Dto;
@@ -36,7 +35,7 @@ namespace SummitDiary.Core.Endpoints.Stats.Queries
             for (int currentLower = start; currentLower < highest; currentLower += steps)
             {
                 var summitCount =
-                    await climbedSummits.CountAsync(x => x.Height >= currentLower && x.Height < currentLower + steps);
+                    await climbedSummits.CountAsync(x => x.Height >= currentLower && x.Height < currentLower + steps, cancellationToken);
                 results.Add(new BaseStatDto
                 {
                     Name = $"{currentLower} - {currentLower+steps} m",

@@ -1,5 +1,4 @@
-﻿using NetTopologySuite.Operation.Relate;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace SummitDiary.Core.Common.Models.Overpass
 {

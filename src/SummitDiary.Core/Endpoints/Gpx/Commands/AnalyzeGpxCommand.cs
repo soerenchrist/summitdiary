@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Xml;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using NetTopologySuite.IO;
 using SummitDiary.Core.Common.Interfaces;
-using SummitDiary.Core.Common.Models;
 using SummitDiary.Core.Endpoints.Gpx.Dto;
 using SummitDiary.Core.Endpoints.Summits.Dto;
 using SummitDiary.Core.Services;

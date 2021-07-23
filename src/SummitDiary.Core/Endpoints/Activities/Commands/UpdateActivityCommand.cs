@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SummitDiary.Core.Common.Exceptions;
 using SummitDiary.Core.Common.Interfaces;
 using SummitDiary.Core.Common.Models;
 using SummitDiary.Core.Endpoints.Activities.Dto;
-using SummitDiary.Core.Endpoints.Summits.Dto;
 
 namespace SummitDiary.Core.Endpoints.Activities.Commands
 {
@@ -82,22 +79,7 @@ namespace SummitDiary.Core.Endpoints.Activities.Commands
 
             return _mapper.Map<ActivityDto>(existing);
         }
-        
-        private async Task<List<Summit>> GetSummits(List<int> summitIDs, CancellationToken cancellationToken)
-        {
-            var summits = new List<Summit>();
-            foreach (var summitId in summitIDs)
-            {
-                var summit = await _context.Summits.FirstOrDefaultAsync(x => x.Id == summitId, cancellationToken);
-                if (summit == null)
-                    throw new NotFoundException(nameof(Summit), summitId);
-                
-                summits.Add(summit);
-            }
 
-            return summits;
-        }
-        
         private DateTime? ParseTime(string time, DateTime date)
         {
             var parts = time.Split(":");

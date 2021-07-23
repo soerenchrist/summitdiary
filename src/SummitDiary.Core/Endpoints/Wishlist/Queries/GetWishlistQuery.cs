@@ -6,7 +6,6 @@ using AutoMapper;
 using MediatR;
 using SummitDiary.Core.Common.Interfaces;
 using SummitDiary.Core.Common.Mapping;
-using SummitDiary.Core.Common.Models;
 using SummitDiary.Core.Endpoints.Wishlist.Dto;
 
 namespace SummitDiary.Core.Endpoints.Wishlist.Queries

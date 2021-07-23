@@ -64,7 +64,7 @@ namespace SummitDiary.Core.Endpoints.Activities.Query
 
             if (request.SummitId != null)
             {
-                ordered = ordered.Where(x => x.Summits.Any(x => x.Id == request.SummitId));
+                ordered = ordered.Where(x => x.Summits.Any(s => s.Id == request.SummitId));
             }
 
             return ordered.ProjectTo<ActivityDto>(_mapper.ConfigurationProvider)
