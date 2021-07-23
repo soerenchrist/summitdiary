@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using NetTopologySuite.IO;
 using SummitDiary.Core.Common.Interfaces;
 using SummitDiary.Core.Common.Models;
 using SummitDiary.Core.Endpoints.Gpx.Dto;
+using SummitDiary.Core.Endpoints.Summits.Dto;
 using SummitDiary.Core.Services;
 
 namespace SummitDiary.Core.Endpoints.Gpx.Commands
@@ -24,10 +26,12 @@ namespace SummitDiary.Core.Endpoints.Gpx.Commands
     public class AnalyzeGpxCommandHandler : IRequestHandler<AnalyzeGpxCommand, AnalysisResultDto>
     {
         private readonly IApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public AnalyzeGpxCommandHandler(IApplicationDbContext context)
+        public AnalyzeGpxCommandHandler(IApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
         
         public async Task<AnalysisResultDto> Handle(AnalyzeGpxCommand request, CancellationToken cancellationToken)
@@ -38,7 +42,7 @@ namespace SummitDiary.Core.Endpoints.Gpx.Commands
             return dto;
         }
 
-        private Task<Summit> FindSummit(List<Waypoint> waypoints)
+        private async Task<SummitDto> FindSummit(List<Waypoint> waypoints)
         {
             Waypoint? maxWaypoint = null;
             foreach (var waypoint in waypoints)
@@ -61,12 +65,18 @@ namespace SummitDiary.Core.Endpoints.Gpx.Commands
             var upperLat = maxWaypoint.Value.Latitude + offset;
             var upperLon = maxWaypoint.Value.Longitude + offset;
 
-            return _context.Summits
+            var summit = await _context.Summits
                 .Include(x => x.Region)
                 .Include(x => x.Country)
                 .FirstOrDefaultAsync(x => x.Latitude > lowerLat && x.Latitude < upperLat
                                                                        && x.Longitude > lowerLon &&
                                                                        x.Longitude < upperLon);
+            if (summit != null)
+            {
+                return _mapper.Map<SummitDto>(summit);
+            }
+
+            return null;
         }
     }
     

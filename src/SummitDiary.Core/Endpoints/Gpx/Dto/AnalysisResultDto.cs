@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using Bogus.DataSets;
 using SummitDiary.Core.Common.Models;
+using SummitDiary.Core.Endpoints.Summits.Dto;
 
 namespace SummitDiary.Core.Endpoints.Gpx.Dto
 {
     public class AnalysisResultDto
     {
         public string ProposedTitle { get; set; }
-        public Summit ProposedSummit { get; set; }
+        public SummitDto ProposedSummit { get; set; }
         public int ElevationUp { get; set; }
         public int ElevationDown { get; set; }
         public DateTime? HikeDate { get; set; }

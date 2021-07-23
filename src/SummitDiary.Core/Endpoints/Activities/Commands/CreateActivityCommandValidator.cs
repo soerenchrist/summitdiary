@@ -20,8 +20,6 @@ namespace SummitDiary.Core.Endpoints.Activities.Commands
                 .GreaterThanOrEqualTo(0);
             RuleFor(x => x.Distance)
                 .GreaterThan(0);
-            RuleFor(x => x.SummitIds)
-                .NotEmpty();
         }
     }
 }

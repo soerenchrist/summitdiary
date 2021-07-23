@@ -30,7 +30,7 @@ namespace SummitDiary.Web
 
                 await DatabaseSeed.PopulateData(context);
 #if DEBUG
-                TestDataGenerator.GenerateTestData(context);
+              //  TestDataGenerator.GenerateTestData(context);
 #endif
             }
             catch (Exception ex)

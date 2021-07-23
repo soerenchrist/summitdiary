@@ -92,7 +92,7 @@
 
                   <v-btn color="success"
                     @click="step = 2"
-                    :disabled="!valid || summits.length === 0">
+                    :disabled="!valid">
                     Weiter
                   </v-btn>
                 </v-form>
