@@ -26,6 +26,12 @@ namespace SummitDiary.Web.Api
         {
             return await Mediator.Send(query);
         }
+        
+        [HttpGet("summits/heights")]
+        public async Task<ActionResult<List<BaseStatDto>>> GetSummitHeights()
+        {
+            return await Mediator.Send(new GetSummitHeightStatsQuery());
+        }
 
         [HttpGet("totals")]
         public async Task<ActionResult<TotalsDto>> GetTotals()

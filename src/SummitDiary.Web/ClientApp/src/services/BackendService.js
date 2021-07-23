@@ -209,4 +209,8 @@ export default {
     const response = await client.put(`wishlist/${wishlistItem.id}`);
     return response.data;
   },
+  async getSummitHeightStats() {
+    const response = await client.get('stats/summits/heights');
+    return response.data;
+  },
 };

@@ -1,7 +1,8 @@
 <template>
 <div style="padding: 12px;">
   <h3>Wunschliste</h3>
-  <v-simple-table>
+  <p class="nodata" v-if="wishlist.length === 0">Aktuell keine Gipfel auf der Wunschliste</p>
+  <v-simple-table v-if="wishlist.length > 0">
     <template v-slot:default>
       <thead>
         <tr>
@@ -57,5 +58,9 @@ export default {
 <style scoped>
 .pointerRow {
   cursor: pointer;
+}
+p.nodata {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 </style>
