@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using NetTopologySuite.IO;
+using SummitDiary.Core.Common.Util;
 using SummitDiary.Core.Endpoints.Gpx.Commands;
 using SummitDiary.Core.Endpoints.Gpx.Dto;
 
@@ -11,6 +12,37 @@ namespace SummitDiary.Core.Services
 {
     public class GpxAnalyzer
     {
+        public AnalysisResultDto AnalyzePath(List<Waypoint> waypoints)
+        {
+            double totalElevationUp = 0.0;
+            double totalElevationDown = 0.0;
+            double totalDistance = 0.0;
+
+            for (int i = 0; i < waypoints.Count - 1; i++)
+            {
+                var current = waypoints[i];
+                var next = waypoints[i + 1];
+
+                var elevationDiff = next.Elevation - current.Elevation;
+                if (elevationDiff > 0)
+                    totalElevationUp += elevationDiff;
+                else
+                    totalElevationDown += elevationDiff;
+
+                var distance = DistanceAlgorithm.DistanceBetweenPlaces(current.Longitude, current.Latitude,
+                    next.Longitude, next.Latitude);
+                totalDistance += distance;
+            }
+
+            return new AnalysisResultDto
+            {
+                Distance = totalDistance,
+                Path = waypoints,
+                ElevationDown = -1 * (int) totalElevationDown,
+                ElevationUp = (int) totalElevationUp,
+            };
+        }
+        
         public AnalysisResultDto AnalyzeGpx(Stream gpxFile, int compressValue = 1)
         {
             using var xmlReader = new XmlTextReader(gpxFile);

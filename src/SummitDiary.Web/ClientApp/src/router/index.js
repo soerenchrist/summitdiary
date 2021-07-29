@@ -10,6 +10,7 @@ import CreateSummit from '../views/Summits/CreateSummit.vue';
 import ActivityOverview from '../views/Diary/ActivityOverview.vue';
 import ActivityDetail from '../views/Diary/ActivityDetail.vue';
 import CreateActivity from '../views/Diary/CreateActivity.vue';
+import Plan from '../views/Plan.vue';
 
 // eslint-disable-next-line no-underscore-dangle
 delete Icon.Default.prototype._getIconUrl;
@@ -73,6 +74,12 @@ const routes = [
     path: '/activities/:activityId/edit',
     name: 'EditActivity',
     component: CreateActivity,
+    props: true,
+  },
+  {
+    path: '/plan',
+    name: 'Plan',
+    component: Plan,
     props: true,
   },
 ];

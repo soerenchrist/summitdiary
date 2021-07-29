@@ -59,8 +59,13 @@ export default {
         link: '/summits',
       },
       {
+        icon: 'mdi-map',
+        name: 'Planen',
+        link: '/plan',
+      },
+      {
         icon: 'mdi-cogs',
-        name: 'Settings',
+        name: 'Einstellungen',
         link: '/settings',
       },
     ],

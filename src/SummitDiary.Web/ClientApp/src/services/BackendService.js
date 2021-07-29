@@ -173,6 +173,10 @@ export default {
     const response = await client.post('gpx/analyze', formData);
     return response.data;
   },
+  async analyzePath(path) {
+    const response = await client.post('gpx/analyzepath', path);
+    return response.data;
+  },
   async getTimeline(options) {
     const { valueType, timeType } = options;
     const response = await client.get(`stats/timeline?valueType=${valueType}&timeType=${timeType}`);

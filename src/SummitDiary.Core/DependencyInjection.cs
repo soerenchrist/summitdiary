@@ -3,6 +3,8 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using SummitDiary.Core.Common.Behaviors;
+using SummitDiary.Core.Common.Interfaces;
+using SummitDiary.Core.Services;
 
 namespace SummitDiary.Core
 {
@@ -15,7 +17,8 @@ namespace SummitDiary.Core
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-
+            services.AddTransient<IElevationService, ElevationService>();
+            
             return services;
         }
     }

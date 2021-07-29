@@ -12,5 +12,11 @@ namespace SummitDiary.Web.Api
         {
             return await Mediator.Send(command);
         }
+        
+        [HttpPost("analyzepath")]
+        public async Task<ActionResult<AnalysisResultDto>> AnalyzePath([FromBody] AnalyzePathCommand command)
+        {
+            return await Mediator.Send(command);
+        }
     }
 }
