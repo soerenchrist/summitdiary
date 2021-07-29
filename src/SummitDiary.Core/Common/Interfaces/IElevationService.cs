@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace SummitDiary.Core.Common.Interfaces
 {
     public interface IElevationService
     {
-        Task<double?> GetElevation(double latitude, double longitude);
+        Task<double?> GetElevation(double latitude, double longitude, CancellationToken cancellationToken = default);
     }
 }

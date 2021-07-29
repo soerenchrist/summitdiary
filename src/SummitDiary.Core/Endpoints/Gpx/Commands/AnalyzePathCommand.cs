@@ -28,7 +28,7 @@ namespace SummitDiary.Core.Endpoints.Gpx.Commands
             var waypoints = new List<Waypoint>();
             foreach (var point in request.Points)
             {
-                var elevation = await _elevationService.GetElevation(point.Latitude, point.Longitude);
+                var elevation = await _elevationService.GetElevation(point.Latitude, point.Longitude, cancellationToken);
                 if (elevation == null)
                     continue;
 

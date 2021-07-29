@@ -13,6 +13,9 @@
             <v-btn icon :disabled="path.length === 0" @click="undo">
               <v-icon>mdi-undo</v-icon>
             </v-btn>
+            <v-btn icon :disabled="path.length === 0" @click="exportGpx">
+              <v-icon>mdi-export</v-icon>
+            </v-btn>
           </v-toolbar>
           <l-map
             :zoom="zoom"
@@ -57,7 +60,7 @@
             <v-list-item>
               <v-list-item-content>
                 <v-list-item-title>
-                  {{elevationDown.toFixed(2)}} km
+                  {{elevationDown.toFixed(2)}} m
                 </v-list-item-title>
                 <v-list-item-subtitle>
                   Höhenmeter ab
@@ -126,6 +129,15 @@ export default {
       this.distance = response.distance;
       this.elevationUp = response.elevationUp;
       this.elevationDown = response.elevationDown;
+      this.loading = false;
+    },
+    async exportGpx() {
+      this.loading = true;
+      const path = this.path.map((x) => ({
+        latitude: x.lat,
+        longitude: x.lng,
+      }));
+      await BackendService.exportGpx({ points: path });
       this.loading = false;
     },
   },

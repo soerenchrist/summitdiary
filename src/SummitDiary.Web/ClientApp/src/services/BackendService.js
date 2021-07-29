@@ -177,6 +177,19 @@ export default {
     const response = await client.post('gpx/analyzepath', path);
     return response.data;
   },
+  async exportGpx(path) {
+    const response = await axios({
+      url: `${baseUrl}gpx/generateGpx`,
+      method: 'POST',
+      data: path,
+      responseType: 'blob',
+    });
+    const url = window.URL.createObjectURL(response.data);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'Tour.gpx';
+    link.click();
+  },
   async getTimeline(options) {
     const { valueType, timeType } = options;
     const response = await client.get(`stats/timeline?valueType=${valueType}&timeType=${timeType}`);

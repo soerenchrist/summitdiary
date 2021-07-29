@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Net.Http;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading;
 using System.Threading.Tasks;
 using MonkeyCache.FileStore;
 using SummitDiary.Core.Common.Interfaces;
@@ -19,7 +20,7 @@ namespace SummitDiary.Core.Services
             _httpClient = new HttpClient();
         }
         
-        public async Task<double?> GetElevation(double latitude, double longitude)
+        public async Task<double?> GetElevation(double latitude, double longitude, CancellationToken cancellationToken = default)
         {
             var cacheKey =
                 $"elevation-{Math.Round(latitude, 4).ToString(CultureInfo.InvariantCulture)},{Math.Round(longitude, 4).ToString(CultureInfo.InvariantCulture)}";
@@ -30,7 +31,7 @@ namespace SummitDiary.Core.Services
             }
             else
             {
-                json = await FetchElevationFromApi(latitude, longitude);
+                json = await FetchElevationFromApi(latitude, longitude, cancellationToken);
             }
 
             if (json == null)
@@ -42,7 +43,7 @@ namespace SummitDiary.Core.Services
             
             Barrel.Current.Add(cacheKey, json, TimeSpan.MaxValue);
 
-            if (response.Status == "OK" && response.Results.Count > 0)
+            if (response.Results is {Count: > 0})
             {
                 return response.Results[0].Elevation;
             }
@@ -50,20 +51,21 @@ namespace SummitDiary.Core.Services
             return null;
         }
 
-        private Task<string> FetchElevationFromApi(double latitude, double longitude)
+        private async Task<string> FetchElevationFromApi(double latitude, double longitude,
+            CancellationToken cancellationToken)
         {
             var latString = latitude.ToString(CultureInfo.InvariantCulture);
             var lonString = longitude.ToString(CultureInfo.InvariantCulture);
-            var baseUrl = $"https://api.opentopodata.org/v1/srtm90m?locations={latString},{lonString}&interpolation=cubic";
-            return _httpClient.GetStringAsync(baseUrl);
+            var baseUrl = $"https://api.open-elevation.com/api/v1/lookup?locations={latString},{lonString}";
+            var response = await _httpClient.GetAsync(baseUrl, cancellationToken).ConfigureAwait(false);
+            response.EnsureSuccessStatusCode();
+
+            return await response.Content.ReadAsStringAsync(cancellationToken);
         }
     }
 
     public class ElevationResponse
     {
-        [JsonPropertyName("status")]
-        public string Status { get; set; }
-        
         [JsonPropertyName("results")]
         public List<ElevationResult> Results { get; set; }
     }
