@@ -7,7 +7,7 @@ namespace SummitDiary.Core.Endpoints.Wishlist.Dto
     public class WishlistItemDto : IMapFrom<WishlistItem>
     {
         public int Id { get; set; }
-        public SummitDto Summit { get; set; }
+        public SummitDto? Summit { get; set; }
         public bool Finished { get; set; }
     }
 }

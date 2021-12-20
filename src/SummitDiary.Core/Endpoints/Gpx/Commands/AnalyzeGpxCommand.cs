@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +11,7 @@ namespace SummitDiary.Core.Endpoints.Gpx.Commands
 {
     public class AnalyzeGpxCommand : IRequest<AnalysisResultDto>
     {
-        public IFormFile File { get; set; }
+        public IFormFile? File { get; set; }
     }
 
     public class AnalyzeGpxCommandHandler : IRequestHandler<AnalyzeGpxCommand, AnalysisResultDto>
@@ -30,13 +27,16 @@ namespace SummitDiary.Core.Endpoints.Gpx.Commands
         
         public async Task<AnalysisResultDto> Handle(AnalyzeGpxCommand request, CancellationToken cancellationToken)
         {
+            if (request.File == null)
+                throw new ArgumentNullException(nameof(request.File));
+            
             var analyzer = new GpxAnalyzer();
             var dto = analyzer.AnalyzeGpx(request.File.OpenReadStream());
             dto.ProposedSummit = await FindSummit(dto.Path);
             return dto;
         }
 
-        private async Task<SummitDto> FindSummit(List<Waypoint> waypoints)
+        private async Task<SummitDto?> FindSummit(List<Waypoint> waypoints)
         {
             Waypoint? maxWaypoint = null;
             foreach (var waypoint in waypoints)

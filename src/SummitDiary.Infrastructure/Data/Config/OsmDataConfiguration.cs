@@ -9,7 +9,7 @@ namespace SummitDiary.Infrastructure.Data.Config
         public void Configure(EntityTypeBuilder<OsmData> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.HasOne(x => x.Summit)
+            builder.HasOne(x => x.Summit!)
                 .WithMany(x => x.OsmData)
                 .HasForeignKey(x => x.SummitId);
         }

@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SummitDiary.Core.Common.Models;
 
 namespace SummitDiary.Core.Common.Interfaces

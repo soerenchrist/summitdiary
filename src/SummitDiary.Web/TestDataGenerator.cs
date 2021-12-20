@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Bogus;
+﻿using Bogus;
 using SummitDiary.Core.Common.Interfaces;
 using SummitDiary.Core.Common.Models;
 

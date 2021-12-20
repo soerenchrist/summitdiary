@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SummitDiary.Core.Endpoints.Wishlist.Commands;
 using SummitDiary.Core.Endpoints.Wishlist.Dto;
 using SummitDiary.Core.Endpoints.Wishlist.Queries;
@@ -16,7 +14,7 @@ namespace SummitDiary.Web.Api
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<WishlistItemDto>> FinisheWishlistItem(int id)
+        public async Task<ActionResult<WishlistItemDto>> FinishWishlistItem(int id)
         {
             return await Mediator.Send(new FinishWishlistItemCommand(id));
         }

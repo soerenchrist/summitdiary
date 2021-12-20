@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SummitDiary.Core.Common.Interfaces;
@@ -12,7 +9,7 @@ namespace SummitDiary.Core.Endpoints.Countries.Commands
 {
     public class CreateCountryCommand : IRequest<CountryDto>
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
     }
 
     public class CreateCountryCommandHandler : IRequestHandler<CreateCountryCommand, CountryDto>

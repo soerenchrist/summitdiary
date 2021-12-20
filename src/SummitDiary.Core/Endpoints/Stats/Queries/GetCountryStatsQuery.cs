@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SummitDiary.Core.Common.Interfaces;
@@ -38,10 +33,14 @@ namespace SummitDiary.Core.Endpoints.Stats.Queries
             };
 
             var results = new List<BaseStatDto>();
-            var countries = activities.SelectMany(x => x.Summits).Select(x => x.Country).Distinct();
+            var countries = activities
+                .SelectMany(x => x.Summits!)
+                .Select(x => x.Country!)
+                .Distinct();
             foreach (var country in countries)
             {
-                var value = await activities.Where(x => x.Summits.Any(s => s.CountryId == country.Id))
+                var value = await activities.Where(x => 
+                        x.Summits!.Any(s => s.CountryId == country.Id))
                     .SumAsync(selector, cancellationToken);
                 results.Add(new BaseStatDto
                 {

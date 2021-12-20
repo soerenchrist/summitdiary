@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SummitDiary.Core.Common.Interfaces;
 using SummitDiary.Core.Endpoints.Stats.Dto;
@@ -28,7 +25,7 @@ namespace SummitDiary.Core.Endpoints.Stats.Queries
             var elevation = await _context.Activities.SumAsync(x => x.ElevationUp, cancellationToken);
             var duration = await _context.Activities.SumAsync(x => x.Duration, cancellationToken);
             var activityCount = await _context.Activities.CountAsync(cancellationToken);
-            var summitCount = await _context.Activities.SelectMany(x => x.Summits).Distinct()
+            var summitCount = await _context.Activities.SelectMany(x => x.Summits!).Distinct()
                 .CountAsync(cancellationToken);
             
             return new TotalsDto

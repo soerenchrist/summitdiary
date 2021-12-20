@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Xml;
+﻿using System.Xml;
 using NetTopologySuite.IO;
 using SummitDiary.Core.Common.Util;
-using SummitDiary.Core.Endpoints.Gpx.Commands;
 using SummitDiary.Core.Endpoints.Gpx.Dto;
 
 namespace SummitDiary.Core.Services
@@ -14,9 +9,9 @@ namespace SummitDiary.Core.Services
     {
         public AnalysisResultDto AnalyzePath(List<Waypoint> waypoints)
         {
-            double totalElevationUp = 0.0;
-            double totalElevationDown = 0.0;
-            double totalDistance = 0.0;
+            var totalElevationUp = 0.0;
+            var totalElevationDown = 0.0;
+            var totalDistance = 0.0;
 
             for (int i = 0; i < waypoints.Count - 1; i++)
             {
@@ -110,7 +105,7 @@ namespace SummitDiary.Core.Services
             };
         }
         
-        private string ParseTimeStamp(DateTime? timestampUtc)
+        private string? ParseTimeStamp(DateTime? timestampUtc)
         {
             if (timestampUtc == null)
                 return null;

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Net.Http;
+﻿using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading;
-using System.Threading.Tasks;
 using MonkeyCache.FileStore;
 using SummitDiary.Core.Common.Interfaces;
 
@@ -66,8 +61,7 @@ namespace SummitDiary.Core.Services
 
     public class ElevationResponse
     {
-        [JsonPropertyName("results")]
-        public List<ElevationResult> Results { get; set; }
+        [JsonPropertyName("results")] public List<ElevationResult> Results { get; set; } = new();
     }
 
     public class ElevationResult

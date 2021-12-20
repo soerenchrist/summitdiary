@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SummitDiary.Core.Common.Models;
 
@@ -18,7 +17,7 @@ namespace SummitDiary.Infrastructure.Data.Config
                     v => v.ToString(),
                     v => (FileType) Enum.Parse(typeof(FileType), v));
             
-            builder.HasOne(x => x.Activity)
+            builder.HasOne(x => x.Activity!)
                 .WithMany(x => x.Attachments)
                 .HasForeignKey(x => x.ActivityId);
         }

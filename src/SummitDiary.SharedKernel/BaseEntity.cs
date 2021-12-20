@@ -1,6 +1,6 @@
 ﻿namespace SummitDiary.SharedKernel
 {
-    public abstract class BaseEntity<TKey>
+    public abstract class BaseEntity<TKey> where TKey : struct
     {
         public TKey Id { get; set; }
     }

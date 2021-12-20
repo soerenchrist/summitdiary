@@ -1,7 +1,4 @@
-﻿using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -13,7 +10,7 @@ namespace SummitDiary.Core.Endpoints.Activities.Commands
 {
     public class UploadGpxCommand : IRequest
     {
-        public IFormFile File { get; set; }
+        public IFormFile? File { get; set; }
         public int ActivityId { get; set; }
     }
 
@@ -34,7 +31,7 @@ namespace SummitDiary.Core.Endpoints.Activities.Commands
             var activity =
                 await _context.Activities.FirstOrDefaultAsync(x => x.Id == request.ActivityId, cancellationToken);
 
-            if (activity == null)
+            if (activity == null || request.File == null)
                 throw new NotFoundException(nameof(Activity), request.ActivityId);
             
             var basePath = _configuration.GetValue("Files:Gpx:Path", "files/gpx");

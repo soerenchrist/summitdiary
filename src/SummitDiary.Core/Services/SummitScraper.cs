@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 using Newtonsoft.Json;
 using SummitDiary.Core.Common.Models;
 using SummitDiary.Core.Common.Models.Overpass;
@@ -35,16 +30,14 @@ namespace SummitDiary.Core.Services
 
                 var content = await File.ReadAllTextAsync(path);
                 var response = JsonConvert.DeserializeObject<OverpassResult>(content);
-                if (response == null)
-                    continue;
-                var count = response.Elements.Count();
+                var count = response.Elements?.Count();
                 Console.WriteLine($"Found {count} mountains");
 
                 var counter = 0;
-                foreach (var element in response.Elements)
+                foreach (var element in response.Elements ?? new List<OverpassElement>())
                 {
                     counter++;
-                    if (string.IsNullOrWhiteSpace(element.Tags.Ele)) continue;
+                    if (string.IsNullOrWhiteSpace(element.Tags?.Ele)) continue;
                     if (string.IsNullOrWhiteSpace(element.Tags.Name)) continue;
 
                     if (!double.TryParse(element.Tags.Ele, NumberStyles.Any, CultureInfo.InvariantCulture,
@@ -84,15 +77,15 @@ namespace SummitDiary.Core.Services
         private IEnumerable<OsmData> GetOsmData(OverpassElement element)
         {
             var tags = new List<OsmData>();
-            if (!string.IsNullOrWhiteSpace(element.Tags.Ele))
+            if (!string.IsNullOrWhiteSpace(element.Tags?.Ele))
                 tags.Add(new OsmData{TagName = "ele", Value = element.Tags.Ele, OpenStreetMapId = element.Id});
-            if (!string.IsNullOrWhiteSpace(element.Tags.Prominence))
+            if (!string.IsNullOrWhiteSpace(element.Tags?.Prominence))
                 tags.Add(new OsmData{TagName = "prominence", Value = element.Tags.Prominence, OpenStreetMapId = element.Id});
-            if (!string.IsNullOrWhiteSpace(element.Tags.Wikidata))
+            if (!string.IsNullOrWhiteSpace(element.Tags?.Wikidata))
                 tags.Add(new OsmData{TagName = "wikidata", Value = element.Tags.Wikidata, OpenStreetMapId = element.Id});
-            if (!string.IsNullOrWhiteSpace(element.Tags.Wikipedia))
+            if (!string.IsNullOrWhiteSpace(element.Tags?.Wikipedia))
                 tags.Add(new OsmData{TagName = "wikipedia", Value = element.Tags.Wikipedia, OpenStreetMapId = element.Id});
-            if (!string.IsNullOrWhiteSpace(element.Tags.Cross))
+            if (!string.IsNullOrWhiteSpace(element.Tags?.Cross))
                 tags.Add(new OsmData{TagName = "summit:cross", Value = element.Tags.Cross, OpenStreetMapId = element.Id});
 
             return tags;

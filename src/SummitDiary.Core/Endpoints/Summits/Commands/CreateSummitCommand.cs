@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SummitDiary.Core.Common.Exceptions;
@@ -12,7 +10,7 @@ namespace SummitDiary.Core.Endpoints.Summits.Commands
 {
     public class CreateSummitCommand : IRequest<SummitDto>
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         public int Height { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }

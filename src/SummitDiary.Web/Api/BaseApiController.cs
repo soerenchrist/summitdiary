@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace SummitDiary.Web.Api
 {
@@ -8,7 +7,8 @@ namespace SummitDiary.Web.Api
     [ApiController]
     public abstract class BaseApiController : ControllerBase
     {
-        private ISender _mediator;
-        protected ISender Mediator => _mediator ??= HttpContext.RequestServices.GetService<ISender>();
+        private ISender? _mediator;
+        protected ISender Mediator => _mediator 
+            ??= HttpContext.RequestServices.GetRequiredService<ISender>();
     }
 }

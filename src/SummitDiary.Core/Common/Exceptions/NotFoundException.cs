@@ -1,14 +1,7 @@
-﻿using System;
-
-namespace SummitDiary.Core.Common.Exceptions
+﻿namespace SummitDiary.Core.Common.Exceptions
 {
     public class NotFoundException : Exception
     {
-        public NotFoundException()
-            : base("Element with given ID not found")
-        {
-        }
-
         public NotFoundException(string message)
             : base(message)
         {
@@ -21,7 +14,7 @@ namespace SummitDiary.Core.Common.Exceptions
             KeyValue = value;
         }
 
-        public string ElementName { get; set; }
-        public object KeyValue { get; set; }
+        public string? ElementName { get; }
+        public object? KeyValue { get; }
     }
 }

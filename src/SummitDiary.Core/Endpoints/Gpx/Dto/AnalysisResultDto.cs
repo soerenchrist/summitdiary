@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using SummitDiary.Core.Endpoints.Summits.Dto;
+﻿using SummitDiary.Core.Endpoints.Summits.Dto;
 
 namespace SummitDiary.Core.Endpoints.Gpx.Dto
 {
     public class AnalysisResultDto
     {
-        public string ProposedTitle { get; set; }
-        public SummitDto ProposedSummit { get; set; }
+        public string ProposedTitle { get; set; } = string.Empty;
+        public SummitDto? ProposedSummit { get; set; }
         public int ElevationUp { get; set; }
         public int ElevationDown { get; set; }
         public DateTime? HikeDate { get; set; }
         public double Distance { get; set; }
-        public string StartTime { get; set; }
-        public string EndTime { get; set; }
-        public List<Waypoint> Path { get; set; }
+        public string? StartTime { get; set; }
+        public string? EndTime { get; set; }
+        public List<Waypoint> Path { get; set; } = new();
         public Waypoint StartPoint { get; set; }
         public Waypoint EndPoint { get; set; }
     }

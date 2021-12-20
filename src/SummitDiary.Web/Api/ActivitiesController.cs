@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SummitDiary.Core.Common.Models.Common;
 using SummitDiary.Core.Endpoints.Activities.Commands;
 using SummitDiary.Core.Endpoints.Activities.Dto;

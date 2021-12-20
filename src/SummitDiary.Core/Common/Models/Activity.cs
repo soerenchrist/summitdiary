@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using SummitDiary.SharedKernel;
+﻿using SummitDiary.SharedKernel;
 
 namespace SummitDiary.Core.Common.Models
 {
     public class Activity : BaseEntity<int>
     {
-        public IEnumerable<Summit> Summits { get; set; }
-        public string Title { get; set; }
+        public IEnumerable<Summit>? Summits { get; set; }
+        public string Title { get; set; } = string.Empty;
         public DateTime HikeDate { get; set; }
-        public string Notes { get; set; } = "";
+        public string Notes { get; set; } = string.Empty;
         public int Rating { get; set; }
         public double ElevationUp { get; set; }
         public double ElevationDown { get; set; }
@@ -18,6 +16,6 @@ namespace SummitDiary.Core.Common.Models
         public DateTime? EndTime { get; set; }
         public int Duration { get; set; }
 
-        public IEnumerable<Attachment> Attachments { get; set; }
+        public IEnumerable<Attachment>? Attachments { get; set; }
     }
 }

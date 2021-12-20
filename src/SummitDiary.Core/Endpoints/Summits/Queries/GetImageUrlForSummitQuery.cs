@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MonkeyCache.FileStore;
 using Newtonsoft.Json;
@@ -56,7 +51,7 @@ namespace SummitDiary.Core.Endpoints.Summits.Queries
             if (wikidata == null)
                 throw new NotFoundException(nameof(OsmData), request.SummitId);
 
-            string wikipediaFilename = await GetWikiFilename(wikidata.Value);
+            var wikipediaFilename = await GetWikiFilename(wikidata.Value);
             if (wikipediaFilename == null)
                 throw new NotFoundException("Image", request.SummitId);
 
@@ -71,15 +66,13 @@ namespace SummitDiary.Core.Endpoints.Summits.Queries
             };
         }
 
-        private async Task<string> GetWikiFilename(string wikidataId)
+        private async Task<string?> GetWikiFilename(string wikidataId)
         {
             var baseUrl = $"https://www.wikidata.org/w/api.php?action=wbgetclaims&property=P18&entity={wikidataId}&format=json";
             using var httpClient = new HttpClient();
             var data = await httpClient.GetStringAsync(baseUrl);
 
             var response = JsonConvert.DeserializeObject<WikidataClaimsResponse>(data);
-            if (response == null)
-                return null;
 
             if (response.Claims?.Images.Count == 0)
                 return null;
@@ -91,32 +84,31 @@ namespace SummitDiary.Core.Endpoints.Summits.Queries
     public class WikidataClaimsResponse
     {
         [JsonProperty("claims")]
-        public WikidataClaims Claims { get; set; }
+        public WikidataClaims? Claims { get; set; }
     }
 
     public class WikidataClaims
     {
-        [JsonProperty("P18")]
-        public List<WikidataImage> Images { get; set; }
+        [JsonProperty("P18")] public List<WikidataImage> Images { get; set; } = new();
     }
 
     public class WikidataImage
     {
         [JsonProperty("mainsnak")]
-        public WikidataSnak Mainsnak { get; set; }
+        public WikidataSnak? Mainsnak { get; set; }
     }
 
     public class WikidataSnak
     {
         [JsonProperty("datavalue")]
-        public WikidataValue DataValue { get; set; }
+        public WikidataValue? DataValue { get; set; }
     }
 
     public class WikidataValue
     {
         [JsonProperty("type")]
-        public string Type { get; set; }
+        public string? Type { get; set; }
         [JsonProperty("value")]
-        public string Value { get; set; }
+        public string? Value { get; set; }
     }
 }

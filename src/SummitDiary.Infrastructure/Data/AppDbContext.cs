@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Ardalis.EFCore.Extensions;
+﻿using Ardalis.EFCore.Extensions;
 using Microsoft.EntityFrameworkCore;
 using SummitDiary.Core.Common.Interfaces;
 using SummitDiary.Core.Common.Models;
@@ -14,14 +12,14 @@ namespace SummitDiary.Infrastructure.Data
             : base(options)
         {
         }
-        
-        public DbSet<Summit> Summits { get; set; }
-        public DbSet<Region> Regions { get; set; }
-        public DbSet<Country> Countries { get; set; }
-        public DbSet<Activity> Activities { get; set; }
-        public DbSet<Attachment> Attachments { get; set; }
-        public DbSet<OsmData> OsmData { get; set; }
-        public DbSet<WishlistItem> WishlistItems { get; set; }
+
+        public DbSet<Summit> Summits { get; set; } = default!;
+        public DbSet<Region> Regions { get; set; } = default!;
+        public DbSet<Country> Countries { get; set; } = default!;
+        public DbSet<Activity> Activities { get; set; } = default!;
+        public DbSet<Attachment> Attachments { get; set; } = default!;
+        public DbSet<OsmData> OsmData { get; set; } = default!;
+        public DbSet<WishlistItem> WishlistItems { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +13,7 @@ namespace SummitDiary.Core.Endpoints.Summits.Queries
     public class GetSummitsWithPaginationQuery : IRequest<PaginatedList<SummitDto>>
     {
         public string SearchText { get; set; } = "";
-        public string SortBy { get; set; }
+        public string? SortBy { get; set; }
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 10;
         public bool OnlyClimbed { get; set; } = false;
@@ -60,7 +57,7 @@ namespace SummitDiary.Core.Endpoints.Summits.Queries
 
             if (request.OnlyClimbed)
             {
-                ordered = ordered.Where(x => x.DiaryEntries.Any());
+                ordered = ordered.Where(x => x.DiaryEntries!.Any());
             }
 
             if (request.NeLat != null && request.NeLon != null &&
@@ -75,9 +72,9 @@ namespace SummitDiary.Core.Endpoints.Summits.Queries
                 .PaginatedListAsync(request.PageNumber, request.PageSize);
             foreach (var dto in items.Items)
             {
-                dto.Climbed = _context.Summits.Include(x => x.DiaryEntries)
+                dto.Climbed = _context.Summits.Include(x => x.DiaryEntries!)
                     .First(x => x.Id == dto.Id)
-                    .DiaryEntries.Any();
+                    .DiaryEntries!.Any();
             }
 
             return items;

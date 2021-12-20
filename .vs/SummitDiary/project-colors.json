@@ -1,0 +1,26 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "c666fe0d-ec26-4041-be3b-847e3330819f": {
+      "ProjectGuid": "c666fe0d-ec26-4041-be3b-847e3330819f",
+      "DisplayName": "SummitDiary.Core",
+      "ColorIndex": 0
+    },
+    "e25508fc-a018-4251-b578-4b3f3d591c5b": {
+      "ProjectGuid": "e25508fc-a018-4251-b578-4b3f3d591c5b",
+      "DisplayName": "SummitDiary.Infrastructure",
+      "ColorIndex": 1
+    },
+    "dee3ca10-2aaa-4c61-8825-f67adf2b3044": {
+      "ProjectGuid": "dee3ca10-2aaa-4c61-8825-f67adf2b3044",
+      "DisplayName": "SummitDiary.SharedKernel",
+      "ColorIndex": 2
+    },
+    "8d14f227-4ad2-4af7-b5df-af8864d3f5e9": {
+      "ProjectGuid": "8d14f227-4ad2-4af7-b5df-af8864d3f5e9",
+      "DisplayName": "SummitDiary.Web",
+      "ColorIndex": 3
+    }
+  },
+  "NextColorIndex": 4
+}

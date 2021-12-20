@@ -12,8 +12,8 @@ namespace SummitDiary.Infrastructure.Data.Config
             builder.Property(x => x.Id)
                 .ValueGeneratedOnAdd();
 
-            builder.HasOne(x => x.Summit)
-                .WithOne(x => x.WishlistItem)
+            builder.HasOne(x => x.Summit!)
+                .WithOne(x => x.WishlistItem!)
                 .HasForeignKey<WishlistItem>(x => x.SummitId);
         }
     }

@@ -1,8 +1,4 @@
-﻿using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SummitDiary.Core.Common.Exceptions;
 using SummitDiary.Core.Common.Interfaces;
@@ -40,7 +36,7 @@ namespace SummitDiary.Core.Endpoints.Activities.Query
             if (activity == null)
                 throw new NotFoundException(nameof(Activity), request.ActivityId);
 
-            var gpxAttachment = activity.Attachments.FirstOrDefault(x => x.FileType == FileType.Gpx);
+            var gpxAttachment = activity.Attachments!.FirstOrDefault(x => x.FileType == FileType.Gpx);
             if (gpxAttachment == null)
                 throw new NotFoundException(nameof(Attachment), request.ActivityId);
 

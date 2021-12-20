@@ -1,5 +1,4 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace SummitDiary.Core.Endpoints.Activities.Commands
 {

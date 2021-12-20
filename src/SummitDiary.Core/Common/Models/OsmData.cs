@@ -6,9 +6,9 @@ namespace SummitDiary.Core.Common.Models
     {
         public long OpenStreetMapId { get; set; }
         public int SummitId { get; set; }
-        public Summit Summit { get; set; }
+        public Summit? Summit { get; set; }
 
-        public string TagName { get; set; }
-        public string Value { get; set; }
+        public string TagName { get; set; } = string.Empty;
+        public string Value { get; set; } = string.Empty;
     }
 }

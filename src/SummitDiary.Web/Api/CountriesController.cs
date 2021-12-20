@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SummitDiary.Core.Endpoints.Countries.Commands;
 using SummitDiary.Core.Endpoints.Countries.Dto;
 using SummitDiary.Core.Endpoints.Countries.Queries;

@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SummitDiary.Core.Common.Exceptions;
@@ -34,7 +31,7 @@ namespace SummitDiary.Core.Endpoints.Stats.Queries
                 .Include(x => x.Country)
                 .Include(x => x.DiaryEntries)
                 .OrderByDescending(x => x.Height)
-                .FirstOrDefaultAsync(x => x.DiaryEntries.Any(), cancellationToken);
+                .FirstOrDefaultAsync(x => x.DiaryEntries!.Any(), cancellationToken);
 
             if (summit == null)
                 throw new NotFoundException(nameof(Summit), "");

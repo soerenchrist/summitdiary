@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -15,8 +12,8 @@ namespace SummitDiary.Core.Endpoints.Activities.Query
 {
     public class GetActivitiesWithPaginationQuery : IRequest<PaginatedList<ActivityDto>>
     {
-        public string SearchText { get; set; }
-        public string SortBy { get; set; }
+        public string? SearchText { get; set; }
+        public string? SortBy { get; set; }
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 10;
         public int? SummitId { get; set; }
@@ -64,7 +61,7 @@ namespace SummitDiary.Core.Endpoints.Activities.Query
 
             if (request.SummitId != null)
             {
-                ordered = ordered.Where(x => x.Summits.Any(s => s.Id == request.SummitId));
+                ordered = ordered.Where(x => x.Summits!.Any(s => s.Id == request.SummitId));
             }
 
             return ordered.ProjectTo<ActivityDto>(_mapper.ConfigurationProvider)

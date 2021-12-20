@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SummitDiary.Core.Common.Util
+﻿namespace SummitDiary.Core.Common.Util
 {
     static class DistanceAlgorithm
     {

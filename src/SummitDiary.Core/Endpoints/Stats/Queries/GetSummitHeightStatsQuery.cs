@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SummitDiary.Core.Common.Interfaces;
 using SummitDiary.Core.Endpoints.Stats.Dto;
@@ -27,8 +23,10 @@ namespace SummitDiary.Core.Endpoints.Stats.Queries
         {
             const int start = 2000;
             const int steps = 250;
-            var climbedSummits = _context.Summits.Include(x => x.DiaryEntries)
-                .Where(x => x.DiaryEntries.Any());
+            var climbedSummits = _context
+                .Summits
+                .Include(x => x.DiaryEntries)
+                .Where(x => x.DiaryEntries!.Any());
 
             if (!climbedSummits.Any())
                 return new List<BaseStatDto>();

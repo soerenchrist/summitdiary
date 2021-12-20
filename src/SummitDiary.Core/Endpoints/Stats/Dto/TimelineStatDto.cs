@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SummitDiary.Core.Endpoints.Stats.Dto
+﻿namespace SummitDiary.Core.Endpoints.Stats.Dto
 {
     public class TimelineStatDto
     {

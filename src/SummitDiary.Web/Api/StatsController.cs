@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SummitDiary.Core.Endpoints.Stats.Dto;
 using SummitDiary.Core.Endpoints.Stats.Queries;
 using SummitDiary.Core.Endpoints.Summits.Dto;

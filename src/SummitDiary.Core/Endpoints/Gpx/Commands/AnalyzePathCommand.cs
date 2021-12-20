@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using SummitDiary.Core.Common.Interfaces;
 using SummitDiary.Core.Endpoints.Gpx.Dto;
 using SummitDiary.Core.Services;
@@ -11,7 +7,7 @@ namespace SummitDiary.Core.Endpoints.Gpx.Commands
 {
     public class AnalyzePathCommand : IRequest<AnalysisResultDto>
     {
-        public List<PathPointDto> Points { get; set; }
+        public List<PathPointDto> Points { get; set; } = new();
     }
 
     public class AnalyzePathCommandHandler : IRequestHandler<AnalyzePathCommand, AnalysisResultDto>

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using SummitDiary.Core.Common.Mapping;
+﻿using SummitDiary.Core.Common.Mapping;
 using SummitDiary.Core.Common.Models;
 using SummitDiary.Core.Endpoints.Summits.Dto;
 
@@ -9,9 +7,9 @@ namespace SummitDiary.Core.Endpoints.Activities.Dto
     public class ActivityDto : IMapFrom<Activity>
     {
         public int Id { get; set; }
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
         public DateTime HikeDate { get; set; }
-        public string Notes { get; set; }
+        public string Notes { get; set; } = string.Empty;
         public int Rating { get; set; }
         public double ElevationUp { get; set; }
         public double ElevationDown { get; set; }
@@ -19,6 +17,6 @@ namespace SummitDiary.Core.Endpoints.Activities.Dto
         public DateTime? StartTime { get; set; }
         public DateTime? EndTime { get; set; }
         public int Duration { get; set; }
-        public List<SummitDto> Summits { get; set; }
+        public List<SummitDto> Summits { get; set; } = new();
     }
 }
