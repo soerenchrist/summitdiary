@@ -8,3 +8,6 @@ src/SummitDiary.Web/diary.db
 src/SummitDiary.Web/diary.db-shm
 
 src/SummitDiary.Web/diary.db-wal
+
+src/SummitDiary.Web/files/
+src/SummitDiary.Web/files/gpx/
