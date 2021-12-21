@@ -46,7 +46,6 @@ const routes = [
     path: '/activities',
     name: 'ActivityOverview',
     component: ActivityOverview,
-    props: (route) => ({ page: parseInt(route.query.page, 10) || 1 }),
   },
   {
     path: '/createactivity',

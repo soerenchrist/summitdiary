@@ -31,7 +31,6 @@ import BackendService from '../../services/BackendService';
 
 export default {
   components: { ActivityTable },
-  props: ['page', 'perPage'],
   data: () => ({
     activities: [],
     loading: false,
@@ -63,14 +62,6 @@ export default {
   },
   watch: {
     options(opts) {
-      const { page } = opts;
-      const query = { page };
-      if (query.page) {
-        if (this.isCurrentPage(query.page)) {
-          return;
-        }
-        this.$router.push({ name: 'ActivityOverview', query });
-      }
       opts.searchText = this.searchText;
       this.getActivities(opts);
     },

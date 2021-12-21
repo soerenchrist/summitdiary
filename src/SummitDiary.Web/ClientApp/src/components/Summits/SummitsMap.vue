@@ -7,7 +7,6 @@
       :maxZoom="16"
       style="height: 600px"
       @update:bounds="boundsUpdated"
-      @ready="mapLoaded"
       :options="mapOptions">
       <l-tile-layer
         :url="url"
@@ -24,7 +23,7 @@
 </template>
 
 <script>
-import { latLng, LatLngBounds } from 'leaflet';
+import { latLng } from 'leaflet';
 import SummitMapPopup from './SummitMapPopup.vue';
 
 export default {
@@ -65,27 +64,8 @@ export default {
         neLon: bounds._northEast.lng,
       });
     },
-    fitBounds() {
-      if (!this.autoCenter) return;
-      if (this.summits.length === 0) return;
-
-      const coords = [];
-      this.summits.forEach((summit) => {
-        coords.push(latLng(summit.latitude, summit.longitude));
-      });
-
-      const bounds = new LatLngBounds(coords);
-      this.$refs.map.fitBounds(bounds, { padding: [50, 50] });
-    },
-    mapLoaded() {
-      if (this.summits) {
-        this.fitBounds();
-      }
-    },
-  },
-  watch: {
-    summits() {
-      this.fitBounds();
+    fitBounds(bounds, padding) {
+      this.$refs.map.fitBounds(bounds, { padding });
     },
   },
 };

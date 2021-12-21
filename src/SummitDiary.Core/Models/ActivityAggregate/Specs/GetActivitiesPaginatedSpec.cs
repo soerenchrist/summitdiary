@@ -4,7 +4,27 @@ namespace SummitDiary.Core.Models.ActivityAggregate.Specs;
 
 public sealed class GetActivitiesPaginatedSpec : Specification<Activity>
 {
-    public GetActivitiesPaginatedSpec(int pageSize, int pageNumber, 
+    public GetActivitiesPaginatedSpec(int pageSize, int pageNumber,
+        string sortBy = "hikeDate",
+        bool sortDescending = true,
+        string? searchText = null,
+        int? summitId = null)
+    {
+        SetupBuilder(pageSize, pageNumber, sortBy, sortDescending, searchText, summitId);
+    }
+    
+    public GetActivitiesPaginatedSpec(
+        string sortBy = "hikeDate",
+        bool sortDescending = true,
+        string? searchText = null,
+        int? summitId = null)
+    {
+        SetupBuilder(null, null, sortBy, sortDescending, searchText, summitId);
+    }
+
+    private void SetupBuilder(
+        int? pageSize = null,
+        int? pageNumber = null,
         string sortBy = "hikeDate",
         bool sortDescending = true,
         string? searchText = null,
@@ -26,7 +46,7 @@ public sealed class GetActivitiesPaginatedSpec : Specification<Activity>
             _ => Query.OrderBy(x => x.Duration),
         };
         builder.Include(x => x.Summits);
-        
+
         if (!string.IsNullOrWhiteSpace(searchText))
             builder.Where(x => x.Title.ToLower().Contains(searchText));
 
@@ -35,7 +55,10 @@ public sealed class GetActivitiesPaginatedSpec : Specification<Activity>
             builder.Where(x => x.Summits!.Any(y => y.Id == summitId.Value));
         }
 
-        builder.Skip(pageSize * (pageNumber - 1))
-            .Take(pageSize);
+        if (pageNumber != null && pageSize != null)
+        {
+            builder.Skip(pageSize.Value * (pageNumber.Value - 1))
+                .Take(pageSize.Value);
+        }
     }
 }

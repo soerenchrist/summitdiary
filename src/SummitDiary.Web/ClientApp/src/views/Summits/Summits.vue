@@ -37,6 +37,7 @@
           </v-col>
           <v-col>
             <summits-map
+              ref="map"
               :center="center"
               :zoom="zoom"
               :summits="summits"
@@ -50,7 +51,7 @@
 </template>
 
 <script>
-import { latLng } from 'leaflet';
+import { latLng, latLngBounds } from 'leaflet';
 import SummitsMap from '../../components/Summits/SummitsMap.vue';
 import SummitsTable from '../../components/Summits/SummitsTable.vue';
 import BackendService from '../../services/BackendService';
@@ -65,6 +66,8 @@ export default {
     onlyClimbed: false,
     bounds: null,
     selectedSummit: null,
+    center: latLng(47.2285, 11.9135),
+    zoom: 6,
     options: {},
   }),
   methods: {
@@ -88,19 +91,6 @@ export default {
       this.bounds = bounds;
     },
   },
-  computed: {
-    center() {
-      if (!this.selectedSummit) {
-        return latLng(47.2285, 11.9135);
-      }
-
-      return latLng(this.selectedSummit.latitude, this.selectedSummit.longitude);
-    },
-    zoom() {
-      if (this.selectedSummit) return 10;
-      return 6;
-    },
-  },
   watch: {
     options() {
       this.getSummits();
@@ -113,6 +103,14 @@ export default {
     },
     searchText() {
       this.getSummits();
+    },
+    selectedSummit() {
+      if (!this.selectedSummit) return;
+      const bounds = latLngBounds(
+        [latLng(this.selectedSummit.latitude, this.selectedSummit.longitude)],
+      );
+      const padding = [100, 100];
+      this.$refs.map.fitBounds(bounds, padding);
     },
   },
   mounted() {

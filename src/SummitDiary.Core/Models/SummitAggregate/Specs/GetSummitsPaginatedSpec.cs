@@ -12,6 +12,26 @@ public sealed class GetSummitsPaginatedSpec : Specification<Summit>
         bool onlyClimbed = false,
         Bounds? bounds = null)
     {
+        SetupBuilder(pageSize, pageNumber, sortBy, sortDescending, searchText, onlyClimbed, bounds);
+    }
+    
+    public GetSummitsPaginatedSpec(string sortBy = "name",
+        bool sortDescending = false,
+        string? searchText = null,
+        bool onlyClimbed = false,
+        Bounds? bounds = null)
+    {
+        SetupBuilder(null, null, sortBy, sortDescending, searchText, onlyClimbed, bounds);
+    }
+
+    private void SetupBuilder(int? pageSize = null,
+        int? pageNumber = null,
+        string sortBy = "name",
+        bool sortDescending = false,
+        string? searchText = null,
+        bool onlyClimbed = false,
+        Bounds? bounds = null)
+    {
         var builder = (sortBy, sortDescending) switch
         {
             ("height", true) => Query.OrderByDescending(x => x.Height),
@@ -37,7 +57,10 @@ public sealed class GetSummitsPaginatedSpec : Specification<Summit>
                                x.Longitude <= bounds.NeLon);
         }
 
-        builder.Skip(pageSize * (pageNumber - 1))
-            .Take(pageSize);
+        if (pageNumber != null && pageSize != null)
+        {
+            builder.Skip(pageSize.Value * (pageNumber.Value - 1))
+                .Take(pageSize.Value);
+        }
     }
 }

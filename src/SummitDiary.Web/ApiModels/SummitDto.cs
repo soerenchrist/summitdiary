@@ -1,4 +1,6 @@
-﻿using SummitDiary.Core.Common.Mapping;
+﻿using System.Text.Json.Serialization;
+using SummitDiary.Core.Common.Mapping;
+using SummitDiary.Core.Models.ActivityAggregate;
 using SummitDiary.Core.Models.SummitAggregate;
 
 namespace SummitDiary.Web.ApiModels;
@@ -11,5 +13,7 @@ public class SummitDto : IMapFrom<Summit>
     public double Longitude { get; set; }
     public CountryDto? Country { get; set; }
     public RegionDto? Region { get; set; }
-    public bool Climbed { get; set; }
+    public bool Climbed => DiaryEntries?.Any() ?? false;
+
+    [JsonIgnore] public List<Activity>? DiaryEntries { get; set; } = null;
 }

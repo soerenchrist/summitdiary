@@ -49,7 +49,14 @@ public class ListPaginated : BaseAsyncEndpoint
             request.OnlyClimbed,
             bounds);
         
-        var count = await _summitRepository.CountAsync(cancellationToken);
+        var countSpec = new GetSummitsPaginatedSpec(
+            request.SortBy ?? "name",
+            request.SortDescending,
+            request.SearchText,
+            request.OnlyClimbed,
+            bounds);
+        
+        var count = await _summitRepository.CountAsync(countSpec, cancellationToken);
         var summits = await _summitRepository.ListAsync(spec, cancellationToken);
         var dtos = _mapper.Map<List<SummitDto>>(summits);
         return new PaginatedList<SummitDto>(dtos, count, request.PageNumber, request.PageSize);

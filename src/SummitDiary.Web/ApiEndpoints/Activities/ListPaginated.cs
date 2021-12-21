@@ -35,8 +35,14 @@ public class ListPaginated : BaseAsyncEndpoint
             request.SearchText,
             request.SummitId);
         
+        var countSpec = new GetActivitiesPaginatedSpec(
+            request.SortBy ?? "hikeDate",
+            request.SortDescending,
+            request.SearchText,
+            request.SummitId);
+        
         var results = await _activityRepository.ListAsync(spec, cancellationToken);
-        var count = await _activityRepository.CountAsync(cancellationToken);
+        var count = await _activityRepository.CountAsync(countSpec, cancellationToken);
 
         var dtos = _mapper.Map<List<ActivityDto>>(results);
 
