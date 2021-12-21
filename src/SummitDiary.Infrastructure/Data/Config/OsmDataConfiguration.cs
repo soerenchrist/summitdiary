@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SummitDiary.Core.Common.Models;
+using SummitDiary.Core.Models.SummitAggregate;
 
 namespace SummitDiary.Infrastructure.Data.Config
 {

@@ -1,18 +1,16 @@
+using System.Reflection;
+using Microsoft.OpenApi.Models;
 using MonkeyCache.FileStore;
 using SummitDiary.Core.Common.Config;
-using SummitDiary.Core.Common.Interfaces;
 using SummitDiary.Web;
-using SummitDiary.Web.Attributes;
 
 Barrel.ApplicationId = "summitdiary";
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure services
-builder.Services.AddControllersWithViews(options =>
-{
-    options.Filters.Add(typeof(NotFoundExceptionFilterAttribute));
-});
+builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
             
 builder.Services.Configure<CookiePolicyOptions>(options =>
 {
@@ -20,6 +18,16 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
     options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 var databaseConfiguration = new DatabaseConfiguration(builder.Configuration);
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "GipfelStürmer",
+        Version = "v1"
+    });
+    c.EnableAnnotations();
+});
 
 builder.Services.AddCoreDependencies();
 builder.Services.AddInfrastructureDependencies(databaseConfiguration);
@@ -65,7 +73,7 @@ var services = scope.ServiceProvider;
 
 try
 {
-    var context = services.GetRequiredService<IApplicationDbContext>();
+    var context = services.GetRequiredService<AppDbContext>();
     context.EnsureCreated();
 
     await DatabaseSeed.PopulateData(context);

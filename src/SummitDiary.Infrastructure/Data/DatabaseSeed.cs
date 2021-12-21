@@ -1,5 +1,4 @@
-﻿using SummitDiary.Core.Common.Interfaces;
-using SummitDiary.Core.Common.Models;
+﻿using SummitDiary.Core.Models.SummitAggregate;
 using SummitDiary.Core.Services;
 
 namespace SummitDiary.Infrastructure.Data
@@ -38,7 +37,7 @@ namespace SummitDiary.Infrastructure.Data
             }
         };
 
-        public static async Task PopulateData(IApplicationDbContext context)
+        public static async Task PopulateData(AppDbContext context)
         {
             if (!context.Countries.Any())
             {

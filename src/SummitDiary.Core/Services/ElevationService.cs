@@ -2,7 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using MonkeyCache.FileStore;
-using SummitDiary.Core.Common.Interfaces;
+using SummitDiary.Core.Services.Interfaces;
 
 namespace SummitDiary.Core.Services
 {

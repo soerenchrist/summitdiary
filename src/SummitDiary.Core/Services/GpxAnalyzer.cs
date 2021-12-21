@@ -1,13 +1,15 @@
 ﻿using System.Xml;
 using NetTopologySuite.IO;
 using SummitDiary.Core.Common.Util;
-using SummitDiary.Core.Endpoints.Gpx.Dto;
+using SummitDiary.Core.Models.Common;
+using SummitDiary.Core.Services.Interfaces;
 
 namespace SummitDiary.Core.Services
 {
-    public class GpxAnalyzer
+
+    public class GpxAnalyzer : IGpxAnalyzer
     {
-        public AnalysisResultDto AnalyzePath(List<Waypoint> waypoints)
+        public AnalysisResult AnalyzePath(List<Waypoint> waypoints)
         {
             var totalElevationUp = 0.0;
             var totalElevationDown = 0.0;
@@ -29,7 +31,7 @@ namespace SummitDiary.Core.Services
                 totalDistance += distance;
             }
 
-            return new AnalysisResultDto
+            return new AnalysisResult
             {
                 Distance = totalDistance,
                 Path = waypoints,
@@ -38,7 +40,7 @@ namespace SummitDiary.Core.Services
             };
         }
         
-        public AnalysisResultDto AnalyzeGpx(Stream gpxFile, int compressValue = 1)
+        public AnalysisResult AnalyzeGpx(Stream gpxFile, int compressValue = 1)
         {
             using var xmlReader = new XmlTextReader(gpxFile);
             var file = GpxFile.ReadFrom(xmlReader, new GpxReaderSettings
@@ -90,7 +92,7 @@ namespace SummitDiary.Core.Services
             var startTime = ParseTimeStamp(startPoint.TimestampUtc);
             var endTime = ParseTimeStamp(endPoint.TimestampUtc);
 
-            return new AnalysisResultDto
+            return new AnalysisResult
             {
                 Distance = totalDistance,
                 ElevationDown = (int) totalElevationDown * -1,

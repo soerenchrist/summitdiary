@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using Newtonsoft.Json;
-using SummitDiary.Core.Common.Models;
-using SummitDiary.Core.Common.Models.Overpass;
+using SummitDiary.Core.Models.Common.Overpass;
+using SummitDiary.Core.Models.SummitAggregate;
 
 namespace SummitDiary.Core.Services
 {
