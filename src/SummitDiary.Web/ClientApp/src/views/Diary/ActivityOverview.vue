@@ -55,20 +55,24 @@ export default {
     activitySelected(activity) {
       this.$router.push(`/activities/${activity.id}`);
     },
+    isCurrentPage(page) {
+      return this.$router.currentRoute.query
+        && this.$router.currentRoute.query.page
+        && parseInt(this.$router.currentRoute.query.page, 10) === page;
+    },
   },
   watch: {
     options(opts) {
       const { page } = opts;
       const query = { page };
-      if (this.$router.currentRoute.query.page !== query.page) {
-        console.log('Nav');
+      if (query.page) {
+        if (this.isCurrentPage(query.page)) {
+          return;
+        }
         this.$router.push({ name: 'ActivityOverview', query });
       }
       opts.searchText = this.searchText;
       this.getActivities(opts);
-    },
-    page() {
-      this.options.page = this.page;
     },
     searchText(text) {
       this.options.searchText = text;

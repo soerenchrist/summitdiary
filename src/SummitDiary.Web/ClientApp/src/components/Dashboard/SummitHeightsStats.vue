@@ -1,7 +1,7 @@
 <template>
   <div style="padding: 12px;">
     <h3>Gipfelhöhen</h3>
-    <div v-if="stats.length > 0" style="width: 100%;" class="chart-container">
+    <div style="width: 100%;" class="chart-container">
       <canvas id="heightsChart" />
     </div>
     <div class="nodata" v-if="!loading && stats.length === 0">

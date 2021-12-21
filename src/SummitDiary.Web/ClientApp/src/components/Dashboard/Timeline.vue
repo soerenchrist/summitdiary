@@ -30,7 +30,7 @@
   </v-row>
   <v-row>
     <v-col>
-      <div v-if="timeline.length > 0" style="width: 98%;" class="chart-container">
+      <div style="width: 98%;" class="chart-container">
         <canvas id="timelineChart" />
       </div>
       <div class="nodata" v-if="!loading && timeline.length === 0">
