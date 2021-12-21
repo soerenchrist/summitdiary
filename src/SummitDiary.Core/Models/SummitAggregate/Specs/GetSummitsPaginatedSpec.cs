@@ -44,7 +44,7 @@ public sealed class GetSummitsPaginatedSpec : Specification<Summit>
             .Include(x => x.Region);
         
         if (!string.IsNullOrWhiteSpace(searchText))
-            builder.Where(x => x.Name.ToLower().Contains(searchText));
+            builder.Where(x => x.Name.ToLower().Contains(searchText.ToLower()));
 
         if (onlyClimbed)
             builder.Where(x => x.DiaryEntries!.Any());

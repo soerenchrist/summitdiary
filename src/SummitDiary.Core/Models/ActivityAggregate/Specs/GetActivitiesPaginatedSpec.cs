@@ -48,7 +48,7 @@ public sealed class GetActivitiesPaginatedSpec : Specification<Activity>
         builder.Include(x => x.Summits);
 
         if (!string.IsNullOrWhiteSpace(searchText))
-            builder.Where(x => x.Title.ToLower().Contains(searchText));
+            builder.Where(x => x.Title.ToLower().Contains(searchText.ToLower()));
 
         if (summitId != null)
         {

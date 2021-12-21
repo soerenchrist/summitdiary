@@ -98,7 +98,9 @@
                 </v-form>
               </v-col>
               <v-col>
-                <summits-map :summits="summits"
+                <summits-map
+                  ref="map"
+                  :summits="summits"
                   :autoCenter="true"
                   :loading="false"
                   :polyline="polyline" />
@@ -243,6 +245,10 @@ export default {
   watch: {
     summits(summits) {
       this.getWishlistForSummits(summits);
+
+      const bounds = summits.map((s) => latLng(s.latitude, s.longitude));
+
+      this.$refs.map.fitBounds(bounds, [100, 100]);
     },
   },
   methods: {

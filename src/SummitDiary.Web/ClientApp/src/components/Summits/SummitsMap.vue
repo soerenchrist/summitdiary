@@ -5,7 +5,7 @@
       :zoom="zoom"
       :center="center"
       :maxZoom="16"
-      style="height: 600px"
+      style="height: 600px; width: 100%"
       @update:bounds="boundsUpdated"
       :options="mapOptions">
       <l-tile-layer
@@ -67,6 +67,11 @@ export default {
     fitBounds(bounds, padding) {
       this.$refs.map.fitBounds(bounds, { padding });
     },
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.$refs.map.mapObject.invalidateSize();
+    });
   },
 };
 </script>
