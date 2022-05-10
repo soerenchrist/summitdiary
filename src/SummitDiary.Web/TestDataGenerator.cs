@@ -2,6 +2,7 @@
 using SummitDiary.Core.Models.ActivityAggregate;
 
 namespace SummitDiary.Web;
+
 public static class TestDataGenerator
 {
     public static void GenerateTestData(AppDbContext context)
@@ -18,9 +19,9 @@ public static class TestDataGenerator
                 .RuleFor(x => x.HikeDate, x => x.Date.Past())
                 .RuleFor(x => x.Notes, x => x.Commerce.ProductDescription())
                 .RuleFor(x => x.Summits, x => new[]
- {
-     context.Summits.Find(x.Random.Number(1,500)) ?? throw new InvalidOperationException()
- });
+                {
+                    context.Summits.Find(x.Random.Number(1, 500)) ?? throw new InvalidOperationException()
+                });
 
             for (int i = 0; i < 200; i++)
             {
@@ -28,7 +29,7 @@ public static class TestDataGenerator
                 context.Activities.Add(entry);
             }
 
-            context.SaveChangesAsync();
+            context.SaveChanges();
         }
     }
 }
