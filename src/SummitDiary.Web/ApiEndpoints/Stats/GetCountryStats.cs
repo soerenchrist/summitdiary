@@ -3,9 +3,9 @@ using SummitDiary.Core.Models.ActivityAggregate.Specs;
 
 namespace SummitDiary.Web.ApiEndpoints.Stats;
 
-public class GetCountryStats : BaseAsyncEndpoint
+public class GetCountryStats : EndpointBaseAsync
     .WithRequest<GetCountryStatsRequest>
-    .WithResponse<List<BaseStatDto>>
+    .WithActionResult<List<BaseStatDto>>
 {
     private readonly IReadRepository<Activity> _activityRepository;
 

@@ -3,9 +3,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace SummitDiary.Web.ApiEndpoints.Wishlist;
 
-public class Create : BaseAsyncEndpoint
+public class Create : EndpointBaseAsync
     .WithRequest<CreateWishlistItemRequest>
-    .WithResponse<WishlistItemDto>
+    .WithActionResult<WishlistItemDto>
 {
     private readonly IReadRepository<Summit> _summitRepository;
     private readonly IRepository<WishlistItem> _wishlistRepository;

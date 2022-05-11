@@ -3,9 +3,9 @@ using SummitDiary.Core.Models.ActivityAggregate.Specs;
 
 namespace SummitDiary.Web.ApiEndpoints.Activities;
 
-public class UploadGpx : BaseAsyncEndpoint
+public class UploadGpx : EndpointBaseAsync
     .WithRequest<UploadGpxRequest>
-    .WithoutResponse
+    .WithoutResult
 {
     private readonly IReadRepository<Activity> _activityRepository;
     private readonly IRepository<Attachment> _attachmentRepository;

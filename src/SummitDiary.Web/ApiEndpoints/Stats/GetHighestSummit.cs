@@ -3,9 +3,9 @@ using SummitDiary.Core.Models.SummitAggregate.Specs;
 
 namespace SummitDiary.Web.ApiEndpoints.Stats;
 
-public class GetHighestSummit : BaseAsyncEndpoint
+public class GetHighestSummit : EndpointBaseAsync
     .WithoutRequest
-    .WithResponse<SummitDto>
+    .WithActionResult<SummitDto>
 {
     private readonly IReadRepository<Summit> _summitRepository;
     private readonly IMapper _mapper;

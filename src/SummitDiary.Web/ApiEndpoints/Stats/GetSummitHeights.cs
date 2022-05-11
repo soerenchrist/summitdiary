@@ -3,9 +3,9 @@ using SummitDiary.Core.Models.SummitAggregate.Specs;
 
 namespace SummitDiary.Web.ApiEndpoints.Stats;
 
-public class GetSummitHeights : BaseAsyncEndpoint
+public class GetSummitHeights : EndpointBaseAsync
     .WithoutRequest
-    .WithResponse<List<BaseStatDto>>
+    .WithActionResult<List<BaseStatDto>>
 {
     private readonly IReadRepository<Summit> _summitRepository;
 

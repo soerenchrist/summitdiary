@@ -5,9 +5,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace SummitDiary.Web.ApiEndpoints.Activities;
 
-public class Create : BaseAsyncEndpoint
+public class Create : EndpointBaseAsync
     .WithRequest<CreateActivityRequest>
-    .WithResponse<ActivityDto>
+    .WithActionResult<ActivityDto>
 {
     private readonly IRepository<Activity> _activityRepository;
     private readonly IMapper _mapper;

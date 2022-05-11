@@ -7,9 +7,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace SummitDiary.Web.ApiEndpoints.Analyze;
 
-public class ExportGpx : BaseAsyncEndpoint
+public class ExportGpx : EndpointBaseAsync
     .WithRequest<ExportGpxRequest>
-    .WithoutResponse
+    .WithoutResult
 {
     private readonly IElevationService _elevationService;
 

@@ -5,9 +5,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace SummitDiary.Web.ApiEndpoints.Activities;
 
-public class Update : BaseAsyncEndpoint
+public class Update : EndpointBaseAsync
     .WithRequest<UpdateActivityRequest>
-    .WithResponse<ActivityDto>
+    .WithActionResult<ActivityDto>
 {
     private readonly IRepository<Activity> _activityRepository;
     private readonly IMapper _mapper;

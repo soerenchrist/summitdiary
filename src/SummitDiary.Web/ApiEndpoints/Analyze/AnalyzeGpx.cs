@@ -6,9 +6,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace SummitDiary.Web.ApiEndpoints.Analyze;
 
-public class AnalyzeGpx : BaseAsyncEndpoint
+public class AnalyzeGpx : EndpointBaseAsync
     .WithRequest<AnalyzeGpxRequest>
-    .WithResponse<AnalysisResultDto>
+    .WithActionResult<AnalysisResultDto>
 {
     private readonly IMapper _mapper;
     private readonly IReadRepository<Summit> _summitRepository;

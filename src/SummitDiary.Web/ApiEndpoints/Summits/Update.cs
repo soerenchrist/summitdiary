@@ -3,9 +3,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace SummitDiary.Web.ApiEndpoints.Summits;
 
-public class Update : BaseAsyncEndpoint
+public class Update : EndpointBaseAsync
     .WithRequest<UpdateSummitRequest>
-    .WithResponse<SummitDto>
+    .WithActionResult<SummitDto>
 {
     private readonly IRepository<Summit> _summitRepository;
     private readonly IReadRepository<Country> _countryRepository;

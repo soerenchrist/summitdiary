@@ -3,9 +3,9 @@ using SummitDiary.Core.Models.ActivityAggregate.Specs;
 
 namespace SummitDiary.Web.ApiEndpoints.Stats;
 
-public class GetTotals : BaseAsyncEndpoint
+public class GetTotals : EndpointBaseAsync
     .WithoutRequest
-    .WithResponse<TotalsDto>
+    .WithActionResult<TotalsDto>
 {
     private readonly IReadRepository<Activity> _activityRepository;
 

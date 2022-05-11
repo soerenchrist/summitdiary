@@ -4,9 +4,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace SummitDiary.Web.ApiEndpoints.Regions;
 
-public class Create : BaseAsyncEndpoint
+public class Create : EndpointBaseAsync
     .WithRequest<CreateRegionRequest>
-    .WithResponse<RegionDto>
+    .WithActionResult<RegionDto>
 {
     private readonly IRepository<Region> _regionRepository;
     private readonly IMapper _mapper;

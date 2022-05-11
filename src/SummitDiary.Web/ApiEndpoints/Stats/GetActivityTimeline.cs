@@ -3,9 +3,9 @@ using SummitDiary.Core.Models.ActivityAggregate.Specs;
 
 namespace SummitDiary.Web.ApiEndpoints.Stats;
 
-public class GetActivityTimeline : BaseAsyncEndpoint
+public class GetActivityTimeline : EndpointBaseAsync
     .WithRequest<GetActivityTimelineRequest>
-    .WithResponse<List<TimelineStatDto>>
+    .WithActionResult<List<TimelineStatDto>>
 {
     private readonly IReadRepository<Activity> _activityRepository;
 

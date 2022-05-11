@@ -3,9 +3,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace SummitDiary.Web.ApiEndpoints.Summits;
 
-public class Delete : BaseAsyncEndpoint
+public class Delete : EndpointBaseAsync
     .WithRequest<DeleteSummitRequest>
-    .WithoutResponse
+    .WithoutResult
 {
     private readonly IRepository<Summit> _summitRepository;
 

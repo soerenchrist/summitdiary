@@ -4,9 +4,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace SummitDiary.Web.ApiEndpoints.Countries;
 
-public class Create : BaseAsyncEndpoint
+public class Create : EndpointBaseAsync
     .WithRequest<CreateCountryRequest>
-    .WithResponse<CountryDto>
+    .WithActionResult<CountryDto>
 {
     private readonly IRepository<Country> _countryRepository;
     private readonly IMapper _mapper;

@@ -5,9 +5,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace SummitDiary.Web.ApiEndpoints.Activities;
 
-public class ListPaginated : BaseAsyncEndpoint
+public class ListPaginated : EndpointBaseAsync
     .WithRequest<ListActivitiesPaginatedRequest>
-    .WithResponse<PaginatedList<ActivityDto>>
+    .WithActionResult<PaginatedList<ActivityDto>>
 {
     private readonly IReadRepository<Activity> _activityRepository;
     private readonly IMapper _mapper;

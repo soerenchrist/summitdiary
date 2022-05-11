@@ -18,12 +18,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="MonkeyCache" Version="1.5.2" />
-      <PackageReference Include="MonkeyCache.FileStore" Version="1.5.2" />
-      <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.22" />
-      <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.1" />
-      <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.2.3" />
-      <PackageReference Include="Ardalis.ApiEndpoints" Version="3.1.0" />  
+      <PackageReference Include="MonkeyCache.FileStore" Version="1.6.3" />
+      <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.25" />
+      <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.5" />
+      <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.3.1" />
+      <PackageReference Include="Ardalis.ApiEndpoints" Version="4.0.1" />  
     </ItemGroup>
 
     <ItemGroup>
@@ -40,6 +39,33 @@
 
     <ItemGroup>
       <Content Remove="files\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="out\out\web.config" />
+      <_ContentIncludedByDefault Remove="out\web.config" />
+      <_ContentIncludedByDefault Remove="out\appsettings.Development.json" />
+      <_ContentIncludedByDefault Remove="out\appsettings.json" />
+      <_ContentIncludedByDefault Remove="out\ClientApp\package-lock.json" />
+      <_ContentIncludedByDefault Remove="out\ClientApp\package.json" />
+      <_ContentIncludedByDefault Remove="out\out\appsettings.Development.json" />
+      <_ContentIncludedByDefault Remove="out\out\appsettings.json" />
+      <_ContentIncludedByDefault Remove="out\out\ClientApp\package-lock.json" />
+      <_ContentIncludedByDefault Remove="out\out\ClientApp\package.json" />
+      <_ContentIncludedByDefault Remove="out\out\Resources\austria.json" />
+      <_ContentIncludedByDefault Remove="out\out\Resources\france.json" />
+      <_ContentIncludedByDefault Remove="out\out\Resources\germany.json" />
+      <_ContentIncludedByDefault Remove="out\out\Resources\italy.json" />
+      <_ContentIncludedByDefault Remove="out\out\Resources\switzerland.json" />
+      <_ContentIncludedByDefault Remove="out\out\SummitDiary.Web.deps.json" />
+      <_ContentIncludedByDefault Remove="out\out\SummitDiary.Web.runtimeconfig.json" />
+      <_ContentIncludedByDefault Remove="out\Resources\austria.json" />
+      <_ContentIncludedByDefault Remove="out\Resources\france.json" />
+      <_ContentIncludedByDefault Remove="out\Resources\germany.json" />
+      <_ContentIncludedByDefault Remove="out\Resources\italy.json" />
+      <_ContentIncludedByDefault Remove="out\Resources\switzerland.json" />
+      <_ContentIncludedByDefault Remove="out\SummitDiary.Web.deps.json" />
+      <_ContentIncludedByDefault Remove="out\SummitDiary.Web.runtimeconfig.json" />
     </ItemGroup>
 
 

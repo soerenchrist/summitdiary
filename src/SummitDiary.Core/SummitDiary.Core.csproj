@@ -11,14 +11,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="AutoMapper" Version="10.1.1" />
-      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
-      <PackageReference Include="Bogus" Version="34.0.1" />
-      <PackageReference Include="FluentValidation" Version="10.3.6" />
-      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.6" />
-      <PackageReference Include="MonkeyCache" Version="1.5.2" />
-      <PackageReference Include="MonkeyCache.FileStore" Version="1.5.2" />
-      <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
+      <PackageReference Include="AutoMapper" Version="11.0.1" />
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+      <PackageReference Include="Bogus" Version="34.0.2" />
+      <PackageReference Include="FluentValidation" Version="11.0.1" />
+      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.0.1" />
+      <PackageReference Include="MonkeyCache.FileStore" Version="1.6.3" />
+      <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
       <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
       <PackageReference Include="NetTopologySuite.IO.GPX" Version="1.1.1" />
     </ItemGroup>

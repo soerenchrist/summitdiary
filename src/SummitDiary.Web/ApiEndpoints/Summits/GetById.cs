@@ -4,9 +4,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace SummitDiary.Web.ApiEndpoints.Summits;
 
-public class GetById : BaseAsyncEndpoint
+public class GetById : EndpointBaseAsync
     .WithRequest<int>
-    .WithResponse<SummitDto>
+    .WithActionResult<SummitDto>
 {
     private readonly IReadRepository<Summit> _summitRepository;
     private readonly IMapper _mapper;

@@ -4,9 +4,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace SummitDiary.Web.ApiEndpoints.Analyze;
 
-public class AnalyzePath : BaseAsyncEndpoint
+public class AnalyzePath : EndpointBaseAsync
     .WithRequest<AnalyzePathRequest>
-    .WithResponse<AnalysisResultDto>
+    .WithActionResult<AnalysisResultDto>
 {
     private readonly IElevationService _elevationService;
     private readonly IGpxAnalyzer _analyzer;

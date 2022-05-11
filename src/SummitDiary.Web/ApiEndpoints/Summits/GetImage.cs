@@ -7,9 +7,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace SummitDiary.Web.ApiEndpoints.Summits;
 
-public class GetImage : BaseAsyncEndpoint
+public class GetImage : EndpointBaseAsync
     .WithRequest<int>
-    .WithResponse<ImageResponseDto>
+    .WithActionResult<ImageResponseDto>
 {
     private readonly IReadRepository<Summit> _summitRepository;
 

@@ -5,9 +5,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace SummitDiary.Web.ApiEndpoints.Activities;
 
-public class GetPath : BaseAsyncEndpoint
+public class GetPath : EndpointBaseAsync
     .WithRequest<int>
-    .WithResponse<AnalysisResultDto>
+    .WithActionResult<AnalysisResultDto>
 {
     private readonly IGpxAnalyzer _gpxAnalyzer;
     private readonly IReadRepository<Activity> _activityRepository;
