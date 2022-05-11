@@ -11,3 +11,5 @@ src/SummitDiary.Web/diary.db-wal
 
 src/SummitDiary.Web/files/
 src/SummitDiary.Web/files/gpx/
+
+src/SummitDiary.Web/out/

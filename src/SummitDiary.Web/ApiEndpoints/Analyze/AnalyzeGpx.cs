@@ -26,7 +26,7 @@ public class AnalyzeGpx : BaseAsyncEndpoint
         Description = "Analyze the gpx file for some stats and a proposed summit",
         OperationId = "Gpx.Analyze",
         Tags = new[]{"GpxEndpoints"})]
-    public override async Task<ActionResult<AnalysisResultDto>> HandleAsync(AnalyzeGpxRequest request, CancellationToken cancellationToken = new CancellationToken())
+    public override async Task<ActionResult<AnalysisResultDto>> HandleAsync([FromForm] AnalyzeGpxRequest request, CancellationToken cancellationToken = new CancellationToken())
     {
         if (request.File == null)
             throw new ArgumentNullException(nameof(request.File));

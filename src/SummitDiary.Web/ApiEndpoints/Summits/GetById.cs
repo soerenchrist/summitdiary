@@ -18,7 +18,7 @@ public class GetById : BaseAsyncEndpoint
         _mapper = mapper;
     }
     
-    [HttpDelete("/api/summits/{id:int}")]
+    [HttpGet("/api/summits/{id:int}")]
     [SwaggerOperation(
         Summary = "Get a summit by id",
         Description = "Get a summit by a given id",

@@ -8,6 +8,9 @@ public sealed class GetActivityByIdSpec : Specification<Activity>, ISingleResult
     {
         Query.Where(x => x.Id == id)
             .Include(x => x.Attachments)
-            .Include(x => x.Summits);
+            .Include(x => x.Summits!)
+            .ThenInclude(x => x.Country)
+            .Include(x => x.Summits!)
+            .ThenInclude(x => x.Region);
     }
 }
